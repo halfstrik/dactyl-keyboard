@@ -18,7 +18,7 @@
 (def mount-width (+ keyswitch-width 3))
 (def mount-height (+ keyswitch-height 3))
 
-(def old-single-plate
+(def single-plate
   (let [top-wall (->> (cube (+ keyswitch-width 3) 1.5 plate-thickness)
                       (translate [0
                                   (+ (/ 1.5 2) (/ keyswitch-height 2))
@@ -45,7 +45,7 @@
 (def alps-notch-height 1)
 (def alps-height 13)
 
-(def single-plate
+(def new-single-plate ; Those do not have cool notches
   (let [top-wall (->> (cube (+ keyswitch-width 3) 2.2 plate-thickness)
                       (translate [0
                                   (+ (/ 2.2 2) (/ alps-height 2))
@@ -166,7 +166,8 @@
   (apply union
          (for [column columns
                row rows
-               :when (or (not= column 0)
+               :when (or (and (not= column 0)
+                              (not= column 5)) ; Skip under pinky extra button
                          (not= row 4))]
            (->> single-plate
                 (key-place column row)))))
@@ -427,7 +428,7 @@
                     (+ (/ mount-height -2) -3.5)
                     (+ (/ mount-height 2) 3.5)
                     front-to-back-scale)
-                   10]))
+                   2.5])) ; Controls case wall height, we won't expose it, will be covered
 
 (def wall-sphere-top-back (wall-sphere-top 1))
 (def wall-sphere-bottom-back (wall-sphere-bottom 1))
@@ -1222,14 +1223,18 @@
             screw-holes))))
 
 (def dactyl-top-right
-  (difference
-   (union key-holes
-          connectors
-          thumb
-          new-case
-          teensy-support)
-   trrs-hole-just-circle
-   screw-holes))
+  ;(difference
+    (union
+      connectors
+      thumb
+      new-case
+      key-holes
+      ;;teensy-support
+     )
+    ;;trrs-hole-just-circle
+    ;;screw-holes
+  ;)
+)
 
 (def dactyl-top-left
   (mirror [-1 0 0]
@@ -1250,17 +1255,17 @@
 (spit "things/dactyl-top-right.scad"
       (write-scad dactyl-top-right))
 
-(spit "things/dactyl-bottom-right.scad"
-      (write-scad dactyl-bottom-right))
+;(spit "things/dactyl-bottom-right.scad"
+;      (write-scad dactyl-bottom-right))
 
-(spit "things/dactyl-top-left.scad"
-      (write-scad dactyl-top-left))
+;(spit "things/dactyl-top-left.scad"
+;      (write-scad dactyl-top-left))
+;
+;(spit "things/dactyl-bottom-left.scad"
+;      (write-scad dactyl-bottom-left))
 
-(spit "things/dactyl-bottom-left.scad"
-      (write-scad dactyl-bottom-left))
-
-(spit "things/dactyl-top-left-with-teensy.scad"
-      (write-scad (mirror [-1 0 0] dactyl-top-right)))
-
-(spit "things/dactyl-bottom-left-with-teensy.scad"
-      (write-scad (mirror [-1 0 0] dactyl-bottom-right)))
+;(spit "things/dactyl-top-left-with-teensy.scad"
+;      (write-scad (mirror [-1 0 0] dactyl-top-right)))
+;
+;(spit "things/dactyl-bottom-left-with-teensy.scad"
+;      (write-scad (mirror [-1 0 0] dactyl-bottom-right)))
