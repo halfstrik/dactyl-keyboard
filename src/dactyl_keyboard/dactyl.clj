@@ -240,7 +240,7 @@
 
 (defn thumb-place [column row shape]
   (let [cap-top-height (+ plate-thickness sa-profile-key-height)
-        α (/ π 12)
+        α (/ π 18)  ; Reduce thumb curvature radius (so CMD does not stick too much up)
         row-radius (+ (/ (/ (+ mount-height 1) 2)
                          (Math/sin (/ α 2)))
                       cap-top-height)
@@ -259,9 +259,9 @@
          (rotate (* column β) [0 1 0])
          (translate [0 0 column-radius])
          (translate [mount-width 0 0])
-         (rotate (* π (- 1/4 3/16)) [0 0 1])
-         (rotate (/ π 12) [1 1 0])
-         (translate [-52 -45 40]))))
+         (rotate (* π (- 1/4 5/32)) [0 0 1])
+         (rotate (/ π 24) [1 1 0])
+         (translate [-56 -53 40]))))  ; Rotate more outwards and less stick up
 
 (defn thumb-2x-column [shape]
   (thumb-place 0 -1/2 shape))
@@ -1257,6 +1257,9 @@
 
 (spit "things/dactyl-top-right.scad"
       (write-scad dactyl-top-right))
+
+(spit "things/combined-caps.scad"
+      (write-scad (union thumbcaps caps)))
 
 ;(spit "things/dactyl-bottom-right.scad"
 ;      (write-scad dactyl-bottom-right))
