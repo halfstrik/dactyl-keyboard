@@ -71,8 +71,8 @@
 ;; SA Keycaps ;;
 ;;;;;;;;;;;;;;;;
 
-(def sa-length 18.25)
-(def sa-double-length 37.5)
+(def sa-length 18.75)
+(def sa-double-length (* sa-length 2))
 (def sa-cap {1 (let [bl2 (/ 18.5 2)
                      m (/ 17 2)
                      key-cap (hull (->> (polygon [[bl2 bl2] [bl2 (- bl2)] [(- bl2) (- bl2)] [(- bl2) bl2]])
@@ -134,7 +134,8 @@
                               (translate [0 0 row-radius]))
         column-offset (cond
                         (= column 2) [0 2.82 -3.0] ;;was moved -4.5
-                        (>= column 4) [0 -5.8 5.64]
+                        (= column 4) [0 -5.8 5.64]
+                        (= column 5) [3.2 -5.8 6.44] ;; Shift column moved to be 1.5 length
                         :else [0 0 0])
         column-angle (* β (- 2 column))
         placed-shape (->> row-placed-shape
@@ -285,13 +286,15 @@
         top-plate (->> (cube mount-width plate-height web-thickness)
                        (translate [0 (/ (+ plate-height mount-height) 2)
                                    (- plate-thickness (/ web-thickness 2))]))
-        stabilizer-cutout (union (->> (cube 14.2 3.5 web-thickness)
-                                      (translate [0.5 12 (- plate-thickness (/ web-thickness 2))])
-                                      (color [1 0 0 1/2]))
-                                 (->> (cube 16 3.5 web-thickness)
-                                      (translate [0.5 12 (- plate-thickness (/ web-thickness 2) 1.4)])
-                                      (color [1 0 0 1/2])))
-        top-plate (difference top-plate stabilizer-cutout)]
+        ; We don't use stabilizers
+        ;stabilizer-cutout (union (->> (cube 14.2 3.5 web-thickness)
+        ;                              (translate [0.5 12 (- plate-thickness (/ web-thickness 2))])
+        ;                              (color [1 0 0 1/2]))
+        ;                         (->> (cube 16 3.5 web-thickness)
+        ;                              (translate [0.5 12 (- plate-thickness (/ web-thickness 2) 1.4)])
+        ;                              (color [1 0 0 1/2])))
+        ;top-plate (difference top-plate stabilizer-cutout)
+        ]
     (union top-plate (mirror [0 1 0] top-plate))))
 
 (def thumbcaps
@@ -542,37 +545,37 @@
            (key-place 4 0 web-post-tr)
            (key-place 5 0 web-post-tl)))))
 
-(def right-wall
-  (let [place case-place]
-    (union
-     (apply union
-            (map (partial apply hull)
-                 (partition 2 1
-                            (for [scale (range-inclusive 0 1 0.01)]
-                              (let [x (scale-to-range 4 0.02 scale)]
-                                (hull (place right-wall-column x (wall-sphere-top scale))
-                                      (place right-wall-column x (wall-sphere-bottom scale))))))))
-
-          (apply union
-            (concat
-             (for [x (range 0 5)]
-               (union
-                (hull (place right-wall-column x (translate [-1 0 1] (wall-sphere-bottom 1/2)))
-                      (key-place 5 x web-post-br)
-                      (key-place 5 x web-post-tr))))
-             (for [x (range 0 4)]
-               (union
-                (hull (place right-wall-column x (translate [-1 0 1] (wall-sphere-bottom 1/2)))
-                      (place right-wall-column (inc x) (translate [-1 0 1] (wall-sphere-bottom 1/2)))
-                      (key-place 5 x web-post-br)
-                      (key-place 5 (inc x) web-post-tr))))
-             [(union
-               (hull (place right-wall-column 0 (translate [-1 0 1] (wall-sphere-bottom 1/2)))
-                     (place right-wall-column 0.02 (translate [-1 -1 1] (wall-sphere-bottom 1)))
-                     (key-place 5 0 web-post-tr))
-               (hull (place right-wall-column 4 (translate [-1 0 1] (wall-sphere-bottom 1/2)))
-                     (place right-wall-column 4 (translate [-1 1 1] (wall-sphere-bottom 0)))
-                     (key-place 5 4 web-post-br)))])))))
+;(def right-wall
+;  (let [place case-place]
+;    (union
+;     (apply union
+;            (map (partial apply hull)
+;                 (partition 2 1
+;                            (for [scale (range-inclusive 0 1 0.01)]
+;                              (let [x (scale-to-range 4 0.02 scale)]
+;                                (hull (place right-wall-column x (wall-sphere-top scale))
+;                                      (place right-wall-column x (wall-sphere-bottom scale))))))))
+;
+;          (apply union
+;            (concat
+;             (for [x (range 0 5)]
+;               (union
+;                (hull (place right-wall-column x (translate [-1 0 1] (wall-sphere-bottom 1/2)))
+;                      (key-place 5 x web-post-br)
+;                      (key-place 5 x web-post-tr))))
+;             (for [x (range 0 4)]
+;               (union
+;                (hull (place right-wall-column x (translate [-1 0 1] (wall-sphere-bottom 1/2)))
+;                      (place right-wall-column (inc x) (translate [-1 0 1] (wall-sphere-bottom 1/2)))
+;                      (key-place 5 x web-post-br)
+;                      (key-place 5 (inc x) web-post-tr))))
+;             [(union
+;               (hull (place right-wall-column 0 (translate [-1 0 1] (wall-sphere-bottom 1/2)))
+;                     (place right-wall-column 0.02 (translate [-1 -1 1] (wall-sphere-bottom 1)))
+;                     (key-place 5 0 web-post-tr))
+;               (hull (place right-wall-column 4 (translate [-1 0 1] (wall-sphere-bottom 1/2)))
+;                     (place right-wall-column 4 (translate [-1 1 1] (wall-sphere-bottom 0)))
+;                     (key-place 5 4 web-post-br)))])))))
 
 (def left-wall
   (let [place case-place]
@@ -736,7 +739,7 @@
 
 (def new-case
   (union front-wall
-         right-wall
+         ;right-wall
          back-wall
          left-wall
          thumb-back-wall
