@@ -244,7 +244,7 @@
         row-radius (+ (/ (/ (+ mount-height 1) 2)
                          (Math/sin (/ α 2)))
                       cap-top-height)
-        β (/ π 36)
+        β (/ π 64)
         column-radius (+ (/ (/ (+ mount-width 2) 2)
                             (Math/sin (/ β 2)))
                          cap-top-height)
@@ -260,7 +260,7 @@
          (translate [0 0 column-radius])
          (translate [mount-width 0 0])
          (rotate (* π (- 1/4 5/32)) [0 0 1])
-         (rotate (/ π 24) [1 1 0])
+         (rotate (/ π 24) [1 0 0])
          (translate [-56 -53 40]))))  ; Rotate more outwards and less stick up
 
 (defn thumb-2x-column [shape]
