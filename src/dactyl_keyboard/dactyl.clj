@@ -177,7 +177,8 @@
   (apply union
          (for [column columns
                row rows
-               :when (or (not= column 0)
+               :when (or (and (not= column 0)
+                              (not= column 5)) ; Skip under pinky extra button
                          (not= row 4))]
            (->> (sa-cap (if (= column 5) 1 1))
                 (key-place column row)))))
@@ -261,7 +262,7 @@
          (translate [mount-width 0 0])
          (rotate (* π (- 1/4 5/32)) [0 0 1])
          (rotate (/ π 24) [1 -0.1 0])
-         (translate [-56 -53 37]))))  ; Rotate more outwards and less stick up
+         (translate [-52 -53 37]))))  ; Rotate more outwards and less stick up
 
 (defn thumb-2x-column [shape]
   (thumb-place 0 -1/2 shape))
@@ -1260,6 +1261,9 @@
 
 (spit "things/combined-caps.scad"
       (write-scad (union thumbcaps caps)))
+
+(spit "things/combined-caps-outline.scad"
+      (write-scad (minkowski (sphere 2.5) (union thumbcaps caps))))
 
 ;(spit "things/dactyl-bottom-right.scad"
 ;      (write-scad dactyl-bottom-right))
