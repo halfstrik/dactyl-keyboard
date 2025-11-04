@@ -92,6 +92,9 @@
                      key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                         (translate [0 0 0.05]))
+                                   (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 6]))
                                    (->> (polygon [[6 16] [6 -16] [-6 -16] [-6 16]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                         (translate [0 0 12])))]
@@ -103,6 +106,9 @@
                        key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                           (translate [0 0 0.05]))
+                                     (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                          (translate [0 0 6]))
                                      (->> (polygon [[9 6] [-9 6] [-9 -6] [9 -6]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                           (translate [0 0 12])))]
