@@ -1249,13 +1249,14 @@
 
 (def dactyl-top-left
   (mirror [-1 0 0]
-          (difference
+          ;(difference
            (union key-holes
                   connectors
                   thumb
                   new-case)
-           trrs-hole-just-circle
-           screw-holes)))
+           ;trrs-hole-just-circle
+           ;screw-holes
+          ))
 
 (spit "things/switch-hole.scad"
       (write-scad single-plate))
@@ -1275,9 +1276,9 @@
 ;(spit "things/dactyl-bottom-right.scad"
 ;      (write-scad dactyl-bottom-right))
 
-;(spit "things/dactyl-top-left.scad"
-;      (write-scad dactyl-top-left))
-;
+(spit "things/dactyl-top-left.scad"
+      (write-scad dactyl-top-left))
+
 ;(spit "things/dactyl-bottom-left.scad"
 ;      (write-scad dactyl-bottom-left))
 
