@@ -99,11 +99,11 @@
                       (translate [0 0 (+ 5 plate-thickness)])
                       (color [127/255 159/255 127/255 1])))
              1.5 (let [bl2 (/ 18.25 2)
-                       bw2 (/ 28 2)
+                       bw2 (/ 24 2)
                        key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                           (translate [0 0 0.05]))
-                                     (->> (polygon [[11 6] [-11 6] [-11 -6] [11 -6]])
+                                     (->> (polygon [[9 6] [-9 6] [-9 -6] [9 -6]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                           (translate [0 0 12])))]
                    (->> key-cap
@@ -180,7 +180,7 @@
                :when (or (and (not= column 0)
                               (not= column 5)) ; Skip under pinky extra button
                          (not= row 4))]
-           (->> (sa-cap (if (= column 5) 1 1))
+           (->> (sa-cap (if (= column 5) 1.5 1))
                 (key-place column row)))))
 
 ;;;;;;;;;;;;;;;;;;;;
