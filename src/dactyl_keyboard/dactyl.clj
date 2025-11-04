@@ -546,37 +546,38 @@
            (key-place 4 0 web-post-tr)
            (key-place 5 0 web-post-tl)))))
 
-;(def right-wall
-;  (let [place case-place]
-;    (union
-;     (apply union
-;            (map (partial apply hull)
-;                 (partition 2 1
-;                            (for [scale (range-inclusive 0 1 0.01)]
-;                              (let [x (scale-to-range 4 0.02 scale)]
-;                                (hull (place right-wall-column x (wall-sphere-top scale))
-;                                      (place right-wall-column x (wall-sphere-bottom scale))))))))
-;
-;          (apply union
-;            (concat
-;             (for [x (range 0 5)]
-;               (union
-;                (hull (place right-wall-column x (translate [-1 0 1] (wall-sphere-bottom 1/2)))
-;                      (key-place 5 x web-post-br)
-;                      (key-place 5 x web-post-tr))))
-;             (for [x (range 0 4)]
-;               (union
-;                (hull (place right-wall-column x (translate [-1 0 1] (wall-sphere-bottom 1/2)))
-;                      (place right-wall-column (inc x) (translate [-1 0 1] (wall-sphere-bottom 1/2)))
-;                      (key-place 5 x web-post-br)
-;                      (key-place 5 (inc x) web-post-tr))))
-;             [(union
-;               (hull (place right-wall-column 0 (translate [-1 0 1] (wall-sphere-bottom 1/2)))
-;                     (place right-wall-column 0.02 (translate [-1 -1 1] (wall-sphere-bottom 1)))
-;                     (key-place 5 0 web-post-tr))
-;               (hull (place right-wall-column 4 (translate [-1 0 1] (wall-sphere-bottom 1/2)))
-;                     (place right-wall-column 4 (translate [-1 1 1] (wall-sphere-bottom 0)))
-;                     (key-place 5 4 web-post-br)))])))))
+(def right-wall
+  (let [place case-place]
+    (translate [1.5 0 0] ; Move a bit due to 1.5 width shift row
+      (union
+       (apply union
+              (map (partial apply hull)
+                   (partition 2 1
+                              (for [scale (range-inclusive 0 1 0.01)]
+                                (let [x (scale-to-range 4 0.02 scale)]
+                                  (hull (place right-wall-column x (wall-sphere-top scale))
+                                        (place right-wall-column x (wall-sphere-bottom scale))))))))
+
+            (apply union
+              (concat
+               (for [x (range 0 5)]
+                 (union
+                  (hull (place right-wall-column x (translate [-1 0 1] (wall-sphere-bottom 1/2)))
+                        (key-place 5 x web-post-br)
+                        (key-place 5 x web-post-tr))))
+               (for [x (range 0 4)]
+                 (union
+                  (hull (place right-wall-column x (translate [-1 0 1] (wall-sphere-bottom 1/2)))
+                        (place right-wall-column (inc x) (translate [-1 0 1] (wall-sphere-bottom 1/2)))
+                        (key-place 5 x web-post-br)
+                        (key-place 5 (inc x) web-post-tr))))
+               [(union
+                 (hull (place right-wall-column 0 (translate [-1 0 1] (wall-sphere-bottom 1/2)))
+                       (place right-wall-column 0.02 (translate [-1 -1 1] (wall-sphere-bottom 1)))
+                       (key-place 5 0 web-post-tr))
+                 (hull (place right-wall-column 4 (translate [-1 0 1] (wall-sphere-bottom 1/2)))
+                       (place right-wall-column 4 (translate [-1 1 1] (wall-sphere-bottom 0)))
+                       (key-place 5 4 web-post-br)))]))))))
 
 (def left-wall
   (let [place case-place]
@@ -740,7 +741,7 @@
 
 (def new-case
   (union front-wall
-         ;right-wall
+         right-wall
          back-wall
          left-wall
          thumb-back-wall
