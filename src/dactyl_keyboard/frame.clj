@@ -1,10 +1,14 @@
 (ns dactyl-keyboard.frame
   (:refer-clojure :exclude [use import])
   (:require [scad-clj.scad :refer :all]
-            [scad-clj.model :refer :all]))
+            [scad-clj.model :refer :all]
+            [dactyl-keyboard.dactyl :refer [thumbcaps caps]]))
 
-(defn write-scad-gen4 [shape]
-  (write-scad (translate [0 58 0] (mirror [0 1 0] shape))))
+(defn convert-gen4 [shape]
+   (translate [0 58 0] (mirror [0 1 0] shape)))
+
+(defn convert-caps [thumbcaps caps]
+  (translate [120 58 0] (mirror [0 1 0] [thumbcaps caps])))
 
 (def main-outline
   (let [main-sphere (->> (with-fn 300 (sphere 1400))
@@ -39,4 +43,4 @@
     )) ; TODO: need to align with keys/caps
 
 (spit "things_frame/base_well.scad"
-      (write-scad-gen4 well-sphere))
+      (write-scad (union well-sphere (convert-caps thumbcaps caps))))
