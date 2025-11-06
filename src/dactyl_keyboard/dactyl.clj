@@ -1264,14 +1264,18 @@
 (spit "things/alps-holes.scad"
       (write-scad (union connectors key-holes)))
 
+(defn rotate-y-3-degree [shape]
+  (rotate (/ π 60) [0 1 0] shape))
+
 (spit "things/dactyl-top-right.scad"
-      (write-scad dactyl-top-right))
+      (write-scad (rotate-y-3-degree dactyl-top-right)))
 
 (spit "things/combined-caps.scad"
-      (write-scad (union thumbcaps caps)))
+      (write-scad (rotate-y-3-degree (union thumbcaps caps))))
 
 (spit "things/combined-caps-outline.scad"
-      (write-scad (minkowski (sphere 2.5) (union thumbcaps caps))))
+      (write-scad (minkowski (sphere 2.5)
+                             (rotate-y-3-degree (union thumbcaps caps)))))
 
 ;(spit "things/dactyl-bottom-right.scad"
 ;      (write-scad dactyl-bottom-right))
