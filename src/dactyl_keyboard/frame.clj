@@ -3,7 +3,7 @@
   (:require [scad-clj.scad :refer :all]
             [scad-clj.model :refer :all]
             [unicode-math.core :refer :all]
-            [dactyl-keyboard.dactyl :refer [thumbcaps caps dactyl-top-right]]))
+            [dactyl-keyboard.dactyl :refer [thumbcaps caps caps-combined-outline dactyl-top-right]]))
 
 (defn convert-gen4 [shape]
    (translate [0 58 0] (mirror [0 1 0] shape)))
@@ -46,8 +46,8 @@
 
 (def well-sphere
   (->> (with-fn 150 (sphere 78))
-       (translate [103 60 86])
-       (scale [1.75 1.1 1.3])
+       (translate [103 66 86])
+       (scale [1.75 1.0 1.3])
        (rotate (/ π 30) [1 0 0])))
 
 (def main-box-minus-well-sphere
@@ -55,10 +55,13 @@
 
 (def keys-well
   (let [inner-sphere (->> (with-fn 150 (sphere 76))
-                    (translate [103 60 86])
-                    (scale [1.75 1.1 1.3])
+                    (translate [103 66 86])
+                    (scale [1.75 1.0 1.3])
                     (rotate (/ π 30) [1 0 0]))]
     (intersection (difference well-sphere inner-sphere) main-outline)))
 
 (spit "things_frame/base_well.scad"
-      (write-scad (union main-box-minus-well-sphere keys-well (convert-dactyl-shapes thumbcaps caps))))
+      (write-scad
+        (union
+          (difference (union main-box-minus-well-sphere keys-well) (convert-dactyl-shapes caps-combined-outline))
+          (convert-dactyl-shapes caps thumbcaps))))

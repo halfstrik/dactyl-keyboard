@@ -77,10 +77,10 @@
                      m (/ 17 2)
                      key-cap (hull (->> (polygon [[bl2 bl2] [bl2 (- bl2)] [(- bl2) (- bl2)] [(- bl2) bl2]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                        (translate [0 0 0.05]))
+                                        (translate [0 0 -2.05])) ; 0.05
                                    (->> (polygon [[m m] [m (- m)] [(- m) (- m)] [(- m) m]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                        (translate [0 0 6]))
+                                        (translate [0 0 11])) ; 6
                                    (->> (polygon [[6 6] [6 -6] [-6 -6] [-6 6]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                         (translate [0 0 12])))]
@@ -91,10 +91,10 @@
                      bw2 (/ 18.25 2)
                      key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                        (translate [0 0 0.05]))
+                                        (translate [0 0 -2.05])) ; 0.05
                                    (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                        (translate [0 0 6]))
+                                        (translate [0 0 11])) ; 6
                                    (->> (polygon [[6 16] [6 -16] [-6 -16] [-6 16]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                         (translate [0 0 12])))]
@@ -105,10 +105,10 @@
                        bw2 (/ 24 2)
                        key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                          (translate [0 0 0.05]))
+                                          (translate [0 0 -2.05])) ; 0.05
                                      (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                          (translate [0 0 6]))
+                                          (translate [0 0 11])) ; 6
                                      (->> (polygon [[9 6] [-9 6] [-9 -6] [9 -6]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                           (translate [0 0 12])))]
@@ -1258,6 +1258,9 @@
            ;screw-holes
           ))
 
+(def caps-combined-outline
+  (minkowski (sphere 2.3) (union thumbcaps caps)))
+
 (spit "things/switch-hole.scad"
       (write-scad single-plate))
 
@@ -1274,8 +1277,7 @@
       (write-scad (rotate-y-3-degree (union thumbcaps caps))))
 
 (spit "things/combined-caps-outline.scad"
-      (write-scad (minkowski (sphere 2.5)
-                             (rotate-y-3-degree (union thumbcaps caps)))))
+      (write-scad (rotate-y-3-degree caps-combined-outline)))
 
 ;(spit "things/dactyl-bottom-right.scad"
 ;      (write-scad dactyl-bottom-right))
