@@ -44,24 +44,35 @@
 (def main-box
   (difference main-outline main-inline))
 
-(def well-sphere
-  (->> (with-fn 150 (sphere 78))
-       (translate [103 66 86])
-       (scale [1.75 1.0 1.3])
+(defn well-sphere1 [radius]
+  (->> (with-fn 150 (sphere radius))
+       (translate [138 66 87])
+       (scale [1 1.0 1.3])
        (rotate (/ π 30) [1 0 0])))
 
+(defn well-sphere2 [radius]
+  (->> (with-fn 150 (sphere radius))
+       (translate [145 71 84])
+       (scale [1.27 1.0 1.3])
+       (rotate (/ π 30) [1 0 0])))
+
+(defn well-sphere [radius]
+  (hull
+    (well-sphere1 radius)
+    (well-sphere2 radius)))
+
 (def main-box-minus-well-sphere
-  (difference main-box well-sphere))
+  (difference main-box (well-sphere 78)))
 
 (def keys-well
-  (let [inner-sphere (->> (with-fn 150 (sphere 76))
-                    (translate [103 66 86])
-                    (scale [1.75 1.0 1.3])
-                    (rotate (/ π 30) [1 0 0]))]
-    (intersection (difference well-sphere inner-sphere) main-outline)))
+    (intersection (difference (well-sphere 78) (well-sphere 76)) main-outline))
 
 (spit "things_frame/base_well.scad"
       (write-scad
         (union
-          (difference (union main-box-minus-well-sphere keys-well) (convert-dactyl-shapes caps-combined-outline))
-          (convert-dactyl-shapes caps thumbcaps))))
+            (union main-box-minus-well-sphere keys-well)
+            ;(convert-dactyl-shapes caps-combined-outline))
+            (convert-dactyl-shapes caps thumbcaps)
+          )
+        )
+      )
