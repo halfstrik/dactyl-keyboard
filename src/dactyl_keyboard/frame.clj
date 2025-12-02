@@ -25,8 +25,10 @@
         main-cube-width 186
         main-cube-heigh 70
         main-cube (->> (cube main-cube-length main-cube-width main-cube-heigh)
-                       (translate [0 (/ main-cube-width 2) (/ main-cube-heigh 2)]))]
-    (intersection main-sphere main-cube)))
+                       (translate [0 (/ main-cube-width 2) (/ main-cube-heigh 2)]))
+        main-back-sphere (->> (with-fn 300 (sphere 900))
+                              (translate [0 310 -785]))]
+    (intersection main-sphere main-cube main-back-sphere)))
 
 (def main-inline
   (let [main-sphere (->> (with-fn 300 (sphere 1400))
@@ -35,8 +37,10 @@
          main-cube-width (- 186 4)
          main-cube-heigh 70
          main-cube (->> (cube main-cube-length main-cube-width main-cube-heigh)
-                        (translate [0 (+ (/ main-cube-width 2) 2) (- (/ main-cube-heigh 2) 2)]))]
-     (intersection main-sphere main-cube)))
+                        (translate [0 (+ (/ main-cube-width 2) 2) (- (/ main-cube-heigh 2) 2)]))
+        main-back-sphere (->> (with-fn 300 (sphere 900))
+                              (translate [0 310 (+ -785 -2)]))]
+     (intersection main-sphere main-cube main-back-sphere)))
 
 ;(spit "things_frame/base.scad"
 ;      (write-scad (difference main-outline main-inline)))
@@ -72,6 +76,8 @@
         (union
             (union main-box-minus-well-sphere keys-well)
             ;(convert-dactyl-shapes caps-combined-outline))
+            ;(->> (with-fn 300 (sphere 900))
+            ;     (translate [0 310 -779]))
             (convert-dactyl-shapes caps thumbcaps)
           )
         )
