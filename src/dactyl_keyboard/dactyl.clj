@@ -1259,7 +1259,33 @@
           ))
 
 (def caps-combined-outline
-  (minkowski (sphere 2.3) (union thumbcaps caps)))
+  ;(minkowski (sphere 2.3) (union thumbcaps caps)))
+  (union
+     (hull
+       (for [column columns
+             row rows
+             :when (and (not= column 0)
+                        (not= column 5))]
+         (->> (sa-cap 1)
+              (key-place column row))))
+     (hull
+       (for [column columns
+             row rows
+             :when (not= row 4)]
+         (->> (sa-cap  (if (= column 5) 1.5 1))
+              (key-place column row))))
+
+     (hull
+       (thumb-place 1 -1/2 (sa-cap 2))
+       (thumb-place 1 1 (sa-cap 1))
+       (thumb-1x-column (sa-cap 1)))
+     (hull
+       (thumb-2x-column (sa-cap 2))
+       (thumb-place 1 -1/2 (sa-cap 2))
+       )
+     )
+   )
+
 
 (spit "things/switch-hole.scad"
       (write-scad single-plate))
