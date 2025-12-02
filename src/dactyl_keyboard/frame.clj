@@ -73,13 +73,14 @@
 
 (spit "things_frame/base_well.scad"
       (write-scad
-        (difference
+        (union
+          (difference
             (union main-box-minus-well-sphere keys-well)
             ;(minkowski (sphere 1.8) ; uncomment on the final render, takes time
             (translate [0 0 -2] ; to fully erase remaining of the sphere
-                       (convert-dactyl-shapes caps-combined-outline))
-             ;)
-            ;(convert-dactyl-shapes caps thumbcaps)
+                       (convert-dactyl-shapes caps-combined-outline)))
+          ;(convert-dactyl-shapes caps thumbcaps)
+          (convert-dactyl-shapes dactyl-top-right)
           )
         )
       )
