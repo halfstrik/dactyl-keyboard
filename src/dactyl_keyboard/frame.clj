@@ -79,6 +79,14 @@
   (->> (cube 21 24 16.8)
        (translate [193 108 19.4])))
 
+(def support-pillar-plus-up
+  (->> (cube 21 14 30)
+       (translate [193 8 43])))
+
+(def support-pillar-plus-well
+  (->> (cube 21 14 5.6)
+       (translate [193 8 25])))
+
 (spit "things_frame/base_well.scad"
       (write-scad
         (union
@@ -87,11 +95,16 @@
           ;  ;(minkowski (sphere 1.8) ; uncomment on the final render, takes time
           ;  (translate [0 0 -2] ; to fully erase remaining of the sphere
           ;             (convert-dactyl-shapes caps-combined-outline)))
-          ;(convert-dactyl-shapes caps thumbcaps)
+          ;;(convert-dactyl-shapes caps thumbcaps)
 
           (difference
             (intersection
               support-pillar-shift-up
+              main-inline)
+            (well-sphere 78))
+          (difference
+            (intersection
+              support-pillar-plus-up
               main-inline)
             (well-sphere 78))
 
@@ -99,6 +112,9 @@
           (difference
             support-pillar-shift-well
             (well-sphere 78))
+          (intersection
+            support-pillar-plus-well
+            main-inline)
           )
         )
     )
