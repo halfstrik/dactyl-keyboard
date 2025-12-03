@@ -71,16 +71,34 @@
 (def keys-well
     (intersection (difference (well-sphere 78) (well-sphere 76)) main-outline))
 
+(def support-pillar-shift-up
+  (->> (cube 21 24 30)
+       (translate [193 108 43])))
+
+(def support-pillar-shift-well
+  (->> (cube 21 24 16.8)
+       (translate [193 108 19.4])))
+
 (spit "things_frame/base_well.scad"
       (write-scad
         (union
-          (difference
-            (union main-box-minus-well-sphere keys-well)
-            ;(minkowski (sphere 1.8) ; uncomment on the final render, takes time
-            (translate [0 0 -2] ; to fully erase remaining of the sphere
-                       (convert-dactyl-shapes caps-combined-outline)))
+          ;(difference
+          ;  (union main-box-minus-well-sphere keys-well)
+          ;  ;(minkowski (sphere 1.8) ; uncomment on the final render, takes time
+          ;  (translate [0 0 -2] ; to fully erase remaining of the sphere
+          ;             (convert-dactyl-shapes caps-combined-outline)))
           ;(convert-dactyl-shapes caps thumbcaps)
+
+          (difference
+            (intersection
+              support-pillar-shift-up
+              main-inline)
+            (well-sphere 78))
+
           (convert-dactyl-shapes dactyl-top-right)
+          (difference
+            support-pillar-shift-well
+            (well-sphere 78))
           )
         )
-      )
+    )
