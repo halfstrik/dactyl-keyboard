@@ -95,6 +95,16 @@
   (->> (cube 21 9.5 9)
        (translate [115 4 41.6])))
 
+(def support-pillar-home-up
+  (->> (cube 20 20 30)
+       (rotate (/ π 2.45) [0 0 1])
+       (translate [32 110 61.5])))
+
+(def support-pillar-home-well
+  (->> (cube 20 20 9)
+       (rotate (/ π 2.45) [0 0 1])
+       (translate [32 110 41.6])))
+
 (spit "things_frame/base_well.scad"
       (write-scad
         (union
@@ -120,6 +130,9 @@
               support-pillar-five-up
               main-inline)
             (well-sphere 78))
+          (intersection
+            support-pillar-home-up
+            main-inline)
 
           (convert-dactyl-shapes dactyl-top-right)
           (difference
@@ -133,6 +146,9 @@
               support-pillar-five-well
               main-inline)
             (well-sphere 78))
+          (intersection
+            support-pillar-home-well
+            main-inline)
           )
         )
     )
