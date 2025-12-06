@@ -114,7 +114,21 @@
                                           (translate [0 0 12])))]
                    (->> key-cap
                         (translate [0 0 (+ 5 plate-thickness)])
-                        (color [240/255 223/255 175/255 1])))})
+                        (color [240/255 223/255 175/255 1])))
+             0.5 (let [bl2 (/ 4.25 2) ; very skinny key-cap just to emulate undercut for the keys (to sand it later manually)
+                       bw2 (/ 4 2)
+                       key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                          (translate [0 0 0.05])) ; 0.05
+                                     (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                          (translate [0 0 6])) ; 6
+                                     (->> (polygon [[9 6] [-9 6] [-9 -6] [9 -6]])
+                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                          (translate [0 0 12])))]
+                   (->> key-cap
+                        (translate [0 0 (+ 5 plate-thickness)])
+                        (color [20/255 223/255 175/255 1])))})
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Placement Functions ;;
@@ -1266,13 +1280,13 @@
              row rows
              :when (and (not= column 0)
                         (not= column 5))]
-         (->> (sa-cap 1)
+         (->> (sa-cap (if (= row 4) 0.5 1)) ; with undercuts for later sanding
               (key-place column row))))
      (hull
        (for [column columns
              row rows
              :when (not= row 4)]
-         (->> (sa-cap  (if (= column 5) 1.5 1))
+         (->> (sa-cap  (if (= column 5) 1.5 (if (= row 0) 0.5 1))) ; with undercuts for later sanding
               (key-place column row))))
 
      (hull

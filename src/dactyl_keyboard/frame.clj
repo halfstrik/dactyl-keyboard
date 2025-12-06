@@ -18,6 +18,10 @@
              )
   )
 
+(def half-divide-cube
+  (->> (cube 210 186 70)
+       (translate [105 93 35])))
+
 (def main-outline
   (let [main-sphere (->> (with-fn 300 (sphere 1400))
                          (translate [0 -110 -1326]))
@@ -48,6 +52,9 @@
 (def main-box
   (difference main-outline main-inline))
 
+(def main-box-right
+    (intersection main-box half-divide-cube))
+
 (defn well-sphere1 [radius]
   (->> (with-fn 150 (sphere radius))
        (translate [138 66 87])
@@ -66,7 +73,10 @@
     (well-sphere2 radius)))
 
 (def main-box-minus-well-sphere
-  (difference main-box (well-sphere 78)))
+  (difference main-box-right (well-sphere 78)))
+
+(def main-box-minus-well-sphere-top
+  (difference main-box-minus-well-sphere (translate [0 0 -10] main-box-minus-well-sphere)))
 
 (def keys-well
     (intersection (difference (well-sphere 78) (well-sphere 76)) main-outline))
@@ -108,12 +118,15 @@
 (spit "things_frame/base_well.scad"
       (write-scad
         (union
-          ;(difference
-          ;  (union main-box-minus-well-sphere keys-well)
-          ;  ;(minkowski (sphere 1.8) ; uncomment on the final render, takes time
-          ;  (translate [0 0 -2] ; to fully erase remaining of the sphere
-          ;             (convert-dactyl-shapes caps-combined-outline)))
-          ;;(convert-dactyl-shapes caps thumbcaps)
+          (difference
+            (union main-box-minus-well-sphere-top keys-well)
+            ;(minkowski (sphere 1.8) ; uncomment on the final render, takes time
+            (translate [0 0 -2] ; to fully erase remaining of the sphere
+                       (convert-dactyl-shapes caps-combined-outline)))
+          ;(convert-dactyl-shapes caps thumbcaps)
+
+          ;half-divide-cube
+          ;(translate [0 0 -10] main-outline)
 
           (difference
             (intersection
@@ -134,21 +147,21 @@
             support-pillar-home-up
             main-inline)
 
-          (convert-dactyl-shapes dactyl-top-right)
-          (difference
-            support-pillar-shift-well
-            (well-sphere 78))
-          (intersection
-            support-pillar-plus-well
-            main-inline)
-          (difference
-            (intersection
-              support-pillar-five-well
-              main-inline)
-            (well-sphere 78))
-          (intersection
-            support-pillar-home-well
-            main-inline)
+          ;(convert-dactyl-shapes dactyl-top-right)
+          ;(difference
+          ;  support-pillar-shift-well
+          ;  (well-sphere 78))
+          ;(intersection
+          ;  support-pillar-plus-well
+          ;  main-inline)
+          ;(difference
+          ;  (intersection
+          ;    support-pillar-five-well
+          ;    main-inline)
+          ;  (well-sphere 78))
+          ;(intersection
+          ;  support-pillar-home-well
+          ;  main-inline)
           )
         )
     )
