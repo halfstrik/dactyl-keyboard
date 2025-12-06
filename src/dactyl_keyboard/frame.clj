@@ -46,9 +46,6 @@
                               (translate [0 310 (+ -785 -2)]))]
      (intersection main-sphere main-cube main-back-sphere)))
 
-;(spit "things_frame/base.scad"
-;      (write-scad (difference main-outline main-inline)))
-
 (def main-box
   (difference main-outline main-inline))
 
@@ -122,7 +119,7 @@
          (intersection main-inline))
     (translate [0 0 -2] main-inline)))
 
-(spit "things_frame/base_well.scad"
+(spit "things_frame/base_right_up.scad"
       (write-scad
         (union
           (difference
@@ -152,22 +149,34 @@
           (intersection
             support-pillar-home-up
             main-inline)
+          )))
 
-          ;(convert-dactyl-shapes dactyl-top-right)
-          ;(difference
-          ;  support-pillar-shift-well
-          ;  (well-sphere 78))
-          ;(intersection
-          ;  support-pillar-plus-well
-          ;  main-inline)
-          ;(difference
-          ;  (intersection
-          ;    support-pillar-five-well
-          ;    main-inline)
-          ;  (well-sphere 78))
-          ;(intersection
-          ;  support-pillar-home-well
-          ;  main-inline)
-          )
-        )
-    )
+(def well-right-up
+  (union
+    (convert-dactyl-shapes dactyl-top-right)
+    (difference
+      support-pillar-shift-well
+      (well-sphere 78)
+      (translate [193 108 (+ 19.4 8.4 -15)] ; Indent for a wooden screw:)
+                 (cylinder 5, 15)))
+    (intersection
+      support-pillar-plus-well
+      main-inline)
+    (difference
+      (intersection
+        support-pillar-five-well
+        main-inline)
+      (well-sphere 78))
+    (intersection
+      support-pillar-home-well
+      main-inline)
+    ))
+
+(spit "things_frame/well_right_up.scad"
+      (write-scad
+        well-right-up))
+
+(spit "things_frame/well_left_up.scad"
+      (write-scad
+        (->> well-right-up
+             (mirror [0 0 1]))))
