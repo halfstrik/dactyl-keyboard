@@ -115,6 +115,13 @@
        (rotate (/ π 2.45) [0 0 1])
        (translate [32 110 41.6])))
 
+(def middle-glue-reinforcement-right
+  (difference
+    (->> (cube 20 91 25) ; main-cube-width / 2
+         (translate [0 45.5 55])
+         (intersection main-inline))
+    (translate [0 0 -2] main-inline)))
+
 (spit "things_frame/base_well.scad"
       (write-scad
         (union
@@ -125,8 +132,7 @@
                        (convert-dactyl-shapes caps-combined-outline)))
           ;(convert-dactyl-shapes caps thumbcaps)
 
-          ;half-divide-cube
-          ;(translate [0 0 -10] main-outline)
+          middle-glue-reinforcement-right
 
           (difference
             (intersection
