@@ -87,6 +87,14 @@
   (->> (cube 21 14 5.6)
        (translate [193 8 25])))
 
+(def support-pillar-five-up
+  (->> (cube 21 9.5 30)
+       (translate [115 4 61.3])))
+
+(def support-pillar-five-well
+  (->> (cube 21 9.5 9)
+       (translate [115 4 41.6])))
+
 (spit "things_frame/base_well.scad"
       (write-scad
         (union
@@ -107,6 +115,11 @@
               support-pillar-plus-up
               main-inline)
             (well-sphere 78))
+          (difference
+            (intersection
+              support-pillar-five-up
+              main-inline)
+            (well-sphere 78))
 
           (convert-dactyl-shapes dactyl-top-right)
           (difference
@@ -115,6 +128,11 @@
           (intersection
             support-pillar-plus-well
             main-inline)
+          (difference
+            (intersection
+              support-pillar-five-well
+              main-inline)
+            (well-sphere 78))
           )
         )
     )
