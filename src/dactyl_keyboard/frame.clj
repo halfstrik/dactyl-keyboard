@@ -151,7 +151,7 @@
             main-inline)
           )))
 
-(def well-right-up
+(def well-right
   (union
     (convert-dactyl-shapes dactyl-top-right)
     (difference
@@ -172,11 +172,11 @@
       main-inline)
     ))
 
-(spit "things_frame/well_right_up.scad"
+(spit "things_frame/well_right.scad"
       (write-scad
-        well-right-up))
+        well-right))
 
-(spit "things_frame/well_left_up.scad"
+(spit "things_frame/well_left.scad"
       (write-scad
-        (->> well-right-up
-             (mirror [0 0 1]))))
+        (->> well-right
+             (mirror [1 0 0]))))
