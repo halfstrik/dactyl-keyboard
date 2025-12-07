@@ -73,6 +73,8 @@
 
 (def sa-length 18.75)
 (def sa-double-length (* sa-length 2))
+(def sa-1p2-length (* sa-length 1.2))
+(def sa-2p2-length (* sa-length 2.2))
 (def sa-cap {1 (let [bl2 (/ 18.5 2)
                      m (/ 17 2)
                      key-cap (hull (->> (polygon [[bl2 bl2] [bl2 (- bl2)] [(- bl2) (- bl2)] [(- bl2) bl2]])
@@ -128,7 +130,35 @@
                                           (translate [0 0 12])))]
                    (->> key-cap
                         (translate [0 0 (+ 5 plate-thickness)])
-                        (color [20/255 223/255 175/255 1])))})
+                        (color [20/255 223/255 175/255 1])))
+             1.2 (let [bl2 (/ sa-1p2-length 2) ; very skinny key-cap just to emulate undercut for the keys (to sand it later manually)
+                       bw2 (/ (* 17 1.2) 2)
+                       key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                          (translate [0 0 0.05])) ; 0.05
+                                     (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                          (translate [0 0 6])) ; 6
+                                     (->> (polygon [[9 6] [-9 6] [-9 -6] [9 -6]])
+                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                          (translate [0 0 12])))]
+                   (->> key-cap
+                        (translate [0 0 (+ 5 plate-thickness)])
+                        (color [20/255 223/255 175/255 1])))
+             2.2 (let [bl2 (/ sa-2p2-length 2)
+                     bw2 (/ (* 18.25 1.2) 2)
+                     key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 0.05])) ; 0.05
+                                   (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 6])) ; 6
+                                   (->> (polygon [[6 16] [6 -16] [-6 -16] [-6 16]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 12])))]
+                 (->> key-cap
+                      (translate [0 0 (+ 5 plate-thickness)])
+                      (color [127/255 159/255 127/255 1])))})
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Placement Functions ;;
@@ -1289,13 +1319,23 @@
          (->> (sa-cap  (if (= column 5) 1.5 (if (= row 0) 0.5 1))) ; with undercuts for later sanding
               (key-place column row))))
 
+     (key-place 0 0 (sa-cap 1.2))
+     (key-place 1 0 (sa-cap 1.2))
+     (key-place 2 0 (sa-cap 1.2))
+     (key-place 3 0 (sa-cap 1.2))
+     (key-place 4 0 (sa-cap 1.2))
+     (key-place 5 0 (sa-cap 1.2))
+     (key-place 1 4 (sa-cap 1.2))
+     (key-place 2 4 (sa-cap 1.2))
+     (key-place 3 4 (sa-cap 1.2))
+     (key-place 4 4 (sa-cap 1.2))
      (hull
-       (thumb-place 1 -1/2 (sa-cap 2))
-       (thumb-place 1 1 (sa-cap 1))
-       (thumb-1x-column (sa-cap 1)))
+       (thumb-place 1 -1/2 (sa-cap 2.2))
+       (thumb-place 1 1 (sa-cap 1.2))
+       (thumb-1x-column (sa-cap 1.2)))
      (hull
-       (thumb-2x-column (sa-cap 2))
-       (thumb-place 1 -1/2 (sa-cap 2))
+       (thumb-2x-column (sa-cap 2.2))
+       (thumb-place 1 -1/2 (sa-cap 2.2))
        )
      )
    )
