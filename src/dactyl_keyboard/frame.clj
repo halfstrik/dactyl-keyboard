@@ -119,37 +119,54 @@
          (intersection main-inline))
     (translate [0 0 -2] main-inline)))
 
+(def middle-glue-reinforcement-left
+  (difference
+    (->> (cube 20 91 35) ; main-cube-width / 2
+         (translate [0 (+ 91 45.5) 45])
+         (intersection main-inline))
+    (translate [0 0 -2] main-inline)))
+
+(def base-right-up
+  (union
+    (difference
+      (union main-box-minus-well-sphere-top keys-well)
+      ;(minkowski (sphere 1.8) ; uncomment on the final render, takes time
+      (translate [0 0 -2] ; to fully erase remaining of the sphere
+                 (convert-dactyl-shapes caps-combined-outline)))
+    ;(convert-dactyl-shapes caps thumbcaps)
+
+    (difference
+      (intersection
+        support-pillar-shift-up
+        main-inline)
+      (well-sphere 78))
+    (difference
+      (intersection
+        support-pillar-plus-up
+        main-inline)
+      (well-sphere 78))
+    (difference
+      (intersection
+        support-pillar-five-up
+        main-inline)
+      (well-sphere 78))
+    (intersection
+      support-pillar-home-up
+      main-inline)
+    ))
+
 (spit "things_frame/base_right_up.scad"
       (write-scad
         (union
-          (difference
-            (union main-box-minus-well-sphere-top keys-well)
-            ;(minkowski (sphere 1.8) ; uncomment on the final render, takes time
-            (translate [0 0 -2] ; to fully erase remaining of the sphere
-                       (convert-dactyl-shapes caps-combined-outline)))
-          ;(convert-dactyl-shapes caps thumbcaps)
+          base-right-up
+          middle-glue-reinforcement-right)))
 
-          middle-glue-reinforcement-right
-
-          (difference
-            (intersection
-              support-pillar-shift-up
-              main-inline)
-            (well-sphere 78))
-          (difference
-            (intersection
-              support-pillar-plus-up
-              main-inline)
-            (well-sphere 78))
-          (difference
-            (intersection
-              support-pillar-five-up
-              main-inline)
-            (well-sphere 78))
-          (intersection
-            support-pillar-home-up
-            main-inline)
-          )))
+(spit "things_frame/base_left_up.scad"
+      (write-scad
+        (union
+          (->> base-right-up
+               (mirror [1 0 0]))
+          middle-glue-reinforcement-left)))
 
 (def well-right
   (union
