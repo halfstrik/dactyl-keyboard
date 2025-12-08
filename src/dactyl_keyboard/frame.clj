@@ -73,7 +73,7 @@
   (difference main-box-right (well-sphere 78)))
 
 (def main-box-minus-well-sphere-top
-  (difference main-box-minus-well-sphere (translate [0 0 -10] main-box-minus-well-sphere)))
+  (difference main-box-minus-well-sphere (translate [0 0 -13] main-box-minus-well-sphere)))
 
 (def keys-well
     (intersection (difference (well-sphere 78) (well-sphere 76)) main-outline))
@@ -128,7 +128,7 @@
   (union
     (difference
       (->> (cube 20 5 20)
-           (translate [0 2.5 53])
+           (translate [0 2.5 50])
            (intersection main-inline))
       (translate [0 2 0] main-inline))
     (difference
@@ -146,7 +146,7 @@
   (union
     (difference
       (->> (cube 20 5 20)
-           (translate [0 (- 186 2.5) 38])
+           (translate [0 (- 186 2.5) 32])
            (intersection main-inline))
       (translate [0 -2 0] main-inline))
     (difference
@@ -240,3 +240,15 @@
       (write-scad
         (->> well-right
              (mirror [1 0 0]))))
+
+; Bottom plate
+; bottom outline WIP
+(def main-box-minus-well-sphere-bottom-border
+  (difference
+    main-box-minus-well-sphere
+    (difference main-box-minus-well-sphere (translate [0 0 -13] main-box-minus-well-sphere))
+    (translate [0 0 -26] main-box-minus-well-sphere)))
+
+(spit "things_frame/base_right_bottom.scad"
+      (write-scad
+        main-box-minus-well-sphere-bottom-border))
