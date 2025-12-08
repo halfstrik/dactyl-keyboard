@@ -112,6 +112,18 @@
        (rotate (/ π 2.45) [0 0 1])
        (translate [32 110 41.6])))
 
+(def bottom-plate-mount-top
+  (->> (cube 15 15 35)
+       (translate [75 12 65])))
+
+(def bottom-plate-mount-shift
+  (->> (cube 15 15 35)
+       (translate [190 174 36])))
+
+(def bottom-plate-mount-home
+  (->> (cube 15 15 35)
+       (translate [25 174 51])))
+
 (def middle-glue-reinforcement-right
   (union
     (difference
@@ -175,7 +187,16 @@
     (intersection
       support-pillar-home-up
       main-inline)
-    ))
+
+    (intersection
+      bottom-plate-mount-top
+      main-inline)
+    (intersection
+      bottom-plate-mount-shift
+      main-inline)
+    (intersection
+      bottom-plate-mount-home
+      main-inline)))
 
 (spit "things_frame/base_right_up.scad"
       (write-scad
