@@ -113,18 +113,40 @@
        (translate [32 110 41.6])))
 
 (def middle-glue-reinforcement-right
-  (difference
-    (->> (cube 20 91 25) ; main-cube-width / 2
-         (translate [0 45.5 55])
-         (intersection main-inline))
-    (translate [0 0 -2] main-inline)))
+  (union
+    (difference
+      (->> (cube 20 5 20)
+           (translate [0 2.5 53])
+           (intersection main-inline))
+      (translate [0 2 0] main-inline))
+    (difference
+      (->> (cube 20 45.5 25) ; main-cube-width / 2
+           (translate [0 22.25 55])
+           (intersection main-inline))
+      (translate [0 0 -2] main-inline))
+    (difference
+      (->> (cube 20 45.5 25) ; main-cube-width / 2
+           (translate [0 (+ 91 22.25) 55])
+           (intersection main-inline))
+      (translate [0 0 -2] main-inline))))
 
 (def middle-glue-reinforcement-left
-  (difference
-    (->> (cube 20 91 35) ; main-cube-width / 2
-         (translate [0 (+ 91 45.5) 45])
-         (intersection main-inline))
-    (translate [0 0 -2] main-inline)))
+  (union
+    (difference
+      (->> (cube 20 5 20)
+           (translate [0 (- 186 2.5) 38])
+           (intersection main-inline))
+      (translate [0 -2 0] main-inline))
+    (difference
+      (->> (cube 20 45.5 45) ; main-cube-width / 2
+           (translate [0 (+ 22.25 45.5) 45])
+           (intersection main-inline))
+      (translate [0 0 -2] main-inline))
+    (difference
+      (->> (cube 20 49.5 45) ; main-cube-width / 2
+           (translate [0 (+ 91 24.25 45.5) 45])
+           (intersection main-inline))
+      (translate [0 0 -2] main-inline))))
 
 (def base-right-up
   (union
