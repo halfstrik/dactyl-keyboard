@@ -251,6 +251,13 @@
     (translate [0 0 -10] (cube 500 500 20)) ; cut below 0z
     ))
 
+(def bottom-main-inline
+  (difference
+    (->> main-inline
+         (translate [0 0 -9]))
+    (translate [0 0 -8] (cube 500 500 20)) ; cut below 2z
+    ))
+
 (def bottom-main-cylinder
   (difference
     (->> (with-fn 150 (cylinder 100 420))
@@ -259,6 +266,15 @@
     (->> (with-fn 150 (cylinder 40 30)) ; cut for a cable
          (rotate (/ π 2) [1 0 0])
          (translate [0 15 0]))))
+
+(def bottom-main-cylinder-inline
+  (difference
+    (->> (with-fn 150 (cylinder 98 416))
+         (rotate (/ π 2) [0 1 0])
+         (translate [0 63 98]))
+    (->> (with-fn 150 (cylinder 42 32)) ; cut for a cable
+         (rotate (/ π 2) [1 0 0])
+         (translate [0 16 0]))))
 
 (def bottom-hand-rest-outline
   (intersection
@@ -270,6 +286,15 @@
          (translate [0 210 30]))
     ))
 
+(def bottom-hand-rest-inline
+  (intersection
+    (difference (->> main-inline
+                     (translate [0 0 -13]))
+                (->> main-inline)
+                     (translate [0 0 -26]))
+    (->> (cube 420 200 60)
+         (translate [0 210 30]))))
+
 (def bottom-thumbs-spacer
   (intersection
     (->> (cube 420 110 30)
@@ -277,14 +302,30 @@
          (translate [0 130 23.4]))
     bottom-main-outline))
 
+(def bottom-thumbs-spacer-inline
+  (intersection
+    (->> (cube 416 110 30)
+         (rotate (/ π 22) [1 0 0] )
+         (translate [0 130 25.4]))
+    bottom-main-inline))
+
 (spit "things_frame/base_right_bottom.scad"
       (write-scad
-        (union
-          (intersection
-            ;base-right-up
-            bottom-main-cylinder
-            bottom-main-outline
-          )
-          bottom-hand-rest-outline
-          bottom-thumbs-spacer
-        )))
+        (difference
+          (union
+            (intersection
+              ;base-right-up
+              bottom-main-cylinder
+              bottom-main-outline
+              )
+            bottom-hand-rest-outline
+            bottom-thumbs-spacer
+            )
+          (union
+            (intersection
+              bottom-main-cylinder-inline
+              bottom-main-inline)
+            bottom-hand-rest-inline
+            bottom-thumbs-spacer-inline
+            )
+          )))
