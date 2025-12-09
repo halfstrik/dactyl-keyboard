@@ -244,27 +244,39 @@
 ; Bottom plate
 ; bottom outline WIP
 
+(def bottom-main-outline
+  (difference
+    (->> (difference main-outline (well-sphere 78))
+         (translate [0 0 -13]))
+    (translate [0 0 -10] (cube 500 500 20)) ; cut below 0z
+    ))
+
+(def bottom-main-cylinder
+  (difference
+    (->> (with-fn 150 (cylinder 100 420))
+         (rotate (/ π 2) [0 1 0])
+         (translate [0 63 98]))
+    (->> (with-fn 150 (cylinder 40 30)) ; cut for a cable
+         (rotate (/ π 2) [1 0 0])
+         (translate [0 15 0]))))
+
+(def bottom-hand-rest-outline
+  (intersection
+    (difference (->> (difference main-outline (well-sphere 78))
+                     (translate [0 0 -13]))
+                (->> (difference main-outline (well-sphere 78))
+                     (translate [0 0 -26]) ))
+    (->> (cube 420 200 60)
+         (translate [0 210 30]))
+    ))
+
 (spit "things_frame/base_right_bottom.scad"
       (write-scad
         (union
-          (difference
-            (intersection
-              ;base-right-up
-              (->> (with-fn 150 (cylinder 100 420))
-                   (rotate (/ π 2) [0 1 0])
-                   (translate [0 63 98])
-                   )
-              (->> (difference main-outline (well-sphere 78))
-                   (translate [0 0 -13])
-                   ))
-            (translate [0 0 -10] (cube 500 500 20)) ; cut below 0z
-            )
           (intersection
-            (difference (->> (difference main-outline (well-sphere 78))
-                             (translate [0 0 -13]))
-                        (->> (difference main-outline (well-sphere 78))
-                             (translate [0 0 -26]) ))
-            (->> (cube 420 200 60)
-                 (translate [0 210 30]))
-            ))
-        ))
+            ;base-right-up
+            bottom-main-cylinder
+            bottom-main-outline
+          )
+          bottom-hand-rest-outline
+        )))
