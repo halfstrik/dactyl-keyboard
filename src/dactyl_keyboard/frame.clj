@@ -270,6 +270,13 @@
          (translate [0 210 30]))
     ))
 
+(def bottom-thumbs-spacer
+  (intersection
+    (->> (cube 420 110 30)
+         (rotate (/ π 22) [1 0 0] )
+         (translate [0 130 23.4]))
+    bottom-main-outline))
+
 (spit "things_frame/base_right_bottom.scad"
       (write-scad
         (union
@@ -279,4 +286,5 @@
             bottom-main-outline
           )
           bottom-hand-rest-outline
+          bottom-thumbs-spacer
         )))
