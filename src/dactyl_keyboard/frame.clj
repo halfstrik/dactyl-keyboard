@@ -260,10 +260,10 @@
 
 (def bottom-main-cylinder
   (difference
-    (->> (with-fn 50 (cylinder 100 420))
+    (->> (with-fn 150 (cylinder 100 420))
          (rotate (/ π 2) [0 1 0])
          (translate [0 63 98]))
-    (->> (with-fn 50 (cylinder 40 30)) ; cut for a cable
+    (->> (with-fn 100 (cylinder 40 30)) ; cut for a cable
          (rotate (/ π 2) [1 0 0])
          (translate [0 15 0]))))
 
@@ -311,7 +311,12 @@
 
 (spit "things_frame/base_right_bottom.scad"
       (write-scad
-        (difference
+        ;(union
+        ;  (import "base_right_bottom.stl") ; to speed up loading
+        ;  (cube 10 10 10)
+        ;  )))
+
+        (difference ; very slow render :(
           (union
             (intersection
               ;base-right-up
