@@ -260,19 +260,19 @@
 
 (def bottom-main-cylinder
   (difference
-    (->> (with-fn 150 (cylinder 100 420))
+    (->> (with-fn 50 (cylinder 100 420))
          (rotate (/ π 2) [0 1 0])
          (translate [0 63 98]))
-    (->> (with-fn 150 (cylinder 40 30)) ; cut for a cable
+    (->> (with-fn 50 (cylinder 40 30)) ; cut for a cable
          (rotate (/ π 2) [1 0 0])
          (translate [0 15 0]))))
 
 (def bottom-main-cylinder-inline
   (difference
-    (->> (with-fn 150 (cylinder 98 416))
+    (->> (with-fn 50 (cylinder 98 416))
          (rotate (/ π 2) [0 1 0])
          (translate [0 63 98]))
-    (->> (with-fn 150 (cylinder 42 32)) ; cut for a cable
+    (->> (with-fn 50 (cylinder 42 32)) ; cut for a cable
          (rotate (/ π 2) [1 0 0])
          (translate [0 16 0]))))
 
@@ -326,6 +326,6 @@
               bottom-main-cylinder-inline
               bottom-main-inline)
             bottom-hand-rest-inline
-            ;bottom-thumbs-spacer-inline
+            bottom-thumbs-spacer-inline
             )
           )))
