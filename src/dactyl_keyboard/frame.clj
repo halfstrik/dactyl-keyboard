@@ -198,18 +198,18 @@
       bottom-plate-mount-home
       main-inline)))
 
-(spit "things_frame/base_right_up.scad"
-      (write-scad
-        (union
-          base-right-up
-          middle-glue-reinforcement-right)))
-
-(spit "things_frame/base_left_up.scad"
-      (write-scad
-        (union
-          (->> base-right-up
-               (mirror [1 0 0]))
-          middle-glue-reinforcement-left)))
+;(spit "things_frame/base_right_up.scad"
+;      (write-scad
+;        (union
+;          base-right-up
+;          middle-glue-reinforcement-right)))
+;
+;(spit "things_frame/base_left_up.scad"
+;      (write-scad
+;        (union
+;          (->> base-right-up
+;               (mirror [1 0 0]))
+;          middle-glue-reinforcement-left)))
 
 (def well-right
   (union
@@ -232,23 +232,39 @@
       main-inline)
     ))
 
-(spit "things_frame/well_right.scad"
-      (write-scad
-        well-right))
+;(spit "things_frame/well_right.scad"
+;      (write-scad
+;        well-right))
 
-(spit "things_frame/well_left.scad"
-      (write-scad
-        (->> well-right
-             (mirror [1 0 0]))))
+;(spit "things_frame/well_left.scad"
+;      (write-scad
+;        (->> well-right
+;             (mirror [1 0 0]))))
 
 ; Bottom plate
 ; bottom outline WIP
-(def main-box-minus-well-sphere-bottom-border
-  (difference
-    main-box-minus-well-sphere
-    (difference main-box-minus-well-sphere (translate [0 0 -13] main-box-minus-well-sphere))
-    (translate [0 0 -26] main-box-minus-well-sphere)))
 
 (spit "things_frame/base_right_bottom.scad"
       (write-scad
-        main-box-minus-well-sphere-bottom-border))
+        (union
+          (difference
+            (intersection
+              ;base-right-up
+              (->> (with-fn 150 (cylinder 100 420))
+                   (rotate (/ π 2) [0 1 0])
+                   (translate [0 63 98])
+                   )
+              (->> (difference main-outline (well-sphere 78))
+                   (translate [0 0 -13])
+                   ))
+            (translate [0 0 -10] (cube 500 500 20)) ; cut below 0z
+            )
+          (intersection
+            (difference (->> (difference main-outline (well-sphere 78))
+                             (translate [0 0 -13]))
+                        (->> (difference main-outline (well-sphere 78))
+                             (translate [0 0 -26]) ))
+            (->> (cube 420 200 60)
+                 (translate [0 210 30]))
+            ))
+        ))
