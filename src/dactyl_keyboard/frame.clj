@@ -288,10 +288,10 @@
 
 (def bottom-hand-rest-inline
   (intersection
-    (difference (->> main-inline
-                     (translate [0 0 -13]))
-                (->> main-inline)
-                     (translate [0 0 -26]))
+    (difference (->> (difference main-inline (well-sphere 78))
+                     (translate [0 0 -11]))
+                (->> (difference main-outline (well-sphere 78))
+                     (translate [0 0 -24])))
     (->> (cube 420 200 60)
          (translate [0 210 30]))))
 
@@ -326,6 +326,6 @@
               bottom-main-cylinder-inline
               bottom-main-inline)
             bottom-hand-rest-inline
-            bottom-thumbs-spacer-inline
+            ;bottom-thumbs-spacer-inline
             )
           )))
