@@ -118,7 +118,7 @@
 
 (def bottom-plate-mount-shift
   (->> (cube 15 15 35)
-       (translate [190 174 36])))
+       (translate [185 174 36])))
 
 (def bottom-plate-mount-home
   (->> (cube 15 15 35)
@@ -127,7 +127,7 @@
 (def middle-glue-reinforcement-right
   (union
     (difference
-      (->> (cube 20 5 20)
+      (->> (cube 20 5 15)
            (translate [0 2.5 50])
            (intersection main-inline))
       (translate [0 2 0] main-inline))
@@ -342,6 +342,7 @@
       (write-scad
         (union
           (import "base_right_bottom.stl") ; to speed up loading
+          (import "base_right_up.stl")
            bottom-corner-leg
            bottom-middle-leg
           )
