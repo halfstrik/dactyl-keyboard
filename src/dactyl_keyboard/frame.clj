@@ -198,18 +198,18 @@
       bottom-plate-mount-home
       main-inline)))
 
-;(spit "things_frame/base_right_up.scad"
-;      (write-scad
-;        (union
-;          base-right-up
-;          middle-glue-reinforcement-right)))
-;
-;(spit "things_frame/base_left_up.scad"
-;      (write-scad
-;        (union
-;          (->> base-right-up
-;               (mirror [1 0 0]))
-;          middle-glue-reinforcement-left)))
+(spit "things_frame/base_right_up.scad"
+      (write-scad
+        (union
+          base-right-up
+          middle-glue-reinforcement-right)))
+
+(spit "things_frame/base_left_up.scad"
+      (write-scad
+        (union
+          (->> base-right-up
+               (mirror [1 0 0]))
+          middle-glue-reinforcement-left)))
 
 (def well-right
   (union
@@ -309,28 +309,59 @@
          (translate [0 130 25.4]))
     bottom-main-inline))
 
+(def bottom-corner-leg
+  (difference
+    (->> (cylinder 7.5 2)
+         (translate [100 51 0])
+         (with-fn 50))
+    (->> (cylinder 6.4 5)
+         (translate [100 51 0])
+         (with-fn 50))
+    )
+  )
+
+(def bottom-middle-leg
+  (union
+    (difference
+      (->> (cylinder 7.5 2)
+           (translate [200 176 0])
+           (with-fn 50))
+      (->> (cylinder 6.4 5)
+           (translate [200 176 0])
+           (with-fn 50))
+      )
+    (difference
+      (->> (cylinder [7.5 9] 8)
+           (translate [200 176 4])
+           (with-fn 50))
+      bottom-hand-rest-outline)
+    )
+  )
+
 (spit "things_frame/base_right_bottom.scad"
       (write-scad
-        ;(union
-        ;  (import "base_right_bottom.stl") ; to speed up loading
-        ;  (cube 10 10 10)
-        ;  )))
+        (union
+          (import "base_right_bottom.stl") ; to speed up loading
+           bottom-corner-leg
+           bottom-middle-leg
+          )
 
-        (difference ; very slow render :(
-          (union
-            (intersection
-              ;base-right-up
-              bottom-main-cylinder
-              bottom-main-outline
-              )
-            bottom-hand-rest-outline
-            bottom-thumbs-spacer
-            )
-          (union
-            (intersection
-              bottom-main-cylinder-inline
-              bottom-main-inline)
-            bottom-hand-rest-inline
-            bottom-thumbs-spacer-inline
-            )
-          )))
+        ;(difference ; very slow render :(
+        ;  (union
+        ;    (intersection
+        ;      ;base-right-up
+        ;      bottom-main-cylinder
+        ;      bottom-main-outline
+        ;      )
+        ;    bottom-hand-rest-outline
+        ;    bottom-thumbs-spacer
+        ;    )
+        ;  (union
+        ;    (intersection
+        ;      bottom-main-cylinder-inline
+        ;      bottom-main-inline)
+        ;    bottom-hand-rest-inline
+        ;    bottom-thumbs-spacer-inline
+        ;    )
+        ;  )
+        ))
