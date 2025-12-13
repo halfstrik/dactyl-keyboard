@@ -244,6 +244,14 @@
           screw-cut-top-plate-mount-top
           screw-cut-top-plate-mount-home
           screw-cut-top-plate-mount-shift
+          (->> (cylinder 1.3, 35)
+               (translate [193 112 (+ 19.4 8.4 -15)]))
+          (->> (cylinder 1.3, 25)
+               (translate [193 9 (+ 19.4 8.4 -9)]))
+          (->> (cylinder 1.3, 25)
+               (translate [108 5.5 (+ 19.4 18.4)]))
+          (->> (cylinder 1.3, 35)
+               (translate [33 110 (+ 19.4 12.4)]))
           )
 
         ;(union
@@ -281,8 +289,11 @@
     (difference
       support-pillar-shift-well
       (well-sphere 78)
-      (translate [193 108 (+ 19.4 8.4 -15)] ; Indent for a wooden screw:)
-                 (cylinder 5, 15)))
+      (translate [193 112 (+ 19.4 8.4 -15)] ; Indent for a wooden screw:)
+                 (cylinder 5, 15))
+      (->> (cylinder 1.3, 25)
+             (translate [193 112 (+ 19.4 8.4 -15)]))
+      )
     (intersection
       support-pillar-plus-well
       main-inline)
