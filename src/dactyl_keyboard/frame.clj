@@ -116,13 +116,25 @@
   (->> (cube 15 15 35)
        (translate [75 12 65])))
 
+(def top-plate-mount-top
+  (->> (cube 15 15 44.8)
+       (translate [75 12 25])))
+
 (def bottom-plate-mount-shift
   (->> (cube 15 15 35)
        (translate [185 174 36])))
 
+(def top-plate-mount-shift
+  (->> (cube 15 15 25)
+       (translate [185 174 5.9])))
+
 (def bottom-plate-mount-home
-  (->> (cube 15 15 35)
+  (->> (cube 15 15 42)
        (translate [25 174 51])))
+
+(def top-plate-mount-home
+  (->> (cube 15 15 25)
+       (translate [25 174 17.4])))
 
 (def middle-glue-reinforcement-right
   (union
@@ -345,6 +357,18 @@
           (import "base_right_up.stl")
            bottom-corner-leg
            bottom-middle-leg
+          (intersection
+            top-plate-mount-top
+            bottom-main-cylinder-inline
+            )
+          (intersection
+            top-plate-mount-shift
+            bottom-hand-rest-inline
+            )
+          (intersection
+            top-plate-mount-home
+            bottom-thumbs-spacer-inline
+            )
           )
 
         ;(difference ; very slow render :(
