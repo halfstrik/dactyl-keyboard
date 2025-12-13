@@ -395,6 +395,24 @@
            (intersection bottom-thumbs-spacer-inline))
       (translate [0 0 2] bottom-thumbs-spacer-inline))
     ))
+(def middle-glue-reinforcement-bottom-left
+  (union
+    (difference
+      (->> (cube 20 2 45) ; main-cube-width / 2
+           (translate [0 33 10])
+           (intersection bottom-main-cylinder-inline))
+      (translate [0 2 0] bottom-main-cylinder-inline))
+    (difference
+      (->> (cube 20 33.5 35) ; main-cube-width / 2
+           (translate [0 90 5])
+           (intersection (union (intersection bottom-main-cylinder-inline bottom-main-inline) bottom-thumbs-spacer-inline)))
+      (translate [0 0 2] (union (intersection bottom-main-cylinder-inline bottom-main-inline) bottom-thumbs-spacer-inline)))
+    (difference
+      (->> (cube 20 30 40) ; main-cube-width / 2
+           (translate [0 168.3 5])
+           (intersection bottom-thumbs-spacer-inline))
+      (translate [0 0 2] bottom-thumbs-spacer-inline))
+    ))
 
 (spit "things_frame/base_right_bottom.scad"
       (write-scad
@@ -470,4 +488,17 @@
           )
         ; Glue points right
         middle-glue-reinforcement-bottom-right
+        ))
+
+(spit "things_frame/base_left_bottom.scad"
+      (write-scad
+        (->> (difference
+               (import "base_right_bottom_common.stl")
+               screw-cut-top-plate-mount-top
+               screw-cut-top-plate-mount-shift
+               screw-cut-top-plate-mount-home
+               )
+             (mirror [1 0 0]))
+        ; Glue points right
+        middle-glue-reinforcement-bottom-left
         ))
