@@ -106,7 +106,7 @@
        (translate [115 4 41.6])))
 
 (def support-pillar-home-up
-  (->> (cube 20 20 30)
+  (->> (cube 20 18.5 30)
        (rotate (/ π 2.45) [0 0 1])
        (translate [32 110 61.5])))
 
@@ -126,7 +126,7 @@
   (union
     (->> (cylinder 5, 47)
          (translate [75 12 15])) ; Indent for a wooden screw:)
-    (->> (cylinder 1.5, 50)
+    (->> (cylinder 1.3, 52)
          (translate [75 12 25]))
     )
   )
@@ -142,7 +142,7 @@
   (union
     (->> (cylinder 5, 13)
          (translate [185 174 5.9])) ; Indent for a wooden screw:)
-    (->> (cylinder 1.5, 30)
+    (->> (cylinder 1.3, 32)
          (translate [185 174 5.9]))
     )
   )
@@ -158,7 +158,7 @@
   (union
     (->> (cylinder 5, 13)
          (translate [25 174 17.4])) ; Indent for a wooden screw:)
-    (->> (cylinder 1.5, 30)
+    (->> (cylinder 1.3, 32)
          (translate [25 174 17.4]))
     )
   )
@@ -239,9 +239,34 @@
 
 (spit "things_frame/base_right_up.scad"
       (write-scad
-        (union
-          base-right-up
-          middle-glue-reinforcement-right)))
+        (difference
+          (import "base_right_up_common.stl")
+          screw-cut-top-plate-mount-top
+          screw-cut-top-plate-mount-home
+          screw-cut-top-plate-mount-shift
+          )
+
+        ;(union
+        ;  base-right-up
+        ;  middle-glue-reinforcement-right)
+
+          ; Border holders
+          ; right
+        ;(->> (cube 2 15 14)
+        ;     (translate [207 92 15]))
+        ;(->> (cube 2 15 14)
+        ;     (translate [207 36 15]))
+        ;(->> (cube 2 15 14)
+        ;     (translate [207 156 20]))
+        ;  ; front
+        ;(->> (cube 30 2 15)
+        ;     (translate [151 183 20]))
+        ;(->> (cube 30 2 15)
+        ;     (translate [65 183 27]))
+        ;  ; back
+        ;(->> (cube 30 2 15)
+        ;     (translate [70 3 46]))
+        ))
 
 (spit "things_frame/base_left_up.scad"
       (write-scad
