@@ -354,7 +354,7 @@
       (write-scad
         (union
           (import "base_right_bottom.stl") ; to speed up loading
-          (import "base_right_up.stl")
+          ;(import "base_right_up.stl")
            bottom-corner-leg
            bottom-middle-leg
           (intersection
@@ -369,7 +369,29 @@
             top-plate-mount-home
             bottom-thumbs-spacer-inline
             )
+
+          ; Border holders
+          ; right
+          (->> (cube 2 32 8)
+               (translate [207 64 7]))
+          (->> (cube 2 15 12)
+               (translate [207 18 21]))
+          (->> (cube 2 30 15)
+               (translate [207 120 23]))
+          (->> (cube 2 20 15)
+               (translate [207 174 13]))
+          ; front
+          (->> (cube 30 2 15)
+               (translate [191 183 13]))
+          (->> (cube 30 2 15)
+               (translate [111 183 23]))
+          (->> (cube 30 2 15)
+               (translate [31 183 28]))
+          ; back
+          (->> (cube 30 2 13)
+               (translate [31 4 47]))
           )
+
 
         ;(difference ; very slow render :(
         ;  (union
