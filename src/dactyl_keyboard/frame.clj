@@ -355,6 +355,7 @@
         (union
           (import "base_right_bottom.stl") ; to speed up loading
           ;(import "base_right_up.stl")
+          ;middle-glue-reinforcement-left
            bottom-corner-leg
            bottom-middle-leg
           (intersection
@@ -386,10 +387,12 @@
           (->> (cube 30 2 15)
                (translate [111 183 23]))
           (->> (cube 30 2 15)
-               (translate [31 183 28]))
+               (translate [25 183 28]))
           ; back
           (->> (cube 30 2 13)
-               (translate [31 4 47]))
+               (translate [25 4 47]))
+          (->> (cube 30 2 15)
+               (translate [167 4 27]))
           )
 
 
