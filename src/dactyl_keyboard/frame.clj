@@ -21,6 +21,9 @@
 (def half-divide-cube
   (->> (cube 210 186 70)
        (translate [105 93 35])))
+(def half-divide-cube-left
+  (->> (cube 210 186 70)
+       (translate [-105 93 35])))
 
 (def main-outline
   (let [main-sphere (->> (with-fn 300 (sphere 1400))
@@ -350,10 +353,32 @@
     )
   )
 
+(def middle-glue-reinforcement-bottom-right
+  (union
+    (difference
+      (->> (cube 20 45.5 25) ; main-cube-width / 2
+           (translate [0 27 50])
+           (intersection bottom-main-cylinder-inline))
+      (translate [0 0 2] bottom-main-cylinder-inline))
+    (difference
+      (->> (cube 20 45.5 25) ; main-cube-width / 2
+           (translate [0 50 5])
+           (intersection (intersection bottom-main-cylinder-inline bottom-main-inline)))
+      (translate [0 0 2] (intersection bottom-main-cylinder-inline bottom-main-inline)))
+    (difference
+      (->> (cube 20 45.5 25) ; main-cube-width / 2
+           (translate [0 130 5])
+           (intersection bottom-thumbs-spacer-inline))
+      (translate [0 0 2] bottom-thumbs-spacer-inline))
+
+    ))
+
 (spit "things_frame/base_right_bottom.scad"
       (write-scad
         (union
-          (import "base_right_bottom.stl") ; to speed up loading
+          ;(difference
+          ;  (import "base_right_bottom.stl") ; to speed up loading
+            ;half-divide-cube-left)
           ;(import "base_right_up.stl")
           ;middle-glue-reinforcement-left
            bottom-corner-leg
@@ -390,28 +415,31 @@
                (translate [25 183 28]))
           ; back
           (->> (cube 30 2 13)
-               (translate [25 4 47]))
+               (translate [25 3 47]))
           (->> (cube 30 2 15)
-               (translate [167 4 27]))
+               (translate [167 3 27]))
           )
 
-
-        ;(difference ; very slow render :(
-        ;  (union
-        ;    (intersection
-        ;      ;base-right-up
-        ;      bottom-main-cylinder
-        ;      bottom-main-outline
-        ;      )
-        ;    bottom-hand-rest-outline
-        ;    bottom-thumbs-spacer
-        ;    )
-        ;  (union
-        ;    (intersection
-        ;      bottom-main-cylinder-inline
-        ;      bottom-main-inline)
-        ;    bottom-hand-rest-inline
-        ;    bottom-thumbs-spacer-inline
-        ;    )
-        ;  )
+        (difference ; very slow render :(
+          (union
+            (intersection
+              ;base-right-up
+              bottom-main-cylinder
+              bottom-main-outline
+              )
+            bottom-hand-rest-outline
+            bottom-thumbs-spacer
+            )
+          (union
+            (intersection
+              bottom-main-cylinder-inline
+              bottom-main-inline)
+            bottom-hand-rest-inline
+            bottom-thumbs-spacer-inline
+            half-divide-cube-left
+            )
+          )
+        ;(import "base_right_bottom_full.stl")
+        ; Glue points right
+        ;middle-glue-reinforcement-bottom-right
         ))
