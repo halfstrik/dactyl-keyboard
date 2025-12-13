@@ -122,6 +122,14 @@
 (def top-plate-mount-top
   (->> (cube 15 15 44.8)
        (translate [75 12 25])))
+(def screw-cut-top-plate-mount-top
+  (union
+    (->> (cylinder 5, 47)
+         (translate [75 12 15])) ; Indent for a wooden screw:)
+    (->> (cylinder 1.5, 50)
+         (translate [75 12 25]))
+    )
+  )
 
 (def bottom-plate-mount-shift
   (->> (cube 15 15 35)
@@ -130,6 +138,14 @@
 (def top-plate-mount-shift
   (->> (cube 15 15 25)
        (translate [185 174 5.9])))
+(def screw-cut-top-plate-mount-shift
+  (union
+    (->> (cylinder 5, 13)
+         (translate [185 174 5.9])) ; Indent for a wooden screw:)
+    (->> (cylinder 1.5, 30)
+         (translate [185 174 5.9]))
+    )
+  )
 
 (def bottom-plate-mount-home
   (->> (cube 15 15 42)
@@ -138,6 +154,14 @@
 (def top-plate-mount-home
   (->> (cube 15 15 25)
        (translate [25 174 17.4])))
+(def screw-cut-top-plate-mount-home
+  (union
+    (->> (cylinder 5, 13)
+         (translate [25 174 17.4])) ; Indent for a wooden screw:)
+    (->> (cylinder 1.5, 30)
+         (translate [25 174 17.4]))
+    )
+  )
 
 (def middle-glue-reinforcement-right
   (union
@@ -370,76 +394,80 @@
            (translate [0 130 5])
            (intersection bottom-thumbs-spacer-inline))
       (translate [0 0 2] bottom-thumbs-spacer-inline))
-
     ))
 
 (spit "things_frame/base_right_bottom.scad"
       (write-scad
-        (union
-          ;(difference
-          ;  (import "base_right_bottom.stl") ; to speed up loading
-            ;half-divide-cube-left)
-          ;(import "base_right_up.stl")
-          ;middle-glue-reinforcement-left
-           bottom-corner-leg
-           bottom-middle-leg
-          (intersection
-            top-plate-mount-top
-            bottom-main-cylinder-inline
-            )
-          (intersection
-            top-plate-mount-shift
-            bottom-hand-rest-inline
-            )
-          (intersection
-            top-plate-mount-home
-            bottom-thumbs-spacer-inline
-            )
-
-          ; Border holders
-          ; right
-          (->> (cube 2 32 8)
-               (translate [207 64 7]))
-          (->> (cube 2 15 12)
-               (translate [207 18 21]))
-          (->> (cube 2 30 15)
-               (translate [207 120 23]))
-          (->> (cube 2 20 15)
-               (translate [207 174 13]))
-          ; front
-          (->> (cube 30 2 15)
-               (translate [191 183 13]))
-          (->> (cube 30 2 15)
-               (translate [111 183 23]))
-          (->> (cube 30 2 15)
-               (translate [25 183 28]))
-          ; back
-          (->> (cube 30 2 13)
-               (translate [25 3 47]))
-          (->> (cube 30 2 15)
-               (translate [167 3 27]))
+        ;(union
+        ;  ;(difference
+        ;  ;  (import "base_right_bottom.stl") ; to speed up loading
+        ;    ;half-divide-cube-left)
+        ;  ;(import "base_right_up.stl")
+        ;  ;middle-glue-reinforcement-left
+        ;   bottom-corner-leg
+        ;   bottom-middle-leg
+        ;  (intersection
+        ;    top-plate-mount-top
+        ;    bottom-main-cylinder-inline
+        ;    )
+        ;  (intersection
+        ;    top-plate-mount-shift
+        ;    bottom-hand-rest-inline
+        ;    )
+        ;  (intersection
+        ;    top-plate-mount-home
+        ;    bottom-thumbs-spacer-inline
+        ;    )
+        ;
+        ;  ; Border holders
+        ;  ; right
+        ;  (->> (cube 2 32 8)
+        ;       (translate [207 64 7]))
+        ;  (->> (cube 2 15 12)
+        ;       (translate [207 18 21]))
+        ;  (->> (cube 2 30 15)
+        ;       (translate [207 120 23]))
+        ;  (->> (cube 2 20 15)
+        ;       (translate [207 174 13]))
+        ;  ; front
+        ;  (->> (cube 30 2 15)
+        ;       (translate [191 183 13]))
+        ;  (->> (cube 30 2 15)
+        ;       (translate [111 183 23]))
+        ;  (->> (cube 30 2 15)
+        ;       (translate [25 183 28]))
+        ;  ; back
+        ;  (->> (cube 30 2 13)
+        ;       (translate [25 3 47]))
+        ;  (->> (cube 30 2 15)
+        ;       (translate [167 3 27]))
+        ;  )
+        ;
+        ;(difference ; very slow render :(
+        ;  (union
+        ;    (intersection
+        ;      ;base-right-up
+        ;      bottom-main-cylinder
+        ;      bottom-main-outline
+        ;      )
+        ;    bottom-hand-rest-outline
+        ;    bottom-thumbs-spacer
+        ;    )
+        ;  (union
+        ;    (intersection
+        ;      bottom-main-cylinder-inline
+        ;      bottom-main-inline)
+        ;    bottom-hand-rest-inline
+        ;    bottom-thumbs-spacer-inline
+        ;    half-divide-cube-left
+        ;    )
+        ;  )
+        (difference
+          (import "base_right_bottom_common.stl")
+          screw-cut-top-plate-mount-top
+          screw-cut-top-plate-mount-shift
+          screw-cut-top-plate-mount-home
           )
-
-        (difference ; very slow render :(
-          (union
-            (intersection
-              ;base-right-up
-              bottom-main-cylinder
-              bottom-main-outline
-              )
-            bottom-hand-rest-outline
-            bottom-thumbs-spacer
-            )
-          (union
-            (intersection
-              bottom-main-cylinder-inline
-              bottom-main-inline)
-            bottom-hand-rest-inline
-            bottom-thumbs-spacer-inline
-            half-divide-cube-left
-            )
-          )
-        ;(import "base_right_bottom_full.stl")
         ; Glue points right
-        ;middle-glue-reinforcement-bottom-right
+        middle-glue-reinforcement-bottom-right
         ))
