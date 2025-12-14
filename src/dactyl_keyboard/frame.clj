@@ -212,68 +212,72 @@
       (intersection
         support-pillar-shift-up
         main-inline)
-      (well-sphere 78))
+      (well-sphere 78)
+      (->> (cylinder 1.3, 35)
+           (translate [193 112 (+ 19.4 8.4 -15)]))
+      )
     (difference
       (intersection
         support-pillar-plus-up
         main-inline)
-      (well-sphere 78))
+      (well-sphere 78)
+      (->> (cylinder 1.3, 25)
+           (translate [193 9 (+ 19.4 8.4 -9)])))
     (difference
       (intersection
         support-pillar-five-up
-        main-inline)
-      (well-sphere 78))
-    (intersection
-      support-pillar-home-up
-      main-inline)
+        main-inline
+        )
+      (well-sphere 78)
+      (->> (cylinder 1.3, 25)
+           (translate [108 5.5 (+ 19.4 18.4)])))
+    (difference
+      (intersection
+        support-pillar-home-up
+        main-inline
+        )
+      (->> (cylinder 1.3, 35)
+           (translate [33 110 (+ 19.4 12.4)])))
 
-    (intersection
-      bottom-plate-mount-top
-      main-inline)
-    (intersection
-      bottom-plate-mount-shift
-      main-inline)
-    (intersection
-      bottom-plate-mount-home
-      main-inline)))
+    (difference
+      (intersection
+        bottom-plate-mount-top
+        main-inline)
+      screw-cut-top-plate-mount-top)
+    (difference
+      (intersection
+        bottom-plate-mount-shift
+        main-inline)
+      screw-cut-top-plate-mount-shift)
+    (difference
+      (intersection
+        bottom-plate-mount-home
+        main-inline)
+      screw-cut-top-plate-mount-home)
+
+    ;Border holders
+    ;right
+    (->> (cube 2 15 14)
+         (translate [207 92 15]))
+    (->> (cube 2 15 14)
+         (translate [207 36 15]))
+    (->> (cube 2 15 14)
+         (translate [207 156 20]))
+    ; front
+    (->> (cube 30 2 15)
+         (translate [151 183 20]))
+    (->> (cube 30 2 15)
+         (translate [65 183 27]))
+    ; back
+    (->> (cube 30 2 15)
+         (translate [70 3 46]))
+    ))
 
 (spit "things_frame/base_right_up.scad"
       (write-scad
-        (difference
-          (import "base_right_up_common.stl")
-          screw-cut-top-plate-mount-top
-          screw-cut-top-plate-mount-home
-          screw-cut-top-plate-mount-shift
-          (->> (cylinder 1.3, 35)
-               (translate [193 112 (+ 19.4 8.4 -15)]))
-          (->> (cylinder 1.3, 25)
-               (translate [193 9 (+ 19.4 8.4 -9)]))
-          (->> (cylinder 1.3, 25)
-               (translate [108 5.5 (+ 19.4 18.4)]))
-          (->> (cylinder 1.3, 35)
-               (translate [33 110 (+ 19.4 12.4)]))
-          )
-
-        ;(union
-        ;  base-right-up
-        ;  middle-glue-reinforcement-right)
-
-          ; Border holders
-          ; right
-        ;(->> (cube 2 15 14)
-        ;     (translate [207 92 15]))
-        ;(->> (cube 2 15 14)
-        ;     (translate [207 36 15]))
-        ;(->> (cube 2 15 14)
-        ;     (translate [207 156 20]))
-        ;  ; front
-        ;(->> (cube 30 2 15)
-        ;     (translate [151 183 20]))
-        ;(->> (cube 30 2 15)
-        ;     (translate [65 183 27]))
-        ;  ; back
-        ;(->> (cube 30 2 15)
-        ;     (translate [70 3 46]))
+        (union
+          base-right-up
+          middle-glue-reinforcement-right)
         ))
 
 (spit "things_frame/base_left_up.scad"
