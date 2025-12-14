@@ -84,6 +84,9 @@
 (def support-pillar-shift-up
   (->> (cube 21 24 30)
        (translate [193 108 43])))
+(def support-pillar-shift-up-negative
+  (->> (cube 22 25 31)
+       (translate [193 108 43])))
 
 (def support-pillar-shift-well
   (->> (cube 21 24 16.8)
@@ -91,6 +94,9 @@
 
 (def support-pillar-plus-up
   (->> (cube 21 14 30)
+       (translate [193 8 43])))
+(def support-pillar-plus-up-negative
+  (->> (cube 22 18 31)
        (translate [193 8 43])))
 
 (def support-pillar-plus-well
@@ -100,6 +106,9 @@
 (def support-pillar-five-up
   (->> (cube 21 9.5 30)
        (translate [115 4 61.3])))
+(def support-pillar-five-up-negative
+  (->> (cube 22 11 31)
+       (translate [115 4 61.3])))
 
 (def support-pillar-five-well
   (->> (cube 21 9.5 9)
@@ -107,6 +116,10 @@
 
 (def support-pillar-home-up
   (->> (cube 20 18.5 30)
+       (rotate (/ π 2.45) [0 0 1])
+       (translate [32 110 61.5])))
+(def support-pillar-home-up-negative
+  (->> (cube 21 20 31)
        (rotate (/ π 2.45) [0 0 1])
        (translate [32 110 61.5])))
 
@@ -289,14 +302,33 @@
 
 (def well-right
   (union
-    (convert-dactyl-shapes dactyl-top-right)
+    ;(import "well_right_almost.stl")
+    (->> (cube 3 40 2) ; to close right border
+         (translate [202 60 9]))
+    (->> (cube 3 40 2)
+         (translate [202 22 27])
+         (rotate (/ π -7) [1 0 0]))
+    (->> (cube 3 40 2)
+         (translate [202 94 -28])
+         (rotate (/ π 7) [1 0 0]))
+    (intersection
+      (difference
+        (convert-dactyl-shapes dactyl-top-right)
+
+        support-pillar-shift-up-negative
+        support-pillar-home-up-negative
+        support-pillar-five-up-negative
+        support-pillar-plus-up-negative
+        (well-sphere 78))
+      main-inline)
+
     (difference
       support-pillar-shift-well
       (well-sphere 78)
       (translate [193 112 (+ 19.4 8.4 -15)] ; Indent for a wooden screw:)
                  (cylinder 5, 15))
       (->> (cylinder 1.3, 25)
-             (translate [193 112 (+ 19.4 8.4 -1)]))
+           (translate [193 112 (+ 19.4 8.4 -1)]))
       )
     (difference
       (intersection
@@ -317,7 +349,8 @@
         main-inline)
       (->> (cylinder 1.3, 35)
            (translate [33 110 (+ 19.4 12.4)])))
-    ))
+    )
+  )
 
 (spit "things_frame/well_right.scad"
       (write-scad
