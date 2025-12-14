@@ -446,7 +446,7 @@
 ;;;;;;;;;;
 
 ;; In column units
-(def right-wall-column (+ (last columns) 0.55))
+(def right-wall-column (+ (last columns) 0.66))
 (def left-wall-column (- (first columns) 1/2))
 (def thumb-back-y 0.93)
 (def thumb-right-wall (- -1/2 0.05))
@@ -482,7 +482,7 @@
                     (+ (/ mount-height -2) -3.5)
                     (+ (/ mount-height 2) 3.5)
                     front-to-back-scale)
-                   2])) ; Controls case wall height, we won't expose it, will be covered
+                   12])) ; Controls case wall height, we won't expose it, will be covered
 
 (def wall-sphere-top-back (wall-sphere-top 1))
 (def wall-sphere-bottom-back (wall-sphere-bottom 1))
