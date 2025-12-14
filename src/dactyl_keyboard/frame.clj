@@ -296,29 +296,37 @@
       (translate [193 112 (+ 19.4 8.4 -15)] ; Indent for a wooden screw:)
                  (cylinder 5, 15))
       (->> (cylinder 1.3, 25)
-             (translate [193 112 (+ 19.4 8.4 -15)]))
+             (translate [193 112 (+ 19.4 8.4 -1)]))
       )
-    (intersection
-      support-pillar-plus-well
-      main-inline)
+    (difference
+      (intersection
+        support-pillar-plus-well
+        main-inline)
+      (->> (cylinder 1.3, 25)
+           (translate [193 9 (+ 19.4 8.4 -4)])))
     (difference
       (intersection
         support-pillar-five-well
         main-inline)
-      (well-sphere 78))
-    (intersection
-      support-pillar-home-well
-      main-inline)
+      (well-sphere 78)
+      (->> (cylinder 1.3, 25)
+           (translate [108 5.5 (+ 19.4 18.4)])))
+    (difference
+      (intersection
+        support-pillar-home-well
+        main-inline)
+      (->> (cylinder 1.3, 35)
+           (translate [33 110 (+ 19.4 12.4)])))
     ))
 
-;(spit "things_frame/well_right.scad"
-;      (write-scad
-;        well-right))
+(spit "things_frame/well_right.scad"
+      (write-scad
+        well-right))
 
-;(spit "things_frame/well_left.scad"
-;      (write-scad
-;        (->> well-right
-;             (mirror [1 0 0]))))
+(spit "things_frame/well_left.scad"
+      (write-scad
+        (->> well-right
+             (mirror [1 0 0]))))
 
 ; Bottom plate
 ; bottom outline WIP
