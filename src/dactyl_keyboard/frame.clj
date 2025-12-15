@@ -302,7 +302,8 @@
 
 (def well-right
   (union
-    ;(import "well_right_almost.stl")
+    ;(import "well_right.stl")
+    ;(import "case_right_up.stl")
     (->> (cube 3 40 2) ; to close right border
          (translate [202 60 9]))
     (->> (cube 3 40 2)

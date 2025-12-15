@@ -446,7 +446,7 @@
 ;;;;;;;;;;
 
 ;; In column units
-(def right-wall-column (+ (last columns) 0.66))
+(def right-wall-column (+ (last columns) 0.74))
 (def left-wall-column (- (first columns) 1/2))
 (def thumb-back-y 0.93)
 (def thumb-right-wall (- -1/2 0.05))
