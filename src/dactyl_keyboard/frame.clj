@@ -76,7 +76,7 @@
   (difference main-box-right (well-sphere 78)))
 
 (def main-box-minus-well-sphere-top
-  (difference main-box-minus-well-sphere (translate [0 0 -13] main-box-minus-well-sphere)))
+  (difference main-box-minus-well-sphere (translate [0 0 -11] main-box-minus-well-sphere)))
 
 (def keys-well
     (intersection (difference (well-sphere 78) (well-sphere 76)) main-outline))
@@ -379,7 +379,7 @@
 (def bottom-main-outline
   (difference
     (->> (difference main-outline (well-sphere 78))
-         (translate [0 0 -13]))
+         (translate [0 0 -11]))
     (translate [0 0 -10] (cube 500 500 20)) ; cut below 0z
     ))
 
@@ -411,9 +411,9 @@
 (def bottom-hand-rest-outline
   (intersection
     (difference (->> (difference main-outline (well-sphere 78))
-                     (translate [0 0 -13]))
+                     (translate [0 0 -11]))
                 (->> (difference main-outline (well-sphere 78))
-                     (translate [0 0 -26]) ))
+                     (translate [0 0 -22]) ))
     (->> (cube 420 200 60)
          (translate [0 210 30]))
     ))
@@ -421,9 +421,9 @@
 (def bottom-hand-rest-inline
   (intersection
     (difference (->> (difference main-inline (well-sphere 78))
-                     (translate [0 0 -11]))
+                     (translate [0 0 -9]))
                 (->> (difference main-outline (well-sphere 78))
-                     (translate [0 0 -24])))
+                     (translate [0 0 -18])))
     (->> (cube 420 200 60)
          (translate [0 210 30]))))
 
@@ -509,76 +509,76 @@
 
 (spit "things_frame/base_right_bottom.scad"
       (write-scad
-        ;(union
-        ;  ;(difference
-        ;  ;  (import "base_right_bottom.stl") ; to speed up loading
-        ;    ;half-divide-cube-left)
-        ;  ;(import "base_right_up.stl")
-        ;  ;middle-glue-reinforcement-left
-        ;   bottom-corner-leg
-        ;   bottom-middle-leg
-        ;  (intersection
-        ;    top-plate-mount-top
-        ;    bottom-main-cylinder-inline
-        ;    )
-        ;  (intersection
-        ;    top-plate-mount-shift
-        ;    bottom-hand-rest-inline
-        ;    )
-        ;  (intersection
-        ;    top-plate-mount-home
-        ;    bottom-thumbs-spacer-inline
-        ;    )
-        ;
-        ;  ; Border holders
-        ;  ; right
-        ;  (->> (cube 2 32 8)
-        ;       (translate [207 64 7]))
-        ;  (->> (cube 2 15 12)
-        ;       (translate [207 18 21]))
-        ;  (->> (cube 2 30 15)
-        ;       (translate [207 120 23]))
-        ;  (->> (cube 2 20 15)
-        ;       (translate [207 174 13]))
-        ;  ; front
-        ;  (->> (cube 30 2 15)
-        ;       (translate [191 183 13]))
-        ;  (->> (cube 30 2 15)
-        ;       (translate [111 183 23]))
-        ;  (->> (cube 30 2 15)
-        ;       (translate [25 183 28]))
-        ;  ; back
-        ;  (->> (cube 30 2 13)
-        ;       (translate [25 3 47]))
-        ;  (->> (cube 30 2 15)
-        ;       (translate [167 3 27]))
-        ;  )
-        ;
-        ;(difference ; very slow render :(
-        ;  (union
-        ;    (intersection
-        ;      ;base-right-up
-        ;      bottom-main-cylinder
-        ;      bottom-main-outline
-        ;      )
-        ;    bottom-hand-rest-outline
-        ;    bottom-thumbs-spacer
-        ;    )
-        ;  (union
-        ;    (intersection
-        ;      bottom-main-cylinder-inline
-        ;      bottom-main-inline)
-        ;    bottom-hand-rest-inline
-        ;    bottom-thumbs-spacer-inline
-        ;    half-divide-cube-left
-        ;    )
-        ;  )
-        (difference
-          (import "base_right_bottom_common.stl")
-          screw-cut-top-plate-mount-top
-          screw-cut-top-plate-mount-shift
-          screw-cut-top-plate-mount-home
+        (union
+          ;(difference
+          ;  (import "base_right_bottom.stl") ; to speed up loading
+            ;half-divide-cube-left)
+          ;(import "base_right_up.stl")
+          ;middle-glue-reinforcement-left
+           bottom-corner-leg
+           bottom-middle-leg
+          (intersection
+            top-plate-mount-top
+            bottom-main-cylinder-inline
+            )
+          (intersection
+            top-plate-mount-shift
+            bottom-hand-rest-inline
+            )
+          (intersection
+            top-plate-mount-home
+            bottom-thumbs-spacer-inline
+            )
+
+          ; Border holders
+          ; right
+          (->> (cube 2 32 8)
+               (translate [207 64 7]))
+          (->> (cube 2 15 12)
+               (translate [207 18 21]))
+          (->> (cube 2 30 15)
+               (translate [207 120 23]))
+          (->> (cube 2 20 15)
+               (translate [207 174 13]))
+          ; front
+          (->> (cube 30 2 15)
+               (translate [191 183 13]))
+          (->> (cube 30 2 15)
+               (translate [111 183 23]))
+          (->> (cube 30 2 15)
+               (translate [25 183 28]))
+          ; back
+          (->> (cube 30 2 13)
+               (translate [25 3 47]))
+          (->> (cube 30 2 15)
+               (translate [167 3 27]))
           )
+
+        (difference ; very slow render :(
+          (union
+            (intersection
+              ;base-right-up
+              bottom-main-cylinder
+              bottom-main-outline
+              )
+            bottom-hand-rest-outline
+            bottom-thumbs-spacer
+            )
+          (union
+            (intersection
+              bottom-main-cylinder-inline
+              bottom-main-inline)
+            bottom-hand-rest-inline
+            bottom-thumbs-spacer-inline
+            half-divide-cube-left
+            )
+          )
+        ;(difference
+        ;  (import "base_right_bottom_common.stl")
+        ;  screw-cut-top-plate-mount-top
+        ;  screw-cut-top-plate-mount-shift
+        ;  screw-cut-top-plate-mount-home
+        ;  )
         ; Glue points right
         middle-glue-reinforcement-bottom-right
         ))
