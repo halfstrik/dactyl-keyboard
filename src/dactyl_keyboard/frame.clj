@@ -27,7 +27,7 @@
 
 (def main-outline
   (let [main-sphere (->> (with-fn 300 (sphere 1400))
-                         (translate [0 -110 -1326]))
+                         (translate [0 -110 -1330]))
         main-cube-length 420
         main-cube-width 186
         main-cube-heigh 70
@@ -39,7 +39,7 @@
 
 (def main-inline
   (let [main-sphere (->> (with-fn 300 (sphere 1400))
-                          (translate [0 -110 (+ -1326 -2)]))
+                          (translate [0 -110 (+ -1330 -2)]))
          main-cube-length (- 420 4)
          main-cube-width (- 186 4)
          main-cube-heigh 70
@@ -117,11 +117,11 @@
 (def support-pillar-home-up
   (->> (cube 20 18.5 30)
        (rotate (/ π 2.45) [0 0 1])
-       (translate [32 110 61.5])))
+       (translate [30 110 58.5])))
 (def support-pillar-home-up-negative
-  (->> (cube 21 20 31)
+  (->> (cube 20.3 18.8 31)
        (rotate (/ π 2.45) [0 0 1])
-       (translate [32 110 61.5])))
+       (translate [29 110 58.5])))
 
 (def support-pillar-home-well
   (->> (cube 20 20 9)
@@ -131,6 +131,11 @@
 (def bottom-plate-mount-top
   (->> (cube 15 15 35)
        (translate [75 12 65])))
+
+(def support-pillar-command-up
+  (->> (cube 20 18.5 30)
+       (rotate (/ π 2.45) [0 0 1])
+       (translate [90 151.2 48.5])))
 
 (def top-plate-mount-top
   (->> (cube 15 15 44.8)
@@ -217,7 +222,7 @@
     (difference
       (union main-box-minus-well-sphere-top keys-well)
       ;(minkowski (sphere 1.8) ; uncomment on the final render, takes time
-      (translate [0 0 -2] ; to fully erase remaining of the sphere
+      (translate [0 0 -2.9] ; to fully erase remaining of the sphere
                  (convert-dactyl-shapes caps-combined-outline)))
     ;(convert-dactyl-shapes caps thumbcaps)
 
@@ -250,8 +255,14 @@
         main-inline
         )
       (->> (cylinder 1.3, 35)
-           (translate [33 110 (+ 19.4 12.4)])))
-
+           (translate [30 110 (+ 19.4 12.4)])))
+    (difference
+      (intersection
+        support-pillar-command-up
+        main-inline
+        )
+      (->> (cylinder 1.3, 35)
+           (translate [90 151.2 (+ 19.4 2.4)])))
     (difference
       (intersection
         bottom-plate-mount-top
