@@ -184,17 +184,17 @@
 (def middle-glue-reinforcement-right
   (union
     (difference
-      (->> (cube 20 5 15)
+      (->> (cube 16 5 15)
            (translate [0 2.5 50])
            (intersection main-inline))
       (translate [0 2 0] main-inline))
     (difference
-      (->> (cube 20 45.5 25) ; main-cube-width / 2
+      (->> (cube 16 45.5 25) ; main-cube-width / 2
            (translate [0 22.25 55])
            (intersection main-inline))
       (translate [0 0 -2] main-inline))
     (difference
-      (->> (cube 20 45.5 25) ; main-cube-width / 2
+      (->> (cube 16 45.5 25) ; main-cube-width / 2
            (translate [0 (+ 91 22.25) 55])
            (intersection main-inline))
       (translate [0 0 -2] main-inline))))
@@ -202,17 +202,17 @@
 (def middle-glue-reinforcement-left
   (union
     (difference
-      (->> (cube 20 5 20)
+      (->> (cube 16 5 20)
            (translate [0 (- 186 2.5) 32])
            (intersection main-inline))
       (translate [0 -2 0] main-inline))
     (difference
-      (->> (cube 20 45.5 45) ; main-cube-width / 2
+      (->> (cube 16 45.5 45) ; main-cube-width / 2
            (translate [0 (+ 22.25 45.5) 45])
            (intersection main-inline))
       (translate [0 0 -2] main-inline))
     (difference
-      (->> (cube 20 49.5 45) ; main-cube-width / 2
+      (->> (cube 16 49.5 45) ; main-cube-width / 2
            (translate [0 (+ 91 24.25 45.5) 45])
            (intersection main-inline))
       (translate [0 0 -2] main-inline))))
@@ -473,17 +473,17 @@
 (def middle-glue-reinforcement-bottom-right
   (union
     (difference
-      (->> (cube 20 45.5 25) ; main-cube-width / 2
+      (->> (cube 16 45.5 25) ; main-cube-width / 2
            (translate [0 27 50])
            (intersection bottom-main-cylinder-inline))
       (translate [0 0 2] bottom-main-cylinder-inline))
     (difference
-      (->> (cube 20 45.5 25) ; main-cube-width / 2
+      (->> (cube 16 45.5 25) ; main-cube-width / 2
            (translate [0 50 5])
            (intersection (intersection bottom-main-cylinder-inline bottom-main-inline)))
       (translate [0 0 2] (intersection bottom-main-cylinder-inline bottom-main-inline)))
     (difference
-      (->> (cube 20 45.5 25) ; main-cube-width / 2
+      (->> (cube 16 45.5 25) ; main-cube-width / 2
            (translate [0 130 5])
            (intersection bottom-thumbs-spacer-inline))
       (translate [0 0 2] bottom-thumbs-spacer-inline))
@@ -491,17 +491,17 @@
 (def middle-glue-reinforcement-bottom-left
   (union
     (difference
-      (->> (cube 20 2 45) ; main-cube-width / 2
-           (translate [0 33 10])
+      (->> (cube 16 2 16) ; main-cube-width / 2
+           (translate [0 33 15])
            (intersection bottom-main-cylinder-inline))
       (translate [0 2 0] bottom-main-cylinder-inline))
     (difference
-      (->> (cube 20 33.5 35) ; main-cube-width / 2
+      (->> (cube 16 33.5 35) ; main-cube-width / 2
            (translate [0 90 5])
            (intersection (union (intersection bottom-main-cylinder-inline bottom-main-inline) bottom-thumbs-spacer-inline)))
       (translate [0 0 2] (union (intersection bottom-main-cylinder-inline bottom-main-inline) bottom-thumbs-spacer-inline)))
     (difference
-      (->> (cube 20 30 40) ; main-cube-width / 2
+      (->> (cube 16 30 40) ; main-cube-width / 2
            (translate [0 168.3 5])
            (intersection bottom-thumbs-spacer-inline))
       (translate [0 0 2] bottom-thumbs-spacer-inline))
