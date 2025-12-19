@@ -392,21 +392,21 @@
 
 (def bottom-main-cylinder
   (difference
-    (->> (with-fn 150 (cylinder 100 420))
+    (->> (with-fn 150 (cylinder 92 420))
          (rotate (/ π 2) [0 1 0])
-         (translate [0 63 98]))
-    (->> (with-fn 100 (cylinder 40 30)) ; cut for a cable
+         (translate [0 63 89]))
+    (->> (with-fn 100 (cylinder 70 30)) ; cut for a cable
          (rotate (/ π 2) [1 0 0])
-         (translate [0 15 0]))))
+         (translate [0 15 -30]))))
 
 (def bottom-main-cylinder-inline
   (difference
-    (->> (with-fn 50 (cylinder 98 416))
+    (->> (with-fn 50 (cylinder 90 416))
          (rotate (/ π 2) [0 1 0])
-         (translate [0 63 98]))
-    (->> (with-fn 50 (cylinder 42 32)) ; cut for a cable
+         (translate [0 63 89]))
+    (->> (with-fn 50 (cylinder 72 32)) ; cut for a cable
          (rotate (/ π 2) [1 0 0])
-         (translate [0 16 0]))))
+         (translate [0 16 -30]))))
 
 (def bottom-hand-rest-outline
   (intersection
@@ -421,7 +421,7 @@
 (def bottom-hand-rest-inline
   (intersection
     (difference (->> (difference main-inline (well-sphere 78))
-                     (translate [0 0 -9]))
+                     (translate [0 0 -5])) ; does it matter how low it gets?
                 (->> (difference main-outline (well-sphere 78))
                      (translate [0 0 -18])))
     (->> (cube 420 200 60)
@@ -430,7 +430,7 @@
 (def bottom-thumbs-spacer
   (intersection
     (->> (cube 420 110 30)
-         (rotate (/ π 22) [1 0 0] )
+         (rotate (/ π 22) [1 0 0])
          (translate [0 130 23.4]))
     bottom-main-outline))
 
@@ -444,10 +444,10 @@
 (def bottom-corner-leg
   (difference
     (->> (cylinder 7.5 2)
-         (translate [100 51 0])
+         (translate [100 49 0])
          (with-fn 50))
     (->> (cylinder 6.4 5)
-         (translate [100 51 0])
+         (translate [100 49 0])
          (with-fn 50))
     )
   )
@@ -549,9 +549,9 @@
                (translate [25 183 28]))
           ; back
           (->> (cube 30 2 13)
-               (translate [25 3 47]))
+               (translate [25 3 48]))
           (->> (cube 30 2 15)
-               (translate [167 3 27]))
+               (translate [167 3 30]))
           )
 
         (difference ; very slow render :(
@@ -573,12 +573,7 @@
             half-divide-cube-left
             )
           )
-        ;(difference
-        ;  (import "base_right_bottom_common.stl")
-        ;  screw-cut-top-plate-mount-top
-        ;  screw-cut-top-plate-mount-shift
-        ;  screw-cut-top-plate-mount-home
-        ;  )
+
         ; Glue points right
         middle-glue-reinforcement-bottom-right
         ))
