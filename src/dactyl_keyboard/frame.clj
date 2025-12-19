@@ -507,14 +507,9 @@
       (translate [0 0 2] bottom-thumbs-spacer-inline))
     ))
 
-(spit "things_frame/base_right_bottom.scad"
+(spit "things_frame/base_bottom_common.scad"
       (write-scad
         (union
-          ;(difference
-          ;  (import "base_right_bottom.stl") ; to speed up loading
-            ;half-divide-cube-left)
-          ;(import "base_right_up.stl")
-          ;middle-glue-reinforcement-left
            bottom-corner-leg
            bottom-middle-leg
           (intersection
@@ -557,7 +552,6 @@
         (difference ; very slow render :(
           (union
             (intersection
-              ;base-right-up
               bottom-main-cylinder
               bottom-main-outline
               )
@@ -573,20 +567,27 @@
             half-divide-cube-left
             )
           )
+        ))
 
-        ; Glue points right
+(spit "things_frame/base_right_bottom.scad"
+      (write-scad
+        (->> (difference
+               (import "base_bottom_common.stl")
+               screw-cut-top-plate-mount-top
+               screw-cut-top-plate-mount-shift
+               screw-cut-top-plate-mount-home
+               ))
         middle-glue-reinforcement-bottom-right
         ))
 
 (spit "things_frame/base_left_bottom.scad"
       (write-scad
         (->> (difference
-               (import "base_right_bottom_common.stl")
+               (import "base_bottom_common.stl")
                screw-cut-top-plate-mount-top
                screw-cut-top-plate-mount-shift
                screw-cut-top-plate-mount-home
                )
              (mirror [1 0 0]))
-        ; Glue points right
         middle-glue-reinforcement-bottom-left
         ))
