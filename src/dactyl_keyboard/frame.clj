@@ -591,3 +591,24 @@
              (mirror [1 0 0]))
         middle-glue-reinforcement-bottom-left
         ))
+
+(spit "things_frame/top_raspberry_pi_pico_mount.scad"
+      (write-scad
+        (union
+          ;(import "case_left_up.stl")
+          ;(import "case_left_bottom.stl")
+          ;middle-glue-reinforcement-bottom-left
+          (intersection
+            (difference
+              (->> (cube 40 70 50)
+                   (translate [0 67.5 50]))
+              middle-glue-reinforcement-right
+              middle-glue-reinforcement-left
+              support-pillar-home-up-negative
+              (mirror [1 0 0] support-pillar-home-up-negative)
+              (->> (cube 26 60 10)
+                   (translate [0 60 27])))
+              main-inline)
+            )
+          )
+        )
