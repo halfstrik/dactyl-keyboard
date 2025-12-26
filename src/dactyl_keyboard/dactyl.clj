@@ -18,7 +18,7 @@
 (def mount-width (+ keyswitch-width 3))
 (def mount-height (+ keyswitch-height 3))
 
-(def old-single-plate
+(def single-plate
   (let [top-wall (->> (cube (+ keyswitch-width 3) 1.5 plate-thickness)
                       (translate [0
                                   (+ (/ 1.5 2) (/ keyswitch-height 2))
@@ -45,7 +45,7 @@
 (def alps-notch-height 1)
 (def alps-height 13)
 
-(def single-plate
+(def new-single-plate ; Those do not have cool notches
   (let [top-wall (->> (cube (+ keyswitch-width 3) 2.2 plate-thickness)
                       (translate [0
                                   (+ (/ 2.2 2) (/ alps-height 2))
@@ -71,16 +71,18 @@
 ;; SA Keycaps ;;
 ;;;;;;;;;;;;;;;;
 
-(def sa-length 18.25)
-(def sa-double-length 37.5)
+(def sa-length 18.75)
+(def sa-double-length (* sa-length 2))
+(def sa-1p2-length (* sa-length 1.2))
+(def sa-2p2-length (* sa-length 2.2))
 (def sa-cap {1 (let [bl2 (/ 18.5 2)
                      m (/ 17 2)
                      key-cap (hull (->> (polygon [[bl2 bl2] [bl2 (- bl2)] [(- bl2) (- bl2)] [(- bl2) bl2]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                        (translate [0 0 0.05]))
+                                        (translate [0 0 0.05])) ; 0.05
                                    (->> (polygon [[m m] [m (- m)] [(- m) (- m)] [(- m) m]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                        (translate [0 0 6]))
+                                        (translate [0 0 6])) ; 6
                                    (->> (polygon [[6 6] [6 -6] [-6 -6] [-6 6]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                         (translate [0 0 12])))]
@@ -91,7 +93,10 @@
                      bw2 (/ 18.25 2)
                      key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                        (translate [0 0 0.05]))
+                                        (translate [0 0 0.05])) ; 0.05
+                                   (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 6])) ; 6
                                    (->> (polygon [[6 16] [6 -16] [-6 -16] [-6 16]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                         (translate [0 0 12])))]
@@ -99,16 +104,61 @@
                       (translate [0 0 (+ 5 plate-thickness)])
                       (color [127/255 159/255 127/255 1])))
              1.5 (let [bl2 (/ 18.25 2)
-                       bw2 (/ 28 2)
+                       bw2 (/ 24 2)
                        key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                          (translate [0 0 0.05]))
-                                     (->> (polygon [[11 6] [-11 6] [-11 -6] [11 -6]])
+                                          (translate [0 0 0.05])) ; 0.05
+                                     (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                          (translate [0 0 6])) ; 6
+                                     (->> (polygon [[9 6] [-9 6] [-9 -6] [9 -6]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                           (translate [0 0 12])))]
                    (->> key-cap
                         (translate [0 0 (+ 5 plate-thickness)])
-                        (color [240/255 223/255 175/255 1])))})
+                        (color [240/255 223/255 175/255 1])))
+             0.5 (let [bl2 (/ 4.25 2) ; very skinny key-cap just to emulate undercut for the keys (to sand it later manually)
+                       bw2 (/ 4 2)
+                       key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                          (translate [0 0 0.05])) ; 0.05
+                                     (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                          (translate [0 0 6])) ; 6
+                                     (->> (polygon [[9 6] [-9 6] [-9 -6] [9 -6]])
+                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                          (translate [0 0 12])))]
+                   (->> key-cap
+                        (translate [0 0 (+ 5 plate-thickness)])
+                        (color [20/255 223/255 175/255 1])))
+             1.2 (let [bl2 (/ sa-1p2-length 2) ; very skinny key-cap just to emulate undercut for the keys (to sand it later manually)
+                       bw2 (/ (* 17 1.2) 2)
+                       key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                          (translate [0 0 0.05])) ; 0.05
+                                     (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                          (translate [0 0 6])) ; 6
+                                     (->> (polygon [[9 6] [-9 6] [-9 -6] [9 -6]])
+                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                          (translate [0 0 12])))]
+                   (->> key-cap
+                        (translate [0 0 (+ 5 plate-thickness)])
+                        (color [20/255 223/255 175/255 1])))
+             2.2 (let [bl2 (/ sa-2p2-length 2)
+                     bw2 (/ (* 18.25 1.2) 2)
+                     key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 0.05])) ; 0.05
+                                   (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 6])) ; 6
+                                   (->> (polygon [[6 16] [6 -16] [-6 -16] [-6 16]])
+                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                        (translate [0 0 12])))]
+                 (->> key-cap
+                      (translate [0 0 (+ 5 plate-thickness)])
+                      (color [127/255 159/255 127/255 1])))})
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Placement Functions ;;
@@ -134,7 +184,8 @@
                               (translate [0 0 row-radius]))
         column-offset (cond
                         (= column 2) [0 2.82 -3.0] ;;was moved -4.5
-                        (>= column 4) [0 -5.8 5.64]
+                        (= column 4) [0 -5.8 5.64]
+                        (= column 5) [3.2 -5.8 6.44] ;; Shift column moved to be 1.5 length
                         :else [0 0 0])
         column-angle (* β (- 2 column))
         placed-shape (->> row-placed-shape
@@ -166,7 +217,8 @@
   (apply union
          (for [column columns
                row rows
-               :when (or (not= column 0)
+               :when (or (and (not= column 0)
+                              (not= column 5)) ; Skip under pinky extra button
                          (not= row 4))]
            (->> single-plate
                 (key-place column row)))))
@@ -175,9 +227,10 @@
   (apply union
          (for [column columns
                row rows
-               :when (or (not= column 0)
+               :when (or (and (not= column 0)
+                              (not= column 5)) ; Skip under pinky extra button
                          (not= row 4))]
-           (->> (sa-cap (if (= column 5) 1 1))
+           (->> (sa-cap (if (= column 5) 1.5 1))
                 (key-place column row)))))
 
 ;;;;;;;;;;;;;;;;;;;;
@@ -238,11 +291,11 @@
 
 (defn thumb-place [column row shape]
   (let [cap-top-height (+ plate-thickness sa-profile-key-height)
-        α (/ π 12)
+        α (/ π 256)  ; Reduce thumb curvature radius (so CMD does not stick too much up)
         row-radius (+ (/ (/ (+ mount-height 1) 2)
                          (Math/sin (/ α 2)))
                       cap-top-height)
-        β (/ π 36)
+        β (/ π 256)
         column-radius (+ (/ (/ (+ mount-width 2) 2)
                             (Math/sin (/ β 2)))
                          cap-top-height)
@@ -257,9 +310,9 @@
          (rotate (* column β) [0 1 0])
          (translate [0 0 column-radius])
          (translate [mount-width 0 0])
-         (rotate (* π (- 1/4 3/16)) [0 0 1])
-         (rotate (/ π 12) [1 1 0])
-         (translate [-52 -45 40]))))
+         (rotate (* π (- 1/4 5/32)) [0 0 1])
+         (rotate (/ π 24) [1 -0.1 0])
+         (translate [-52 -53 37]))))  ; Rotate more outwards and less stick up
 
 (defn thumb-2x-column [shape]
   (thumb-place 0 -1/2 shape))
@@ -284,13 +337,15 @@
         top-plate (->> (cube mount-width plate-height web-thickness)
                        (translate [0 (/ (+ plate-height mount-height) 2)
                                    (- plate-thickness (/ web-thickness 2))]))
-        stabilizer-cutout (union (->> (cube 14.2 3.5 web-thickness)
-                                      (translate [0.5 12 (- plate-thickness (/ web-thickness 2))])
-                                      (color [1 0 0 1/2]))
-                                 (->> (cube 16 3.5 web-thickness)
-                                      (translate [0.5 12 (- plate-thickness (/ web-thickness 2) 1.4)])
-                                      (color [1 0 0 1/2])))
-        top-plate (difference top-plate stabilizer-cutout)]
+        ; We don't use stabilizers
+        ;stabilizer-cutout (union (->> (cube 14.2 3.5 web-thickness)
+        ;                              (translate [0.5 12 (- plate-thickness (/ web-thickness 2))])
+        ;                              (color [1 0 0 1/2]))
+        ;                         (->> (cube 16 3.5 web-thickness)
+        ;                              (translate [0.5 12 (- plate-thickness (/ web-thickness 2) 1.4)])
+        ;                              (color [1 0 0 1/2])))
+        ;top-plate (difference top-plate stabilizer-cutout)
+        ]
     (union top-plate (mirror [0 1 0] top-plate))))
 
 (def thumbcaps
@@ -391,7 +446,7 @@
 ;;;;;;;;;;
 
 ;; In column units
-(def right-wall-column (+ (last columns) 0.55))
+(def right-wall-column (+ (last columns) 0.74))
 (def left-wall-column (- (first columns) 1/2))
 (def thumb-back-y 0.93)
 (def thumb-right-wall (- -1/2 0.05))
@@ -419,7 +474,7 @@
                     (+ (/ mount-height -2) -3.5)
                     (+ (/ mount-height 2) 5.0)
                     front-to-back-scale)
-                   -6]))
+                   -1]))
 
 (defn wall-sphere-top [front-to-back-scale]
   (wall-sphere-at [0
@@ -427,7 +482,7 @@
                     (+ (/ mount-height -2) -3.5)
                     (+ (/ mount-height 2) 3.5)
                     front-to-back-scale)
-                   10]))
+                   12])) ; Controls case wall height, we won't expose it, will be covered
 
 (def wall-sphere-top-back (wall-sphere-top 1))
 (def wall-sphere-bottom-back (wall-sphere-bottom 1))
@@ -466,9 +521,9 @@
               (hull (place x 4 wall-sphere-top-front)
                     (place (+ x step) 4 wall-sphere-top-front)
                     (place 0.7 4 wall-sphere-bottom-front))))
-     (top-cover 0.5 1.7 3.6 4)
-     (top-cover 1.59 2.41 3.35 4) ;; was 3.32
-     (top-cover 2.39 3.41 3.6 4)
+     ;(top-cover 0.5 1.7 3.6 4)
+     ;(top-cover 1.59 2.41 3.35 4) ;; was 3.32
+     ;(top-cover 2.39 3.41 3.6 4)
      (apply union
             (for [x (range 2 5)]
               (union
@@ -511,9 +566,9 @@
                     (place (+ x step) back-y wall-sphere-top-back)
                     (place x back-y wall-sphere-bottom-back)
                     (place (+ x step) back-y wall-sphere-bottom-back))))
-     (front-top-cover 1.56 2.44 back-y 0.1)
-     (front-top-cover 3.56 4.44 back-y 0.13)
-     (front-top-cover 4.3 right-wall-column back-y 0.13)
+     ;(front-top-cover 1.56 2.44 back-y 0.1)
+     ;(front-top-cover 3.56 4.44 back-y 0.13)
+     ;(front-top-cover 4.3 right-wall-column back-y 0.13)
 
 
      (hull (place left-wall-column 0 (translate [1 -1 1] wall-sphere-bottom-back))
@@ -543,35 +598,36 @@
 
 (def right-wall
   (let [place case-place]
-    (union
-     (apply union
-            (map (partial apply hull)
-                 (partition 2 1
-                            (for [scale (range-inclusive 0 1 0.01)]
-                              (let [x (scale-to-range 4 0.02 scale)]
-                                (hull (place right-wall-column x (wall-sphere-top scale))
-                                      (place right-wall-column x (wall-sphere-bottom scale))))))))
+    (translate [1.5 0 0] ; Move a bit due to 1.5 width shift row
+      (union
+       (apply union
+              (map (partial apply hull)
+                   (partition 2 1
+                              (for [scale (range-inclusive 0 1 0.01)]
+                                (let [x (scale-to-range 4 0.02 scale)]
+                                  (hull (place right-wall-column x (wall-sphere-top scale))
+                                        (place right-wall-column x (wall-sphere-bottom scale))))))))
 
-          (apply union
-            (concat
-             (for [x (range 0 5)]
-               (union
-                (hull (place right-wall-column x (translate [-1 0 1] (wall-sphere-bottom 1/2)))
-                      (key-place 5 x web-post-br)
-                      (key-place 5 x web-post-tr))))
-             (for [x (range 0 4)]
-               (union
-                (hull (place right-wall-column x (translate [-1 0 1] (wall-sphere-bottom 1/2)))
-                      (place right-wall-column (inc x) (translate [-1 0 1] (wall-sphere-bottom 1/2)))
-                      (key-place 5 x web-post-br)
-                      (key-place 5 (inc x) web-post-tr))))
-             [(union
-               (hull (place right-wall-column 0 (translate [-1 0 1] (wall-sphere-bottom 1/2)))
-                     (place right-wall-column 0.02 (translate [-1 -1 1] (wall-sphere-bottom 1)))
-                     (key-place 5 0 web-post-tr))
-               (hull (place right-wall-column 4 (translate [-1 0 1] (wall-sphere-bottom 1/2)))
-                     (place right-wall-column 4 (translate [-1 1 1] (wall-sphere-bottom 0)))
-                     (key-place 5 4 web-post-br)))])))))
+            (apply union
+              (concat
+               (for [x (range 0 5)]
+                 (union
+                  (hull (place right-wall-column x (translate [-1 0 1] (wall-sphere-bottom 1/2)))
+                        (key-place 5 x web-post-br)
+                        (key-place 5 x web-post-tr))))
+               (for [x (range 0 4)]
+                 (union
+                  (hull (place right-wall-column x (translate [-1 0 1] (wall-sphere-bottom 1/2)))
+                        (place right-wall-column (inc x) (translate [-1 0 1] (wall-sphere-bottom 1/2)))
+                        (key-place 5 x web-post-br)
+                        (key-place 5 (inc x) web-post-tr))))
+               [(union
+                 (hull (place right-wall-column 0 (translate [-1 0 1] (wall-sphere-bottom 1/2)))
+                       (place right-wall-column 0.02 (translate [-1 -1 1] (wall-sphere-bottom 1)))
+                       (key-place 5 0 web-post-tr))
+                 (hull (place right-wall-column 4 (translate [-1 0 1] (wall-sphere-bottom 1/2)))
+                       (place right-wall-column 4 (translate [-1 1 1] (wall-sphere-bottom 0)))
+                       (key-place 5 4 web-post-br)))]))))))
 
 (def left-wall
   (let [place case-place]
@@ -1222,24 +1278,68 @@
             screw-holes))))
 
 (def dactyl-top-right
-  (difference
-   (union key-holes
-          connectors
-          thumb
-          new-case
-          teensy-support)
-   trrs-hole-just-circle
-   screw-holes))
+  ;(difference
+    (union
+      connectors
+      thumb
+      new-case
+      key-holes
+      ;;teensy-support
+     )
+    ;;trrs-hole-just-circle
+    ;;screw-holes
+  ;)
+)
 
 (def dactyl-top-left
   (mirror [-1 0 0]
-          (difference
+          ;(difference
            (union key-holes
                   connectors
                   thumb
                   new-case)
-           trrs-hole-just-circle
-           screw-holes)))
+           ;trrs-hole-just-circle
+           ;screw-holes
+          ))
+
+(def caps-combined-outline
+  ;(minkowski (sphere 2.3) (union thumbcaps caps)))
+  (union
+     (hull
+       (for [column columns
+             row rows
+             :when (and (not= column 0)
+                        (not= column 5))]
+         (->> (sa-cap (if (= row 4) 0.5 1)) ; with undercuts for later sanding
+              (key-place column row))))
+     (hull
+       (for [column columns
+             row rows
+             :when (not= row 4)]
+         (->> (sa-cap  (if (= column 5) 1.5 (if (= row 0) 0.5 1))) ; with undercuts for later sanding
+              (key-place column row))))
+
+     (key-place 0 0 (sa-cap 1.2))
+     (key-place 1 0 (sa-cap 1.2))
+     (key-place 2 0 (sa-cap 1.2))
+     (key-place 3 0 (sa-cap 1.2))
+     (key-place 4 0 (sa-cap 1.2))
+     (key-place 5 0 (sa-cap 1.2))
+     (key-place 1 4 (sa-cap 1.2))
+     (key-place 2 4 (sa-cap 1.2))
+     (key-place 3 4 (sa-cap 1.2))
+     (key-place 4 4 (sa-cap 1.2))
+     (hull
+       (thumb-place 1 -1/2 (sa-cap 2.2))
+       (thumb-place 1 1 (sa-cap 1.2))
+       (thumb-1x-column (sa-cap 1.2)))
+     (hull
+       (thumb-2x-column (sa-cap 2.2))
+       (thumb-place 1 -1/2 (sa-cap 2.2))
+       )
+     )
+   )
+
 
 (spit "things/switch-hole.scad"
       (write-scad single-plate))
@@ -1247,20 +1347,29 @@
 (spit "things/alps-holes.scad"
       (write-scad (union connectors key-holes)))
 
-(spit "things/dactyl-top-right.scad"
-      (write-scad dactyl-top-right))
+(defn rotate-y-3-degree [shape]
+  (rotate (/ π 60) [0 1 0] shape))
 
-(spit "things/dactyl-bottom-right.scad"
-      (write-scad dactyl-bottom-right))
+(spit "things/dactyl-top-right.scad"
+      (write-scad (rotate-y-3-degree dactyl-top-right)))
+
+(spit "things/combined-caps.scad"
+      (write-scad (rotate-y-3-degree (union thumbcaps caps))))
+
+(spit "things/combined-caps-outline.scad"
+      (write-scad (rotate-y-3-degree caps-combined-outline)))
+
+;(spit "things/dactyl-bottom-right.scad"
+;      (write-scad dactyl-bottom-right))
 
 (spit "things/dactyl-top-left.scad"
-      (write-scad dactyl-top-left))
+      (write-scad (rotate-y-3-degree dactyl-top-left)))
 
-(spit "things/dactyl-bottom-left.scad"
-      (write-scad dactyl-bottom-left))
+;(spit "things/dactyl-bottom-left.scad"
+;      (write-scad dactyl-bottom-left))
 
-(spit "things/dactyl-top-left-with-teensy.scad"
-      (write-scad (mirror [-1 0 0] dactyl-top-right)))
-
-(spit "things/dactyl-bottom-left-with-teensy.scad"
-      (write-scad (mirror [-1 0 0] dactyl-bottom-right)))
+;(spit "things/dactyl-top-left-with-teensy.scad"
+;      (write-scad (mirror [-1 0 0] dactyl-top-right)))
+;
+;(spit "things/dactyl-bottom-left-with-teensy.scad"
+;      (write-scad (mirror [-1 0 0] dactyl-bottom-right)))
