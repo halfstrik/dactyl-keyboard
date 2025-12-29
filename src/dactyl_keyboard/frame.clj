@@ -57,7 +57,7 @@
 
 (defn well-sphere1 [radius]
   (->> (with-fn 150 (sphere radius))
-       (translate [138 66 87])
+       (translate [134 66 87])
        (scale [1 1.0 1.3])
        (rotate (/ π 30) [1 0 0])))
 
