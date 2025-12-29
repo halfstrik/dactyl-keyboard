@@ -73,8 +73,8 @@
 
 (def sa-length 18.75)
 (def sa-double-length (* sa-length 2))
-(def sa-1p2-length (* sa-length 1.2))
-(def sa-2p2-length (* sa-length 2.2))
+(def sa-1p2-length (* sa-length 1.08))
+(def sa-2p2-length (* sa-length 2.08))
 (def sa-cap {1 (let [bl2 (/ 18.5 2)
                      m (/ 17 2)
                      key-cap (hull (->> (polygon [[bl2 bl2] [bl2 (- bl2)] [(- bl2) (- bl2)] [(- bl2) bl2]])

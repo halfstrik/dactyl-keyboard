@@ -230,8 +230,12 @@
 
 (def base-right-up
   (union
-    ;(well-sphere3 78)
-    (convert-dactyl-shapes caps)
+    ;(convert-dactyl-shapes caps thumbcaps)
+    ;(intersection
+    ;  (difference
+    ;    (convert-dactyl-shapes dactyl-top-right)
+    ;    (well-sphere 78))
+    ;  main-inline)
     (difference
       (union main-box-minus-well-sphere-top keys-well)
       (translate [0 0 -2.9] ; to fully erase remaining of the sphere
