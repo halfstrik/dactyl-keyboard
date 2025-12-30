@@ -22,8 +22,13 @@
   (->> (cube 210 186 70)
        (translate [-105 93 35])))
 
-(def third-divide-cube
-  ) ; TODO
+(def third-divide-cube-inner
+  (->> (cube 184.5 189 70)
+       (translate [0 94 35]))) ; TODO
+
+(def third-divide-cube-outer
+  (->> (cube 117.75 189 70)
+       (translate [(+ (/ 184.5 2) (/ 117.75 2)) 94 35])))
 
 (def main-outline
   (let [main-sphere (->> (with-fn 300 (sphere 1400))
@@ -317,6 +322,26 @@
           (->> base-right-up
                (mirror [1 0 0]))
           ;middle-glue-reinforcement-left)
+      ))
+
+(spit "things_frame/base_right_most_up.scad"
+      (write-scad
+        (difference
+          (import "base_right_up.stl")
+          third-divide-cube-inner
+          )
+        ))
+
+(spit "things_frame/base_middle_up.scad"
+      (write-scad
+        (union
+          (difference
+           (import "base_right_up.stl")
+            third-divide-cube-outer)
+          (mirror [1 0 0] (difference
+                            (import "base_right_up.stl")
+                            third-divide-cube-outer))
+        )
       ))
 
 (def well-right
