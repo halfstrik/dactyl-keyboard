@@ -171,19 +171,19 @@
   )
 
 (def bottom-plate-mount-shift
-  (->> (cube 15 15 35)
-       (translate [185 174 36])))
+  (->> (cube 35 21 35)
+       (translate [195 177 27])))
 
 (def top-plate-mount-shift
   (->> (cube 15 15 25)
        (translate [185 174 5.9])))
 (def screw-cut-top-plate-mount-shift
-  (union
-    (->> (cylinder 5, 13)
-         (translate [185 174 5.9])) ; Indent for a wooden screw:)
-    (->> (cylinder 1.3, 32)
+  ;(union
+  ;  (->> (cylinder 5, 13)
+  ;       (translate [185 174 5.9])) ; Indent for a wooden screw:)
+    (->> (with-fn 50 (cylinder 1.3, 32))
          (translate [185 174 5.9]))
-    )
+    ;)
   )
 
 (def bottom-plate-mount-home
@@ -329,6 +329,7 @@
             third-divide-cube-inner
             )
           ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
+          ;(import "case_right_bottom.stl")
           (difference
             (intersection
               support-pillar-shift-up
@@ -351,6 +352,11 @@
             (well-sphere 78)
             (->> (with-fn 50 (cylinder 1.3, 25))
                  (translate [108 5.5 (+ 19.4 18.4)])))
+          (difference
+            (intersection
+              bottom-plate-mount-shift ; TODO substruct with bottom inner properly
+              main-inline)
+            screw-cut-top-plate-mount-shift)
           )
         ))
 

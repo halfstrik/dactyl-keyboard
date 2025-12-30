@@ -159,4 +159,25 @@ union () {
       cylinder ($fn=50, h=25, r=1.3, center=true);
     }
   }
+  difference () {
+    intersection () {
+      translate ([195, 177, 27]) {
+        cube ([35, 21, 35], center=true);
+      }
+      intersection () {
+        translate ([0, -110, -1332]) {
+          sphere ($fn=300, r=1400);
+        }
+        translate ([0, 93, 33]) {
+          cube ([416, 182, 70], center=true);
+        }
+        translate ([0, 310, -787]) {
+          sphere ($fn=300, r=900);
+        }
+      }
+    }
+    translate ([185, 174, 5.9]) {
+      cylinder ($fn=50, h=32, r=1.3, center=true);
+    }
+  }
 }
