@@ -98,8 +98,8 @@
     (intersection (difference (well-sphere 78) (well-sphere 76)) main-outline))
 
 (def support-pillar-shift-up
-  (->> (cube 21 24 30)
-       (translate [193 108 43])))
+  (->> (cube 25.5 24 30)
+       (translate [195.25 108 39])))
 (def support-pillar-shift-up-negative
   (->> (cube 22 25 31)
        (translate [193 108 43])))
@@ -109,8 +109,8 @@
        (translate [193 108 19.4])))
 
 (def support-pillar-plus-up
-  (->> (cube 21 14 30)
-       (translate [193 8 43])))
+  (->> (cube 25.5 14 30)
+       (translate [195.25 9 42])))
 (def support-pillar-plus-up-negative
   (->> (cube 22 18 31)
        (translate [193 8 43])))
@@ -120,8 +120,13 @@
        (translate [193 8 25])))
 
 (def support-pillar-five-up
-  (->> (cube 21 9.5 30)
-       (translate [115 4 61.3])))
+  (difference
+    (->> (cube 21 9.5 30)
+         (translate [115 4 61.3]))
+    (->> (cube 20 10 10)
+         (rotate (/ π 12) [0 -1 0])
+         (translate [120 4 43]))
+    ))
 (def support-pillar-five-up-negative
   (->> (cube 22 11 31)
        (translate [115 4 61.3])))
@@ -316,19 +321,36 @@
           ;middle-glue-reinforcement-right)
         ))
 
-(spit "things_frame/base_left_up.scad"
-      (write-scad
-        ;(union
-          (->> base-right-up
-               (mirror [1 0 0]))
-          ;middle-glue-reinforcement-left)
-      ))
-
 (spit "things_frame/base_right_most_up.scad"
       (write-scad
-        (difference
-          (import "base_right_up.stl")
-          third-divide-cube-inner
+        (union
+          (difference
+            (import "base_right_up.stl")
+            third-divide-cube-inner
+            )
+          ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
+          (difference
+            (intersection
+              support-pillar-shift-up
+              main-inline)
+            (well-sphere 78)
+            (->> (with-fn 50 (cylinder 1.3, 35))
+                 (translate [193 112 (+ 19.4 8.4 -15)])))
+          (difference
+            (intersection
+              support-pillar-plus-up
+              main-inline)
+            (well-sphere 78)
+            (->> (with-fn 50 (cylinder 1.3, 25))
+                 (translate [193 9 (+ 19.4 8.4 -9)])))
+          (difference
+            (intersection
+              support-pillar-five-up
+              main-inline
+              )
+            (well-sphere 78)
+            (->> (with-fn 50 (cylinder 1.3, 25))
+                 (translate [108 5.5 (+ 19.4 18.4)])))
           )
         ))
 
