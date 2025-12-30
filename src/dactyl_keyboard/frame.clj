@@ -171,7 +171,7 @@
   )
 
 (def bottom-plate-mount-shift
-  (->> (cube 35 21 35)
+  (->> (cube 35 21 45)
        (translate [195 177 27])))
 
 (def top-plate-mount-shift
@@ -321,45 +321,6 @@
           ;middle-glue-reinforcement-right)
         ))
 
-(spit "things_frame/base_right_most_up.scad"
-      (write-scad
-        (union
-          (difference
-            (import "base_right_up.stl")
-            third-divide-cube-inner
-            )
-          ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
-          ;(import "case_right_bottom.stl")
-          (difference
-            (intersection
-              support-pillar-shift-up
-              main-inline)
-            (well-sphere 78)
-            (->> (with-fn 50 (cylinder 1.3, 35))
-                 (translate [193 112 (+ 19.4 8.4 -15)])))
-          (difference
-            (intersection
-              support-pillar-plus-up
-              main-inline)
-            (well-sphere 78)
-            (->> (with-fn 50 (cylinder 1.3, 25))
-                 (translate [193 9 (+ 19.4 8.4 -9)])))
-          (difference
-            (intersection
-              support-pillar-five-up
-              main-inline
-              )
-            (well-sphere 78)
-            (->> (with-fn 50 (cylinder 1.3, 25))
-                 (translate [108 5.5 (+ 19.4 18.4)])))
-          (difference
-            (intersection
-              bottom-plate-mount-shift ; TODO substruct with bottom inner properly
-              main-inline)
-            screw-cut-top-plate-mount-shift)
-          )
-        ))
-
 (spit "things_frame/base_middle_up.scad"
       (write-scad
         (union
@@ -501,6 +462,79 @@
          (rotate (/ π 22) [1 0 0] )
          (translate [0 130 25.4]))
     bottom-main-inline))
+
+(def bottom-negative-inline
+  (difference
+    bottom-main-inline
+    (union bottom-main-cylinder-inline
+           bottom-hand-rest-inline
+           bottom-thumbs-spacer-inline)))
+
+(spit "things_frame/base_right_most_up.scad"
+      (write-scad
+        (union
+          (difference
+            (import "base_right_up.stl")
+            third-divide-cube-inner
+            )
+          ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
+          ;(import "case_right_bottom.stl")
+          (difference
+            (intersection
+              support-pillar-shift-up
+              main-inline)
+            (well-sphere 78)
+            (->> (with-fn 50 (cylinder 1.3, 35))
+                 (translate [193 112 (+ 19.4 8.4 -15)])))
+          (difference
+            (intersection
+              support-pillar-plus-up
+              main-inline)
+            (well-sphere 78)
+            (->> (with-fn 50 (cylinder 1.3, 25))
+                 (translate [193 9 (+ 19.4 8.4 -9)])))
+          (difference
+            (intersection
+              support-pillar-five-up
+              main-inline
+              )
+            (well-sphere 78)
+            (->> (with-fn 50 (cylinder 1.3, 25))
+                 (translate [108 5.5 (+ 19.4 18.4)])))
+          (difference
+            (intersection
+              bottom-plate-mount-shift ; TODO substruct with bottom inner properly
+              main-inline)
+            screw-cut-top-plate-mount-shift
+            bottom-negative-inline)
+          ; Glue connections
+          (intersection
+            (difference
+              (->> (cube 62 40 30)
+                   (translate [118 164 14])
+                   (rotate (/ π 12) [0 -1 0]))
+              (->> main-inline
+                   (translate [0 -2 1])))
+            main-inline)
+          (intersection
+            (difference
+              (->> (cube 52 40 30)
+                   (translate [115 160 57])
+                   (rotate (/ π 12) [-0.8 -1 0]))
+              (->> main-inline
+                   (translate [0 1 -2])))
+            main-inline)
+          (intersection
+            (difference
+              (->> (cube 40 10 34)
+                   (translate [118 7 15])
+                   (rotate (/ π 7) [0 -1 0]))
+              (->> main-inline
+                   (translate [0 2 -2]))
+              (well-sphere1 78))
+            main-inline)
+          )
+        ))
 
 (def bottom-corner-leg
   (difference
