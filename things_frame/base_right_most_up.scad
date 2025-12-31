@@ -205,9 +205,9 @@ union () {
               cylinder ($fn=50, h=416, r=90, center=true);
             }
           }
-          translate ([0, 16, -30]) {
+          translate ([0, 16, -70]) {
             rotate (a=90.0, v=[1, 0, 0]) {
-              cylinder ($fn=50, h=32, r=72, center=true);
+              cylinder ($fn=50, h=32, r=112, center=true);
             }
           }
         }

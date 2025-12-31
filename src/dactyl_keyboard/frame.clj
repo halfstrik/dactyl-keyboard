@@ -160,8 +160,16 @@
        (translate [32 110 41.6])))
 
 (def bottom-plate-mount-top
-  (->> (cube 14 14 55)
-       (translate [75 9 35])))
+  (union
+    (->> (cube 14 14 55)
+         (translate [70 9 35]))
+    (difference
+      (->> (cube 43.3 14 61)
+           (rotate (/ π 4) [0 -1 0])
+           (translate [57 9 59]))
+      (->> (cube 40 14 55)
+           (translate [88 9 61])))
+    ))
 
 (def support-pillar-command-up
   (->> (cube 20 18.5 30)
@@ -197,8 +205,15 @@
   )
 
 (def bottom-plate-mount-home
-  (->> (cube 15 15 42)
-       (translate [25 174 51])))
+  (union
+    (->> (cube 14 14 42)
+       (translate [75 177 31]))
+    (difference
+      (->> (cube 45 14 75)
+           (rotate (/ π 4) [0 -1 0])
+           (translate [58 177 57]))
+      (->> (cube 40 14 55)
+           (translate [88 177 55])))))
 
 (def top-plate-mount-home
   (->> (cube 15 15 25)
@@ -346,18 +361,22 @@
     (->> (with-fn 150 (cylinder 92 420))
          (rotate (/ π 2) [0 1 0])
          (translate [0 63 89]))
-    (->> (with-fn 100 (cylinder 70 30)) ; cut for a cable
+    (->> (with-fn 100 (cylinder 110 30)) ; cut for a cable
          (rotate (/ π 2) [1 0 0])
-         (translate [0 15 -30]))))
+         (translate [0 15 -70]))
+    ;(->> (with-fn 100 (cylinder 70 30)) ; cut for a cable
+    ;     (rotate (/ π 2) [1 0 0])
+    ;     (translate [0 15 -30]))
+    ))
 
 (def bottom-main-cylinder-inline
   (difference
     (->> (with-fn 50 (cylinder 90 416))
          (rotate (/ π 2) [0 1 0])
          (translate [0 63 89]))
-    (->> (with-fn 50 (cylinder 72 32)) ; cut for a cable
+    (->> (with-fn 50 (cylinder 112 32)) ; cut for a cable
          (rotate (/ π 2) [1 0 0])
-         (translate [0 16 -30]))))
+         (translate [0 16 -70]))))
 
 (def bottom-hand-rest-outline
   (intersection
@@ -451,11 +470,24 @@
                 (->> (cylinder 1.3, 35)
                      (with-fn 50)
                      (translate [36 125 29])))
+              rear-mount
+                (difference
+                  (intersection
+                    bottom-plate-mount-top
+                    main-inline)
+                  bottom-negative-inline
+                  (->> (cylinder 1.3, 35)
+                       (with-fn 50)
+                       (translate [70 9 19])))
               front-mount
                 (difference
-                  bottom-plate-mount-top
-                  bottom-negative-inline)
-            ]
+                  (intersection
+                    bottom-plate-mount-home
+                    main-inline)
+                  bottom-negative-inline
+                  (->> (cylinder 1.3, 35)
+                       (with-fn 50)
+                       (translate [75 177 15])))]
       (write-scad
         (union
           (import "base_middle_up.stl")
@@ -463,7 +495,11 @@
           well-mount
           (mirror [1 0 0] well-mount)
 
-          front-mount ; TODO move cut closer, so mount is easy
+          rear-mount
+          (mirror [1 0 0] rear-mount)
+
+          front-mount
+          (mirror [1 0 0] front-mount)
           ))))
 
 (def bottom-corner-leg
@@ -537,41 +573,41 @@
         (union
            bottom-corner-leg
            bottom-middle-leg
-          (intersection
-            top-plate-mount-top
-            bottom-main-cylinder-inline
-            )
-          (intersection
-            top-plate-mount-shift
-            bottom-hand-rest-inline
-            )
-          (intersection
-            top-plate-mount-home
-            bottom-thumbs-spacer-inline
-            )
+          ;(intersection
+          ;  top-plate-mount-top
+          ;  bottom-main-cylinder-inline
+          ;  )
+          ;(intersection
+          ;  top-plate-mount-shift
+          ;  bottom-hand-rest-inline
+          ;  )
+          ;(intersection
+          ;  top-plate-mount-home
+          ;  bottom-thumbs-spacer-inline
+          ;  )
 
           ; Border holders
           ; right
-          (->> (cube 2 32 8)
-               (translate [207 64 7]))
-          (->> (cube 2 15 12)
-               (translate [207 18 21]))
-          (->> (cube 2 30 15)
-               (translate [207 120 23]))
-          (->> (cube 2 20 15)
-               (translate [207 174 13]))
+          ;(->> (cube 2 32 8)
+          ;     (translate [207 64 7]))
+          ;(->> (cube 2 15 12)
+          ;     (translate [207 18 21]))
+          ;(->> (cube 2 30 15)
+          ;     (translate [207 120 23]))
+          ;(->> (cube 2 20 15)
+          ;     (translate [207 174 13]))
           ; front
-          (->> (cube 30 2 15)
-               (translate [191 183 13]))
-          (->> (cube 30 2 15)
-               (translate [111 183 23]))
-          (->> (cube 30 2 15)
-               (translate [25 183 28]))
+          ;(->> (cube 30 2 15)
+          ;     (translate [191 183 13]))
+          ;(->> (cube 30 2 15)
+          ;     (translate [111 183 23]))
+          ;(->> (cube 30 2 15)
+          ;     (translate [25 183 28]))
           ; back
-          (->> (cube 30 2 13)
-               (translate [25 3 48]))
-          (->> (cube 30 2 15)
-               (translate [167 3 30]))
+          ;(->> (cube 30 2 13)
+          ;     (translate [25 3 48]))
+          ;(->> (cube 30 2 15)
+          ;     (translate [167 3 30]))
           )
 
         (difference ; very slow render :(
