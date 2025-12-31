@@ -201,125 +201,46 @@
          (translate [25 174 17.4]))
     )
   )
-;
-;(def middle-glue-reinforcement-right
-;  (union
-;    (difference
-;      (->> (cube 16 5 15)
-;           (translate [0 2.5 50])
-;           (intersection main-inline))
-;      (translate [0 2 0] main-inline))
-;    (difference
-;      (->> (cube 16 45.5 25) ; main-cube-width / 2
-;           (translate [0 22.25 55])
-;           (intersection main-inline))
-;      (translate [0 0 -2] main-inline))
-;    (difference
-;      (->> (cube 16 45.5 25) ; main-cube-width / 2
-;           (translate [0 (+ 91 22.25) 55])
-;           (intersection main-inline))
-;      (translate [0 0 -2] main-inline))))
 
-;(def middle-glue-reinforcement-left
-;  (union
-;    (difference
-;      (->> (cube 16 5 20)
-;           (translate [0 (- 186 2.5) 32])
-;           (intersection main-inline))
-;      (translate [0 -2 0] main-inline))
-;    (difference
-;      (->> (cube 16 45.5 45) ; main-cube-width / 2
-;           (translate [0 (+ 22.25 45.5) 45])
-;           (intersection main-inline))
-;      (translate [0 0 -2] main-inline))
-;    (difference
-;      (->> (cube 16 49.5 45) ; main-cube-width / 2
-;           (translate [0 (+ 91 24.25 45.5) 45])
-;           (intersection main-inline))
-;      (translate [0 0 -2] main-inline))))
+(def middle-glue-reinforcement-up
+  (union
+    (intersection
+      (difference
+        (->> (cube 62 40 30)
+             (translate [118 164 14])
+             (rotate (/ π 12) [0 -1 0]))
+        (->> main-inline
+             (translate [0 -2 1])))
+      main-inline)
+    (intersection
+      (difference
+        (->> (cube 52 40 30)
+             (translate [115 160 57])
+             (rotate (/ π 12) [-0.8 -1 0]))
+        (->> main-inline
+             (translate [0 1 -2])))
+      main-inline)
+    (intersection
+      (difference
+        (->> (cube 40 10 34)
+             (translate [118 7 15])
+             (rotate (/ π 7) [0 -1 0]))
+        (->> main-inline
+             (translate [0 2 -2]))
+        (well-sphere1 78))
+      main-inline)))
 
 (def base-right-up
   (union
-    ;(convert-dactyl-shapes caps thumbcaps)
-    ;(intersection
-    ;  (difference
-    ;    (convert-dactyl-shapes dactyl-top-right)
-    ;    (well-sphere 78))
-    ;  main-inline)
     (difference
       (union main-box-minus-well-sphere-top keys-well)
       (translate [0 0 -2.9] ; to fully erase remaining of the sphere
                  (convert-dactyl-shapes caps-combined-outline)))
-    ;(convert-dactyl-shapes caps thumbcaps)
-
-    ;(difference
-    ;  (intersection
-    ;    support-pillar-shift-up
-    ;    main-inline)
-    ;  (well-sphere 78)
-    ;  (->> (cylinder 1.3, 35)
-    ;       (translate [193 112 (+ 19.4 8.4 -15)]))
-    ;  )
-    ;(difference
-    ;  (intersection
-    ;    support-pillar-plus-up
-    ;    main-inline)
-    ;  (well-sphere 78)
-    ;  (->> (cylinder 1.3, 25)
-    ;       (translate [193 9 (+ 19.4 8.4 -9)])))
-    ;(difference
-    ;  (intersection
-    ;    support-pillar-five-up
-    ;    main-inline
-    ;    )
-    ;  (well-sphere 78)
-    ;  (->> (cylinder 1.3, 25)
-    ;       (translate [108 5.5 (+ 19.4 18.4)])))
-    ;(difference
-    ;  (intersection
-    ;    support-pillar-home-up
-    ;    main-inline
-    ;    )
-    ;  (->> (cylinder 1.3, 35)
-    ;       (translate [30 110 (+ 19.4 12.4)])))
-    ;(difference
-    ;  (intersection
-    ;    support-pillar-command-up
-    ;    main-inline
-    ;    )
-    ;  (->> (cylinder 1.3, 35)
-    ;       (translate [90 151.2 (+ 19.4 2.4)])))
-    ;(difference
-    ;  (intersection
-    ;    bottom-plate-mount-shift
-    ;    main-inline)
-    ;  screw-cut-top-plate-mount-shift)
-
-    ;Border holders
-    ;right
-    ;(->> (cube 2 15 14)
-    ;     (translate [207 92 15]))
-    ;(->> (cube 2 15 14)
-    ;     (translate [207 36 15]))
-    ;(->> (cube 2 15 14)
-    ;     (translate [207 156 20]))
-    ; front
-    ;(->> (cube 30 2 15)
-    ;     (translate [151 183 20]))
-    ;(->> (cube 30 2 15)
-    ;     (translate [65 183 27]))
-    ; back
-    ;(->> (cube 30 2 15)
-    ;     (translate [70 3 46]))
-    ;)
     ))
 
 (spit "things_frame/base_right_up.scad"
       (write-scad
-        ;(union
-          base-right-up
-          ;middle-glue-reinforcement-right)
-        ))
+          base-right-up))
 
 (spit "things_frame/base_middle_up.scad"
       (write-scad
@@ -329,9 +250,7 @@
             third-divide-cube-outer)
           (mirror [1 0 0] (difference
                             (import "base_right_up.stl")
-                            third-divide-cube-outer))
-        )
-      ))
+                            third-divide-cube-outer)))))
 
 (def well-right
   (union
@@ -503,36 +422,12 @@
                  (translate [108 5.5 (+ 19.4 18.4)])))
           (difference
             (intersection
-              bottom-plate-mount-shift ; TODO substruct with bottom inner properly
+              bottom-plate-mount-shift
               main-inline)
             screw-cut-top-plate-mount-shift
             bottom-negative-inline)
           ; Glue connections
-          (intersection
-            (difference
-              (->> (cube 62 40 30)
-                   (translate [118 164 14])
-                   (rotate (/ π 12) [0 -1 0]))
-              (->> main-inline
-                   (translate [0 -2 1])))
-            main-inline)
-          (intersection
-            (difference
-              (->> (cube 52 40 30)
-                   (translate [115 160 57])
-                   (rotate (/ π 12) [-0.8 -1 0]))
-              (->> main-inline
-                   (translate [0 1 -2])))
-            main-inline)
-          (intersection
-            (difference
-              (->> (cube 40 10 34)
-                   (translate [118 7 15])
-                   (rotate (/ π 7) [0 -1 0]))
-              (->> main-inline
-                   (translate [0 2 -2]))
-              (well-sphere1 78))
-            main-inline)
+          middle-glue-reinforcement-up
           )
         ))
 
@@ -697,8 +592,6 @@
             (difference
               (->> (cube 40 70 50)
                    (translate [0 67.5 50]))
-              ;middle-glue-reinforcement-right
-              ;middle-glue-reinforcement-left
               support-pillar-home-up-negative
               (mirror [1 0 0] support-pillar-home-up-negative)
               (->> (cube 26 60 10)
