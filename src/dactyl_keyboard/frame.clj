@@ -136,9 +136,19 @@
        (translate [115 4 41.6])))
 
 (def support-pillar-home-up
-  (->> (cube 20 18.5 30)
-       (rotate (/ π 2.45) [0 0 1])
-       (translate [30 110 58.5])))
+  (union
+    (->> (cube 14 14 30)
+         (rotate (/ π 2.45) [0 0 1])
+         (translate [36 125 54.5]))
+    (difference
+      (->> (cube 25 14 20)
+           (rotate (/ π 5.45) [0 1 0])
+           (translate [25.5 127 52.5]))
+      (->> (cube 40 40 10)
+           (translate [25.5 127 34.5]))
+      ))
+    )
+
 (def support-pillar-home-up-negative
   (->> (cube 20.3 18.8 31)
        (rotate (/ π 2.45) [0 0 1])
@@ -150,8 +160,8 @@
        (translate [32 110 41.6])))
 
 (def bottom-plate-mount-top
-  (->> (cube 15 15 35)
-       (translate [75 12 65])))
+  (->> (cube 14 14 55)
+       (translate [75 9 35])))
 
 (def support-pillar-command-up
   (->> (cube 20 18.5 30)
@@ -430,6 +440,31 @@
           middle-glue-reinforcement-up
           )
         ))
+
+(spit "things_frame/base_middle_up_final.scad"
+      (let [well-mount
+              (difference
+                (intersection
+                  support-pillar-home-up
+                  main-inline
+                  )
+                (->> (cylinder 1.3, 35)
+                     (with-fn 50)
+                     (translate [36 125 29])))
+              front-mount
+                (difference
+                  bottom-plate-mount-top
+                  bottom-negative-inline)
+            ]
+      (write-scad
+        (union
+          (import "base_middle_up.stl")
+          ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
+          well-mount
+          (mirror [1 0 0] well-mount)
+
+          front-mount ; TODO move cut closer, so mount is easy
+          ))))
 
 (def bottom-corner-leg
   (difference
