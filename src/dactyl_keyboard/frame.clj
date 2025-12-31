@@ -376,7 +376,11 @@
          (translate [0 63 89]))
     (->> (with-fn 50 (cylinder 112 32)) ; cut for a cable
          (rotate (/ π 2) [1 0 0])
-         (translate [0 16 -70]))))
+         (translate [0 16 -70]))
+    (->> (cube 416 186 2) ; Bottom limiter
+         (translate [0 93 1]))
+    (->> (cube 416 2 70) ; Rear side limiter
+         (translate [0 1 35]))))
 
 (def bottom-hand-rest-outline
   (intersection
@@ -570,21 +574,9 @@
 
 (spit "things_frame/base_bottom_common.scad"
       (write-scad
-        (union
-           bottom-corner-leg
-           bottom-middle-leg
-          ;(intersection
-          ;  top-plate-mount-top
-          ;  bottom-main-cylinder-inline
-          ;  )
-          ;(intersection
-          ;  top-plate-mount-shift
-          ;  bottom-hand-rest-inline
-          ;  )
-          ;(intersection
-          ;  top-plate-mount-home
-          ;  bottom-thumbs-spacer-inline
-          ;  )
+        ;(union
+           ;bottom-corner-leg
+           ;bottom-middle-leg
 
           ; Border holders
           ; right
@@ -608,7 +600,7 @@
           ;     (translate [25 3 48]))
           ;(->> (cube 30 2 15)
           ;     (translate [167 3 30]))
-          )
+          ;)
 
         (difference ; very slow render :(
           (union
@@ -620,14 +612,14 @@
             bottom-thumbs-spacer
             )
           (union
-            (intersection
-              bottom-main-cylinder-inline
-              bottom-main-inline)
-            bottom-hand-rest-inline
+            bottom-main-cylinder-inline
+            (difference (->> (difference main-inline
+                                         (translate [0 0 -13] main-inline))
+                             (translate [0 0 -5]))
+                        (->> (cube 420 140 80)
+                             (translate [0 70 30])))
             bottom-thumbs-spacer-inline
-            half-divide-cube-left
-            )
-          )
+            half-divide-cube-left))
         ))
 
 (spit "things_frame/base_right_bottom.scad"
