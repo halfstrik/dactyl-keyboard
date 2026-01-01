@@ -562,9 +562,9 @@
 (def middle-glue-reinforcement-bottom-left
   (union
     (difference
-      (->> (cube 16 2 16) ; main-cube-width / 2
+      (->> (cube 16 2 14) ; main-cube-width / 2
            (rotate (/ π 26) [0 0 1])
-           (translate [0 32 15])
+           (translate [0 32 14])
            (intersection bottom-main-cylinder-inline))
       (translate [0 2 0] bottom-main-cylinder-inline))
     (difference
@@ -586,6 +586,18 @@
       (translate [0 0 0] bottom-negative-inline))
     ))
 
+(def usb-hole-cut
+  (hull
+    (->> (cylinder 1.7 4)
+         (with-fn 50)
+         (rotate (/ π 2) [1 0 0])
+         (translate [4, 31, 25]))
+    (->> (cylinder 1.7 4)
+         (with-fn 50)
+         (rotate (/ π 2) [1 0 0])
+         (translate [4, 31, 25])
+         (mirror [1 0 0]))))
+
 (spit "things_frame/base_bottom_common.scad"
       (write-scad
         (union
@@ -606,6 +618,7 @@
                           (->> (cube 420 140 80)
                                (translate [0 70 30])))
               bottom-thumbs-spacer-inline
+              usb-hole-cut
               half-divide-cube-left))
           bottom-corner-leg
           bottom-middle-leg
@@ -630,7 +643,9 @@
             middle-glue-reinforcement-bottom-right)
           ; TODO: add holes for screws once wells are ready
           (->> (cube 20 200 70)
-               (translate [-19 100 36])))))
+               (translate [-19 100 36]))
+          ; usb-hole-cut
+          )))
 
 (spit "things_frame/base_left_bottom.scad"
       (write-scad
