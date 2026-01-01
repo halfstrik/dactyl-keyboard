@@ -513,9 +513,7 @@
          (with-fn 50))
     (->> (cylinder 6.4 5)
          (translate [100 49 0])
-         (with-fn 50))
-    )
-  )
+         (with-fn 50))))
 
 (def bottom-middle-leg
   (union
@@ -525,51 +523,67 @@
            (with-fn 50))
       (->> (cylinder 6.4 5)
            (translate [200 176 0])
-           (with-fn 50))
-      )
+           (with-fn 50)))
     (difference
       (->> (cylinder [7.5 9] 8)
            (translate [200 176 4])
            (with-fn 50))
-      bottom-hand-rest-outline)
-    )
-  )
+      bottom-hand-rest-outline)))
 
 (def middle-glue-reinforcement-bottom-right
   (union
     (difference
-      (->> (cube 16 45.5 25) ; main-cube-width / 2
-           (translate [0 27 50])
+      (->> (cube 24 46 25) ; main-cube-width / 2
+           (rotate (/ π 6) [0 1 0])
+           (translate [0 27 34])
            (intersection bottom-main-cylinder-inline))
       (translate [0 0 2] bottom-main-cylinder-inline))
     (difference
-      (->> (cube 16 45.5 25) ; main-cube-width / 2
-           (translate [0 50 5])
+      (->> (cube 23 45.5 15) ; main-cube-width / 2
+           (rotate (/ π 6) [0 1 0])
+           (translate [0 50 -1])
            (intersection (intersection bottom-main-cylinder-inline bottom-main-inline)))
       (translate [0 0 2] (intersection bottom-main-cylinder-inline bottom-main-inline)))
     (difference
-      (->> (cube 16 45.5 25) ; main-cube-width / 2
-           (translate [0 130 5])
+      (->> (cube 23 45.5 25) ; main-cube-width / 2
+           (rotate (/ π 6) [0 1 0])
+           (translate [0 130 2])
            (intersection bottom-thumbs-spacer-inline))
       (translate [0 0 2] bottom-thumbs-spacer-inline))
+    (difference
+      (->> (cube 34 2 20) ; main-cube-width / 2
+           (rotate (/ π 6) [0 1 0])
+           (translate [0 3 38]))
+      (->> (with-fn 50 (cylinder 112 32)) ; cut for a cable
+           (rotate (/ π 2) [1 0 0])
+           (translate [0 16 -70])))
     ))
+
 (def middle-glue-reinforcement-bottom-left
   (union
     (difference
       (->> (cube 16 2 16) ; main-cube-width / 2
-           (translate [0 33 15])
+           (rotate (/ π 26) [0 0 1])
+           (translate [0 32 15])
            (intersection bottom-main-cylinder-inline))
       (translate [0 2 0] bottom-main-cylinder-inline))
     (difference
-      (->> (cube 16 33.5 35) ; main-cube-width / 2
-           (translate [0 90 5])
+      (->> (cube 24 33.5 25) ; main-cube-width / 2
+           (rotate (/ π 6) [0 -1 0])
+           (translate [0 90 -1.5])
            (intersection (union (intersection bottom-main-cylinder-inline bottom-main-inline) bottom-thumbs-spacer-inline)))
       (translate [0 0 2] (union (intersection bottom-main-cylinder-inline bottom-main-inline) bottom-thumbs-spacer-inline)))
     (difference
-      (->> (cube 16 30 40) ; main-cube-width / 2
-           (translate [0 168.3 5])
+      (->> (cube 24 30 40) ; main-cube-width / 2
+           (rotate (/ π 6) [0 -1 0])
+           (translate [5 168.3 0])
            (intersection bottom-thumbs-spacer-inline))
       (translate [0 0 2] bottom-thumbs-spacer-inline))
+    (difference
+      (->> (cube 44 2 15)
+           (rotate (/ π 7) [0 -11 0])
+           (translate [-4 183 20]))
+      (translate [0 0 0] bottom-negative-inline))
     ))
 
 (spit "things_frame/base_bottom_common.scad"
@@ -577,30 +591,6 @@
         ;(union
            ;bottom-corner-leg
            ;bottom-middle-leg
-
-          ; Border holders
-          ; right
-          ;(->> (cube 2 32 8)
-          ;     (translate [207 64 7]))
-          ;(->> (cube 2 15 12)
-          ;     (translate [207 18 21]))
-          ;(->> (cube 2 30 15)
-          ;     (translate [207 120 23]))
-          ;(->> (cube 2 20 15)
-          ;     (translate [207 174 13]))
-          ; front
-          ;(->> (cube 30 2 15)
-          ;     (translate [191 183 13]))
-          ;(->> (cube 30 2 15)
-          ;     (translate [111 183 23]))
-          ;(->> (cube 30 2 15)
-          ;     (translate [25 183 28]))
-          ; back
-          ;(->> (cube 30 2 13)
-          ;     (translate [25 3 48]))
-          ;(->> (cube 30 2 15)
-          ;     (translate [167 3 30]))
-          ;)
 
         (difference ; very slow render :(
           (union
@@ -624,26 +614,48 @@
 
 (spit "things_frame/base_right_bottom.scad"
       (write-scad
-        (->> (difference
-               (import "base_bottom_common.stl")
-               screw-cut-top-plate-mount-top
-               screw-cut-top-plate-mount-shift
-               screw-cut-top-plate-mount-home
-               ))
-        middle-glue-reinforcement-bottom-right
-        ))
+        (difference
+          (union
+            (import "base_bottom_common.stl")
+            bottom-corner-leg
+            bottom-middle-leg
+            middle-glue-reinforcement-bottom-right
+            ;(translate [0 0 10] (import "case_right_most_up.stl"))
+            ;(translate [0 0 10] (import "base_middle_up_final.stl"))
+            ; right
+            (->> (cube 2 46 10)
+                 (translate [207 63 7]))
+            (->> (cube 2 30 12)
+                 (translate [207 144 18]))
+            ; front
+            (difference
+              (->> (cube 44 2 25)
+                   (rotate (/ π 7) [0 1 0])
+                   (translate [141 183 7]))
+              (translate [0 0 -18] main-inline))
+
+            ; rear
+            ;(->> (cube 40 2 25)
+            ;     (rotate (/ π 7) [0 1 0])
+            ;     (translate [0 3 35]))
+            )
+          ; TODO: add holes for screws once wells are ready
+          (->> (cube 20 200 70)
+               (translate [-19 100 36])))))
 
 (spit "things_frame/base_left_bottom.scad"
       (write-scad
-        (->> (difference
-               (import "base_bottom_common.stl")
-               screw-cut-top-plate-mount-top
-               screw-cut-top-plate-mount-shift
-               screw-cut-top-plate-mount-home
-               )
-             (mirror [1 0 0]))
-        middle-glue-reinforcement-bottom-left
-        ))
+        (difference
+          (union
+            (mirror [1 0 0]
+                    (import "base_bottom_common.stl")
+                    bottom-corner-leg
+                    bottom-middle-leg)
+            middle-glue-reinforcement-bottom-left
+            )
+          ; TODO: add holes for screws once wells are ready
+          (->> (cube 20 200 70)
+               (translate [19 100 35])))))
 
 (spit "things_frame/top_raspberry_pi_pico_mount.scad"
       (write-scad
