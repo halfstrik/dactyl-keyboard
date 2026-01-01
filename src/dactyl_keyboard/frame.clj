@@ -556,8 +556,7 @@
            (translate [0 3 38]))
       (->> (with-fn 50 (cylinder 112 32)) ; cut for a cable
            (rotate (/ π 2) [1 0 0])
-           (translate [0 16 -70])))
-    ))
+           (translate [0 16 -70])))))
 
 (def middle-glue-reinforcement-bottom-left
   (union
@@ -583,8 +582,7 @@
       (->> (cube 44 2 15)
            (rotate (/ π 7) [0 -11 0])
            (translate [-4 183 20]))
-      (translate [0 0 0] bottom-negative-inline))
-    ))
+      (translate [0 0 0] bottom-negative-inline))))
 
 (def usb-hole-cut
   (hull
@@ -644,7 +642,6 @@
           ; TODO: add holes for screws once wells are ready
           (->> (cube 20 200 70)
                (translate [-19 100 36]))
-          ; usb-hole-cut
           )))
 
 (spit "things_frame/base_left_bottom.scad"
