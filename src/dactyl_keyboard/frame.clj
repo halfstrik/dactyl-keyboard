@@ -112,8 +112,8 @@
   (->> (cube 25.5 14 30)
        (translate [195.25 9 42])))
 (def support-pillar-plus-up-negative
-  (->> (cube 22 18 31)
-       (translate [193 8 43])))
+  (->> (cube 26 18 31)
+       (translate [195.25 9 42])))
 
 (def support-pillar-plus-well
   (->> (cube 25.5 14 20)
@@ -156,7 +156,7 @@
 
 (def support-pillar-home-well
   (difference
-    (->> (cube 16 20.5 38)
+    (->> (cube 16 20 36)
        (rotate (/ π 2.45) [0 0 1])
        (translate [38.21 124.35 26]))
     (->> (cube 14.5 14.5 30)
@@ -454,24 +454,23 @@
     ;(import "well_right.stl")
     ;(import "case_right_most_up.stl")
     ;(import "case_middle_up.stl")
-
     (->> (cube 3 40 2) ; to close right border
          (translate [202 60 6]))
     (->> (cube 3 40 2)
          (translate [202 22 25])
          (rotate (/ π -7) [1 0 0]))
     (->> (cube 3 30 2)
-         (translate [202 82 -30])
-         (rotate (/ π 7) [1 0 0]))
+         (translate [202 86 -21.5])
+         (rotate (/ π 9) [1 0 0]))
     (difference
        (intersection
         (union
-          (->> (cube 3 30 17) ; to sopport middle connection to thumb isle
+          (->> (cube 3 30 17) ; to support middle connection to thumb isle
                (rotate (/ π 10) [0 0 -11])
                (translate [104.5 102 46]))
           (->> (cube 18 4 17)
-               (translate [94.5 92 46]))
-          (->> (cube 5.5 18 17) ; to sopport middle connection to thumb isle
+               (translate [94 92 46]))
+          (->> (cube 4.5 18 17)
                (rotate (/ π 10) [0 0 -11])
                (translate [81.5 86.3 46]))
           )
@@ -481,8 +480,9 @@
     (difference
       (intersection
        (convert-dactyl-shapes dactyl-top-right)
+       ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
        main-inline)
-      ; (convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
+
       support-pillar-shift-up-negative
       support-pillar-five-up-negative
       support-pillar-plus-up-negative
@@ -494,14 +494,20 @@
       (translate [193 112 (+ 19.4 8.4 -17)] ; Indent for a wooden screw:)
                  (cylinder 5, 15))
       (->> (cylinder 1.3, 25)
-           (translate [193 112 (+ 19.4 8.4 -1)])))
+           (translate [193 112 (+ 19.4 8.4 -1)]))
+      (->> (cylinder 1.7, 25)
+           (rotate (/ π 20) [1 0 0])
+           (translate [203 112 10])))
     (difference
       support-pillar-plus-well
       bottom-negative-inline
       (translate [193 9 (+ 19.4 8.4 -12)] ; Indent for a wooden screw:)
                  (cylinder 5, 15))
       (->> (cylinder 1.3, 25)
-           (translate [193 9 (+ 19.4 8.4 -4)])))
+           (translate [193 9 (+ 19.4 8.4 -4)]))
+      (->> (cylinder 1.7, 25)
+           (rotate (/ π 10) [-1 0 0])
+           (translate [203 8 10])))
     (difference
       (intersection
         support-pillar-five-well
@@ -515,7 +521,10 @@
       (->> (cylinder 1.3, 45)
            (translate [36 125 (+ 19.4 12.4)]))
       (->> (cylinder 5, 35)
-           (translate [36 125 19]))) ; Indent for a wooden screw:))
+           (translate [36 125 19])) ; Indent for a wooden screw:)
+      (->> (cylinder 1.7, 25)
+           (rotate (/ π 20) [1 0 0])
+           (translate [45 125 10])))
     )
   )
 
@@ -525,7 +534,8 @@
 
 (spit "things_frame/well_left.scad"
       (write-scad
-        (->> well-right
+        (->> ; well-right
+             (import "well_right.stl")
              (mirror [1 0 0]))))
 
 (def bottom-corner-leg
