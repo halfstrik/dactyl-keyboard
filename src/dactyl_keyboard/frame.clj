@@ -156,9 +156,9 @@
 
 (def support-pillar-home-well
   (difference
-    (->> (cube 16 20 36)
+    (->> (cube 16 20 35.5)
        (rotate (/ π 2.45) [0 0 1])
-       (translate [38.21 124.35 26]))
+       (translate [38.21 124.35 25]))
     (->> (cube 14.5 14.5 30)
          (rotate (/ π 2.45) [0 0 1])
          (translate [36 125 54.5]))
@@ -465,15 +465,14 @@
     (difference
        (intersection
         (union
-          (->> (cube 3 30 17) ; to support middle connection to thumb isle
-               (rotate (/ π 10) [0 0 -11])
-               (translate [104.5 102 46]))
-          (->> (cube 18 4 17)
-               (translate [94 92 46]))
-          (->> (cube 4.5 18 17)
-               (rotate (/ π 10) [0 0 -11])
-               (translate [81.5 86.3 46]))
-          )
+          (->> (cube 3 23 22) ; to support middle connection to thumb isle
+               (rotate (/ π 10) [0 0 -1])
+               (translate [103 105 49]))
+          (->> (cube 18 4 22)
+               (translate [91.5 92 46]))
+          (->> (cube 4.5 18 22)
+               (rotate (/ π 10) [0 0 -1])
+               (translate [78.3 86.3 46])))
         main-inline)
        (well-sphere1 78))
 
