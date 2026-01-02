@@ -62,14 +62,14 @@
 
 (defn well-sphere1 [radius]
   (->> (with-fn 150 (sphere radius))
-       (translate [134 66 87])
-       (scale [1 1.0 1.3])
+       (translate [121.8181818 66 87])
+       (scale [1.1 1 1.3])
        (rotate (/ π 30) [1 0 0])))
 
 (defn well-sphere2 [radius]
   (->> (with-fn 150 (sphere radius))
        (translate [145 71 84])
-       (scale [1.27 1.0 1.3])
+       (scale [1.27 1 1.3])
        (rotate (/ π 30) [1 0 0])))
 
 (defn well-sphere3 [radius]
@@ -704,3 +704,12 @@
             )
           )
         )
+
+(spit "things_frame/all_combined.scad"
+      (write-scad
+        (union
+          (import "case_right_most_up.stl")
+          (import "base_middle_up.stl")
+          (import "well_right.stl")
+          (import "case_right_bottom.stl")
+          )))

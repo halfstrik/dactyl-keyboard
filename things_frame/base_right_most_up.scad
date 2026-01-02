@@ -25,14 +25,14 @@ union () {
     union () {
       hull () {
         rotate (a=6.0, v=[1, 0, 0]) {
-          scale ([1, 1.0, 1.3]) {
-            translate ([134, 66, 87]) {
+          scale ([1.1, 1, 1.3]) {
+            translate ([121.8181818, 66, 87]) {
               sphere ($fn=150, r=78);
             }
           }
         }
         rotate (a=6.0, v=[1, 0, 0]) {
-          scale ([1.27, 1.0, 1.3]) {
+          scale ([1.27, 1, 1.3]) {
             translate ([145, 71, 84]) {
               sphere ($fn=150, r=78);
             }
@@ -74,14 +74,14 @@ union () {
     union () {
       hull () {
         rotate (a=6.0, v=[1, 0, 0]) {
-          scale ([1, 1.0, 1.3]) {
-            translate ([134, 66, 87]) {
+          scale ([1.1, 1, 1.3]) {
+            translate ([121.8181818, 66, 87]) {
               sphere ($fn=150, r=78);
             }
           }
         }
         rotate (a=6.0, v=[1, 0, 0]) {
-          scale ([1.27, 1.0, 1.3]) {
+          scale ([1.27, 1, 1.3]) {
             translate ([145, 71, 84]) {
               sphere ($fn=150, r=78);
             }
@@ -130,14 +130,14 @@ union () {
     union () {
       hull () {
         rotate (a=6.0, v=[1, 0, 0]) {
-          scale ([1, 1.0, 1.3]) {
-            translate ([134, 66, 87]) {
+          scale ([1.1, 1, 1.3]) {
+            translate ([121.8181818, 66, 87]) {
               sphere ($fn=150, r=78);
             }
           }
         }
         rotate (a=6.0, v=[1, 0, 0]) {
-          scale ([1.27, 1.0, 1.3]) {
+          scale ([1.27, 1, 1.3]) {
             translate ([145, 71, 84]) {
               sphere ($fn=150, r=78);
             }
@@ -235,14 +235,14 @@ union () {
                 union () {
                   hull () {
                     rotate (a=6.0, v=[1, 0, 0]) {
-                      scale ([1, 1.0, 1.3]) {
-                        translate ([134, 66, 87]) {
+                      scale ([1.1, 1, 1.3]) {
+                        translate ([121.8181818, 66, 87]) {
                           sphere ($fn=150, r=78);
                         }
                       }
                     }
                     rotate (a=6.0, v=[1, 0, 0]) {
-                      scale ([1.27, 1.0, 1.3]) {
+                      scale ([1.27, 1, 1.3]) {
                         translate ([145, 71, 84]) {
                           sphere ($fn=150, r=78);
                         }
@@ -278,14 +278,14 @@ union () {
                 union () {
                   hull () {
                     rotate (a=6.0, v=[1, 0, 0]) {
-                      scale ([1, 1.0, 1.3]) {
-                        translate ([134, 66, 87]) {
+                      scale ([1.1, 1, 1.3]) {
+                        translate ([121.8181818, 66, 87]) {
                           sphere ($fn=150, r=78);
                         }
                       }
                     }
                     rotate (a=6.0, v=[1, 0, 0]) {
-                      scale ([1.27, 1.0, 1.3]) {
+                      scale ([1.27, 1, 1.3]) {
                         translate ([145, 71, 84]) {
                           sphere ($fn=150, r=78);
                         }
@@ -426,8 +426,8 @@ union () {
           }
         }
         rotate (a=6.0, v=[1, 0, 0]) {
-          scale ([1, 1.0, 1.3]) {
-            translate ([134, 66, 87]) {
+          scale ([1.1, 1, 1.3]) {
+            translate ([121.8181818, 66, 87]) {
               sphere ($fn=150, r=78);
             }
           }
