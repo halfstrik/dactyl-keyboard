@@ -62,7 +62,7 @@
 
 (defn well-sphere1 [radius]
   (->> (with-fn 150 (sphere radius))
-       (translate [121.8181818 66 87])
+       (translate [125 66 87])
        (scale [1.1 1 1.3])
        (rotate (/ π 30) [1 0 0])))
 
@@ -74,8 +74,9 @@
 
 (defn well-sphere3 [radius]
     (->> (with-fn 150 (sphere radius))
-       (scale [0.5 0.7 1.1])
-       (translate [134 53 87])))
+
+       (scale [0.72 0.7 1.1])
+       (translate [140 53 87])))
 
 (defn well-sphere [radius]
   (union
@@ -451,9 +452,6 @@
 
 (def well-right
   (union
-    ;(import "well_right.stl")
-    ;(import "case_right_most_up.stl")
-    ;(import "case_middle_up.stl")
     (->> (cube 3 40 2) ; to close right border
          (translate [202 60 6]))
     (->> (cube 3 40 2)
@@ -465,7 +463,7 @@
     (difference
        (intersection
         (union
-          (->> (cube 3 23 22) ; to support middle connection to thumb isle
+          (->> (cube 2.5 23 22) ; to support middle connection to thumb isle
                (rotate (/ π 10) [0 0 -1])
                (translate [103 105 49]))
           (->> (cube 18 4 22)
