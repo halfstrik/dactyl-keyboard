@@ -202,13 +202,8 @@
   (->> (cube 15 15 25)
        (translate [185 174 5.9])))
 (def screw-cut-top-plate-mount-shift
-  ;(union
-  ;  (->> (cylinder 5, 13)
-  ;       (translate [185 174 5.9])) ; Indent for a wooden screw:)
-    (->> (with-fn 50 (cylinder 1.3, 32))
-         (translate [185 174 5.9]))
-    ;)
-  )
+    (->> (with-fn 50 (cylinder 1.7, 32))
+         (translate [185 174 5.9])))
 
 (def bottom-plate-mount-home
   (union
@@ -265,7 +260,7 @@
   (union
     (difference
       (union main-box-minus-well-sphere-top keys-well)
-      (translate [0 0 -2.9] ; to fully erase remaining of the sphere
+      (translate [0 -0.3 -2.9] ; to fully erase remaining of the sphere
                  (convert-dactyl-shapes caps-combined-outline)))
     ))
 
@@ -372,10 +367,7 @@
         (union
           (difference
             (import "base_right_up.stl")
-            third-divide-cube-inner
-            )
-          ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
-          ;(import "case_right_bottom.stl")
+            third-divide-cube-inner)
           (difference
             (intersection
               support-pillar-shift-up
@@ -715,28 +707,14 @@
 (spit "things_frame/all_combined.scad"
       (write-scad
         (union
-          ;(import "case_right_most_up.stl")
+          ;(import "base_right_up.stl")
+          (convert-dactyl-shapes caps thumbcaps)
+          ;(convert-dactyl-shapes caps-combined-outline)
           ;(import "base_middle_up.stl")
-          ;(import "well_right.stl")
+          (import "well_right.stl")
           ;(import "case_right_bottom.stl")
           ;(intersection
           ;  bottom-main-cylinder
           ;  bottom-main-outline
           ;  )
-          (->> (cylinder 4.5 25)
-               (translate [203 8 7]))
-          (difference
-
-            (->> (cylinder 6 25)
-                 (translate [203 8 10]))
-            (->> (cube 10 10 40)
-                 (translate [210 8 10]))
-            )
-          (difference
-
-            (->> (cylinder 5.8 25)
-                 (translate[203 8 9.8]))
-            (->> (cube 10 10 40)
-                 (translate [211 8 10]))
-            )
           )))

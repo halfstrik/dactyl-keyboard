@@ -177,7 +177,7 @@ union () {
       }
     }
     translate ([185, 174, 5.9]) {
-      cylinder ($fn=50, h=32, r=1.3, center=true);
+      cylinder ($fn=50, h=32, r=1.7, center=true);
     }
     difference () {
       difference () {

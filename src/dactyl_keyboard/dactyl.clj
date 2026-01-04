@@ -107,7 +107,7 @@
                        bw2 (/ 24 2)
                        key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                          (translate [0 0 -3.05])) ; 0.05
+                                          (translate [0 0 -0.05])) ; 0.05
                                      (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                           (translate [0 0 6])) ; 6
@@ -121,7 +121,7 @@
                        bw2 (/ 4 2)
                        key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                          (translate [0 0 -3.05])) ; 0.05
+                                          (translate [0 0 -5])) ; 0.05
                                      (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                           (translate [0 0 14])) ; 6
@@ -133,10 +133,10 @@
                         (translate [0 0 (+ 5 plate-thickness)])
                         (color [20/255 223/255 175/255 1])))
              1.2 (let [bl2 (/ sa-1p2-length 2) ; very skinny key-cap just to emulate undercut for the keys (to sand it later manually)
-                       bw2 (/ (* 17 1.2) 2)
+                       bw2 (/ (* 17.3 1.2) 2)
                        key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                          (translate [0 0 -3.05])) ; 0.05
+                                          (translate [0 0 -5])) ; 0.05
                                      (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                           (translate [0 0 14])) ; 6
@@ -151,7 +151,7 @@
                        bw2 (/ (* 17 1.5) 2)
                        key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                          (translate [0 0 -3.05])) ; 0.05
+                                          (translate [0 0 -5])) ; 0.05
                                      (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                           (translate [0 0 14])) ; 6
@@ -163,10 +163,10 @@
                         (translate [0 0 (+ 5 plate-thickness)])
                         (color [20/255 223/255 175/255 1])))
              2.2 (let [bl2 (/ sa-2p2-length 2)
-                     bw2 (/ (* 18.25 1.2) 2)
+                     bw2 (/ (* 17 1.2) 2)
                      key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                        (translate [0 0 -3.05])) ; 0.05
+                                        (translate [0 0 -5])) ; 0.05
                                    (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                         (translate [0 0 14])) ; 6
@@ -1345,6 +1345,7 @@
      (key-place 1 1 (sa-cap 1.2))
      (key-place 1 2 (sa-cap 1.2))
      (key-place 1 3 (sa-cap 1.2))
+     (key-place 1 4 (sa-cap 1.2))
      (key-place 2 0 (sa-cap 1.2))
      (key-place 3 0 (sa-cap 1.2))
      (key-place 4 0 (sa-cap 1.2))
@@ -1352,7 +1353,6 @@
      (key-place 5 1 (sa-cap 1.7))
      (key-place 5 2 (sa-cap 1.7))
      (key-place 5 3 (sa-cap 1.7))
-     (key-place 1 4 (sa-cap 1.2))
      (key-place 2 4 (sa-cap 1.2))
      (key-place 3 4 (sa-cap 1.2))
      (key-place 4 4 (sa-cap 1.2))
