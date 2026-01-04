@@ -308,9 +308,8 @@
     (->> (with-fn 100 (cylinder 110 30)) ; cut for a cable
          (rotate (/ π 2) [1 0 0])
          (translate [0 15 -70]))
-    ;(->> (with-fn 100 (cylinder 70 30)) ; cut for a cable
-    ;     (rotate (/ π 2) [1 0 0])
-    ;     (translate [0 15 -30]))
+    (->> (cylinder 4.5 25)
+         (translate [203 8 7]))
     ))
 
 (def bottom-main-cylinder-inline
@@ -321,6 +320,8 @@
     (->> (with-fn 50 (cylinder 112 32)) ; cut for a cable
          (rotate (/ π 2) [1 0 0])
          (translate [0 16 -70]))
+    (->> (cylinder 5.8 25)
+         (translate[203 8 9.8]))
     (->> (cube 416 186 2) ; Bottom limiter
          (translate [0 93 1]))
     (->> (cube 416 2 70) ; Rear side limiter
@@ -452,12 +453,12 @@
 
 (def well-right
   (union
-    (->> (cube 3 40 2) ; to close right border
+    (->> (cube 3 35 2) ; to close right border
          (translate [202 60 6]))
-    (->> (cube 3 40 2)
+    (->> (cube 3 35 2)
          (translate [202 22 25])
          (rotate (/ π -7) [1 0 0]))
-    (->> (cube 3 30 2)
+    (->> (cube 3 28 2)
          (translate [202 86 -21.5])
          (rotate (/ π 9) [1 0 0]))
     (difference
@@ -474,22 +475,22 @@
         main-inline)
        (well-sphere1 78))
 
-    (difference
-      (intersection
-       (convert-dactyl-shapes dactyl-top-right)
-       ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
-       main-inline)
-
-      support-pillar-shift-up-negative
-      support-pillar-five-up-negative
-      support-pillar-plus-up-negative
-      (well-sphere 78))
+    ;(difference
+    ;  (intersection
+    ;   (convert-dactyl-shapes dactyl-top-right)
+    ;   ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
+    ;   main-inline)
+    ;
+    ;  support-pillar-shift-up-negative
+    ;  support-pillar-five-up-negative
+    ;  support-pillar-plus-up-negative
+    ;  (well-sphere 78))
 
     (difference
       support-pillar-shift-well
       bottom-negative-inline
       (translate [193 112 (+ 19.4 8.4 -17)] ; Indent for a wooden screw:)
-                 (cylinder 5, 15))
+                 (cylinder 4.5, 15))
       (->> (cylinder 1.3, 25)
            (translate [193 112 (+ 19.4 8.4 -1)]))
       (->> (cylinder 1.7, 25)
@@ -498,13 +499,14 @@
     (difference
       support-pillar-plus-well
       bottom-negative-inline
-      (translate [193 9 (+ 19.4 8.4 -12)] ; Indent for a wooden screw:)
-                 (cylinder 5, 15))
+      (translate [193 9 (+ 19.4 8.4 -13)] ; Indent for a wooden screw:)
+                 (cylinder 4.5, 15))
       (->> (cylinder 1.3, 25)
            (translate [193 9 (+ 19.4 8.4 -4)]))
-      (->> (cylinder 1.7, 25)
-           (rotate (/ π 10) [-1 0 0])
-           (translate [203 8 10])))
+      (->> (cylinder 6 25)
+           (translate [203 8 10]))
+      (->> (cylinder 1.7, 27)
+           (translate [203 8 13])))
     (difference
       (intersection
         support-pillar-five-well
@@ -645,6 +647,7 @@
                           (->> (cube 420 140 80)
                                (translate [0 70 30])))
               bottom-thumbs-spacer-inline
+
               usb-hole-cut
               half-divide-cube-left))
           bottom-corner-leg
@@ -706,8 +709,28 @@
 (spit "things_frame/all_combined.scad"
       (write-scad
         (union
-          (import "case_right_most_up.stl")
-          (import "base_middle_up.stl")
-          (import "well_right.stl")
-          (import "case_right_bottom.stl")
+          ;(import "case_right_most_up.stl")
+          ;(import "base_middle_up.stl")
+          ;(import "well_right.stl")
+          ;(import "case_right_bottom.stl")
+          ;(intersection
+          ;  bottom-main-cylinder
+          ;  bottom-main-outline
+          ;  )
+          (->> (cylinder 4.5 25)
+               (translate [203 8 7]))
+          (difference
+
+            (->> (cylinder 6 25)
+                 (translate [203 8 10]))
+            (->> (cube 10 10 40)
+                 (translate [210 8 10]))
+            )
+          (difference
+
+            (->> (cylinder 5.8 25)
+                 (translate[203 8 9.8]))
+            (->> (cube 10 10 40)
+                 (translate [211 8 10]))
+            )
           )))

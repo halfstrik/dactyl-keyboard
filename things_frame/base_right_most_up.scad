@@ -210,6 +210,9 @@ union () {
               cylinder ($fn=50, h=32, r=112, center=true);
             }
           }
+          translate ([203, 8, 9.8]) {
+            cylinder (h=25, r=5.8, center=true);
+          }
           translate ([0, 93, 1]) {
             cube ([416, 186, 2], center=true);
           }
