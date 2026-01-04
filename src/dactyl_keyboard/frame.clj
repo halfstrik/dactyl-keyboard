@@ -165,18 +165,6 @@
          (translate [36 125 54.5]))
     ))
 
-(def bottom-plate-mount-top
-  (union
-    (->> (cube 14 14 55)
-         (translate [70 9 35]))
-    (difference
-      (->> (cube 43.3 14 61)
-           (rotate (/ π 4) [0 -1 0])
-           (translate [57 9 59]))
-      (->> (cube 40 14 55)
-           (translate [88 9 61])))
-    ))
-
 (def support-pillar-command-up
   (->> (cube 20 18.5 30)
        (rotate (/ π 2.45) [0 0 1])
@@ -263,6 +251,19 @@
       (translate [0 -0.3 -2.9] ; to fully erase remaining of the sphere
                  (convert-dactyl-shapes caps-combined-outline)))
     ))
+
+(def bottom-plate-mount-top
+  (difference
+    (union
+        (->> (cube 14 14 30)
+             (translate [-7 9 60]))
+      (->> (cube 20 14 50.5)
+           (rotate (/ π 4) [0 -1 0])
+           (translate [-24.8 9 70])))
+    (->> (cube 10.4 2.4 30)
+         (translate [-5.2 3.2 60]))
+    )
+  )
 
 (spit "things_frame/base_right_up.scad"
       (write-scad
@@ -417,9 +418,9 @@
                     bottom-plate-mount-top
                     main-inline)
                   bottom-negative-inline
-                  (->> (cylinder 1.3, 35)
+                  (->> (cylinder 1.7, 35)
                        (with-fn 50)
-                       (translate [70 9 19])))
+                       (translate [-5 9 39])))
               front-mount
                 (difference
                   (intersection
@@ -432,15 +433,16 @@
       (write-scad
         (union
           (import "base_middle_up.stl")
-          ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
           well-mount
           (mirror [1 0 0] well-mount)
 
           rear-mount
-          (mirror [1 0 0] rear-mount)
+          ;(mirror [1 0 0] rear-mount)
 
           front-mount
           (mirror [1 0 0] front-mount)
+
+          ;(import "case_right_bottom.stl")
           ))))
 
 (def well-right
@@ -708,11 +710,11 @@
       (write-scad
         (union
           ;(import "base_right_up.stl")
-          (convert-dactyl-shapes caps thumbcaps)
+          ;(convert-dactyl-shapes caps thumbcaps)
           ;(convert-dactyl-shapes caps-combined-outline)
           ;(import "base_middle_up.stl")
-          (import "well_right.stl")
-          ;(import "case_right_bottom.stl")
+          ;(import "well_right.stl")
+          (import "case_right_bottom.stl")
           ;(intersection
           ;  bottom-main-cylinder
           ;  bottom-main-outline
