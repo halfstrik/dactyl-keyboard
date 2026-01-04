@@ -475,16 +475,22 @@
         main-inline)
        (well-sphere1 78))
 
-    ;(difference
-    ;  (intersection
-    ;   (convert-dactyl-shapes dactyl-top-right)
-    ;   ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
-    ;   main-inline)
-    ;
-    ;  support-pillar-shift-up-negative
-    ;  support-pillar-five-up-negative
-    ;  support-pillar-plus-up-negative
-    ;  (well-sphere 78))
+    (difference
+      (intersection
+       (convert-dactyl-shapes dactyl-top-right)
+       ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
+       main-inline)
+
+      support-pillar-shift-up-negative
+      support-pillar-five-up-negative
+      support-pillar-plus-up-negative
+      (well-sphere 78)
+      (->> (cylinder 1.3, 25)
+           (translate [193 9 (+ 19.4 8.4 -4)]))
+      (->> (cylinder 6 25)
+           (translate [203 8 10]))
+      (->> (cylinder 1.7, 27)
+           (translate [203 8 13])))
 
     (difference
       support-pillar-shift-well
