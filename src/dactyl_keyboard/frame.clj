@@ -674,6 +674,9 @@
           ; TODO: add holes for screws once wells are ready
           (->> (cube 20 200 70)
                (translate [-19 100 36]))
+          (->> (cylinder [4.5 1.4] 3)
+               (with-fn 50)
+               (translate [203 8 21]))
           )))
 
 (spit "things_frame/base_left_bottom.scad"
