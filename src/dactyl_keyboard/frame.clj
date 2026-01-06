@@ -689,9 +689,6 @@
           (->> (cylinder [4.5 1.4] 3) ; well home
                (with-fn 50)
                (translate [45 125 7.9]))
-          ;203 8 13
-          ;203 112 10
-          ;45 125
           (->> (cylinder 1.7 10) ; Middle hole in glue mount
                (with-fn 50)
                (translate [-5 9 40]))
@@ -706,7 +703,25 @@
             middle-glue-reinforcement-bottom-left)
           ; TODO: add holes for screws once wells are ready
           (->> (cube 20 200 70)
-               (translate [19 100 35])))))
+               (translate [19 100 35]))
+          (->> (cylinder [4.5 1.4] 3) ; In rear cylinder
+               (with-fn 50)
+               (translate [-203 8 21]))
+          (->> (cylinder [4.5 1.4] 3) ; Side front
+               (with-fn 50)
+               (translate [-185 174 6.5]))
+          (->> (cylinder [4.5 1.4] 3) ; Middle front
+               (with-fn 50)
+               (translate [-75 177 15.5]))
+          (->> (cylinder [4.5 1.4] 3) ; well shift
+               (with-fn 50)
+               (translate [-203 112 6]))
+          (->> (cylinder [4.5 1.4] 3) ; well home
+               (with-fn 50)
+               (translate [-45 125 7.9]))
+          (->> (cylinder [4.5 1.4] 3) ; Middle hole in glue mount
+               (with-fn 50)
+               (translate [-5 9 40.3])))))
 
 (spit "things_frame/top_raspberry_pi_pico_mount.scad"
       (write-scad
