@@ -402,6 +402,11 @@
           )
         ))
 
+(spit "things_frame/base_left_most_up.scad"
+      (write-scad
+        (->> (import "case_right_most_up.stl")
+             (mirror [1 0 0]))))
+
 (spit "things_frame/base_middle_up_final.scad"
       (let [well-mount
               (difference
