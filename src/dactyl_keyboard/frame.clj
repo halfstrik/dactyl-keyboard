@@ -151,9 +151,13 @@
     )
 
 (def support-pillar-home-up-negative
-  (->> (cube 20.3 18.8 31)
-       (rotate (/ π 2.45) [0 0 1])
-       (translate [29 110 58.5])))
+  (difference
+    (->> (cube 25 14 20)
+         (rotate (/ π 5.45) [0 1 0])
+         (translate [25.5 127 52.5]))
+    (->> (cube 40 40 10)
+         (translate [25.5 127 34.5]))
+    ))
 
 (def support-pillar-home-well
   (difference
@@ -747,21 +751,46 @@
 (spit "things_frame/top_raspberry_pi_pico_mount.scad"
       (write-scad
         (union
-          ;(import "case_left_up.stl")
-          ;(import "case_left_bottom.stl")
-          ;middle-glue-reinforcement-bottom-left
-          (intersection
-            (difference
-              (->> (cube 40 70 50)
-                   (translate [0 67.5 50]))
-              support-pillar-home-up-negative
-              (mirror [1 0 0] support-pillar-home-up-negative)
-              (->> (cube 26 60 10)
-                   (translate [0 60 27])))
-              main-inline)
-            )
-          )
-        )
+          ;(import "case_right_bottom.stl")
+          ;(import "case_middle_up.stl")
+          (difference
+            (translate [0 0 4.5]
+                       (union
+                         ;(->> (cube 2 2 2) ; Aim for usb cut
+                         ;     (translate [0 30 (- 26 5.5)]))
+                         ;middle-glue-reinforcement-bottom-left
+                         (intersection
+
+                           (difference
+                             (->> (cube 48 91 50)
+                                  (translate [0 78 50]))
+
+                             (->> (cube 32 55 10)
+                                  (translate [0 60 27]))
+                             (->> (cube 45 70 2)
+                                  (translate [0 67.5 90]))
+                             (->> (cube 45 70 2)
+                                  (translate [0 67.5 26]))
+                             ; Screw holes
+                             (->> (cylinder 1.3, 20)
+                                  (with-fn 25)
+                                  (translate [20, 35, 28]))
+                             (->> (cylinder 1.3, 20)
+                                  (with-fn 25)
+                                  (translate [-20, 35, 28]))
+                             (->> (cylinder 1.3, 20)
+                                  (with-fn 25)
+                                  (translate [20, (+ 35 65.5), 28]))
+                             (->> (cylinder 1.3, 20)
+                                  (with-fn 25)
+                                  (translate [-20, (+ 35 65.5), 28]))
+                             )
+
+                           main-inline
+                           )
+                         ))
+            support-pillar-home-up-negative
+            (mirror [1 0 0] support-pillar-home-up-negative)))))
 
 (spit "things_frame/all_combined.scad"
       (write-scad
