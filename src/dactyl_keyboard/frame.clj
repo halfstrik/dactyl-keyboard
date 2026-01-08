@@ -452,13 +452,13 @@
 
 (def well-right
   (union
-    (->> (cube 3 35 2) ; to close right border
-         (translate [202 60 6]))
+    (->> (cube 3 36 2) ; to close right border
+         (translate [202 61 7]))
     (->> (cube 3 35 2)
-         (translate [202 22 25])
+         (translate [202 22 25.8])
          (rotate (/ π -7) [1 0 0]))
-    (->> (cube 3 28 2)
-         (translate [202 86 -21.5])
+    (->> (cube 3 26 2)
+         (translate [202 86 -20.5])
          (rotate (/ π 9) [1 0 0]))
     (difference
        (intersection
@@ -489,7 +489,17 @@
       (->> (cylinder 6 25)
            (translate [203 8 10]))
       (->> (cylinder 1.7, 27)
-           (translate [203 8 13])))
+           (translate [203 8 13]))
+      (difference ; Top corner middle glue plate cut
+        (->> (cube 40.2 10.2 34.2)
+             (translate [118 7 15])
+             (rotate (/ π 7) [0 -1 0]))
+        (->> main-inline
+             (translate [0 2 -2]))
+        (well-sphere1 78))
+      (->> (cube 2.2 46.2 10.2) ; Right-most mount plate cut
+           (translate [207 63 7]))
+     )
 
     (difference
       support-pillar-shift-well
@@ -506,6 +516,8 @@
       bottom-negative-inline
       (translate [193 9 (+ 19.4 8.4 -13)] ; Indent for a wooden screw:)
                  (cylinder 4.5, 15))
+      (->> (cube 22 2 17) ; Cut for switch to be able to insert
+           (translate [190 15 16.4]))
       (->> (cylinder 1.3, 25)
            (translate [193 9 (+ 19.4 8.4 -4)]))
       (->> (cylinder 6 25)
@@ -525,12 +537,16 @@
       (->> (cylinder 1.3, 45)
            (translate [36 125 (+ 19.4 12.4)]))
       (->> (cylinder 5, 35)
-           (translate [36 125 19])) ; Indent for a wooden screw:)
+           (translate [36 125 17])) ; Indent for a wooden screw:)
       (->> (cylinder 1.7, 25)
            (rotate (/ π 20) [1 0 0])
-           (translate [45 125 10])))
-    )
-  )
+           (translate [45 125 10]))
+      (difference ; Cut for tilted connection for 3d print optimization
+        (->> (cube 25 16 20)
+             (rotate (/ π 5.45) [0 1 0])
+             (translate [25.5 127 52.5]))
+        (->> (cube 40 40 10)
+             (translate [25.5 127 34.5]))))))
 
 (spit "things_frame/well_right.scad"
       (write-scad
