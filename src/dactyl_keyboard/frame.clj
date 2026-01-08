@@ -754,41 +754,43 @@
           ;(import "case_right_bottom.stl")
           ;(import "case_middle_up.stl")
           (difference
-            (translate [0 0 4.5]
-                       (union
-                         ;(->> (cube 2 2 2) ; Aim for usb cut
-                         ;     (translate [0 30 (- 26 5.5)]))
-                         ;middle-glue-reinforcement-bottom-left
-                         (intersection
+            (intersection
+              (translate [0 0 4.5]
+                         (union
+                           ;(->> (cube 2 2 2) ; Aim for usb cut
+                           ;     (translate [0 30 (- 26 5.5)]))
+                           ;middle-glue-reinforcement-bottom-left
 
-                           (difference
-                             (->> (cube 48 91 50)
-                                  (translate [0 78 50]))
 
-                             (->> (cube 32 55 10)
-                                  (translate [0 60 27]))
-                             (->> (cube 45 70 2)
-                                  (translate [0 67.5 90]))
-                             (->> (cube 45 70 2)
-                                  (translate [0 67.5 26]))
-                             ; Screw holes
-                             (->> (cylinder 1.3, 20)
-                                  (with-fn 25)
-                                  (translate [20, 35, 28]))
-                             (->> (cylinder 1.3, 20)
-                                  (with-fn 25)
-                                  (translate [-20, 35, 28]))
-                             (->> (cylinder 1.3, 20)
-                                  (with-fn 25)
-                                  (translate [20, (+ 35 65.5), 28]))
-                             (->> (cylinder 1.3, 20)
-                                  (with-fn 25)
-                                  (translate [-20, (+ 35 65.5), 28]))
+                             (difference
+                               (->> (cube 48 91 50)
+                                    (translate [0 78 50]))
+
+                               (->> (cube 32 55 10)
+                                    (translate [0 60 27]))
+                               (->> (cube 45 70 2)
+                                    (translate [0 67.5 90]))
+                               (->> (cube 45 70 2)
+                                    (translate [0 67.5 26]))
+                               ; Screw holes
+                               (->> (cylinder 1.3, 20)
+                                    (with-fn 25)
+                                    (translate [20, 35, 28]))
+                               (->> (cylinder 1.3, 20)
+                                    (with-fn 25)
+                                    (translate [-20, 35, 28]))
+                               (->> (cylinder 1.3, 20)
+                                    (with-fn 25)
+                                    (translate [20, (+ 35 65.5), 28]))
+                               (->> (cylinder 1.3, 20)
+                                    (with-fn 25)
+                                    (translate [-20, (+ 35 65.5), 28]))
+                               )
+
+
                              )
-
-                           main-inline
                            )
-                         ))
+            main-inline)
             support-pillar-home-up-negative
             (mirror [1 0 0] support-pillar-home-up-negative)))))
 

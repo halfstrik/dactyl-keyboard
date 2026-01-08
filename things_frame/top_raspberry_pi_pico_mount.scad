@@ -1,8 +1,8 @@
 union () {
   difference () {
-    translate ([0, 0, 4.5]) {
-      union () {
-        intersection () {
+    intersection () {
+      translate ([0, 0, 4.5]) {
+        union () {
           difference () {
             translate ([0, 78, 50]) {
               cube ([48, 91, 50], center=true);
@@ -29,17 +29,17 @@ union () {
               cylinder ($fn=25, h=20, r=1.3, center=true);
             }
           }
-          intersection () {
-            translate ([0, -110, -1332]) {
-              sphere ($fn=300, r=1400);
-            }
-            translate ([0, 93, 33]) {
-              cube ([416, 182, 70], center=true);
-            }
-            translate ([0, 310, -787]) {
-              sphere ($fn=300, r=900);
-            }
-          }
+        }
+      }
+      intersection () {
+        translate ([0, -110, -1332]) {
+          sphere ($fn=300, r=1400);
+        }
+        translate ([0, 93, 33]) {
+          cube ([416, 182, 70], center=true);
+        }
+        translate ([0, 310, -787]) {
+          sphere ($fn=300, r=900);
         }
       }
     }
