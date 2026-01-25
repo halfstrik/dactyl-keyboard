@@ -169,18 +169,10 @@
          (translate [36 125 54.5])))
     )
 
-(def support-pillar-command-up
-  (->> (cube 20 18.5 30)
-       (rotate (/ π 2.45) [0 0 1])
-       (translate [90 151.2 48.5])))
-
 (def bottom-plate-mount-shift
   (->> (cube 35 21 45)
        (translate [195 177 27])))
 
-(def top-plate-mount-shift
-  (->> (cube 15 15 25)
-       (translate [185 174 5.9])))
 (def screw-cut-top-plate-mount-shift
     (->> (with-fn 50 (cylinder 1.7, 32))
          (translate [185 174 5.9])))
@@ -424,7 +416,6 @@
           (mirror [1 0 0] well-mount)
 
           rear-mount
-          ;(mirror [1 0 0] rear-mount)
 
           front-mount
           (mirror [1 0 0] front-mount)
