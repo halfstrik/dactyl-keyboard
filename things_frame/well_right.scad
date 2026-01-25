@@ -39944,9 +39944,9 @@ union () {
   difference () {
     intersection () {
       difference () {
-        translate ([38.21, 124.35, 25]) {
+        translate ([37.21, 124.35, 28]) {
           rotate (a=73.46938775510203, v=[0, 0, 1]) {
-            cube ([16, 20, 45], center=true);
+            cube ([24, 20, 49], center=true);
           }
         }
         translate ([36, 125, 54.5]) {

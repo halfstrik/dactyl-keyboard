@@ -161,9 +161,9 @@
 
 (def support-pillar-home-well
   (difference
-    (->> (cube 16 20 45)
+    (->> (cube 24 20 49)
        (rotate (/ π 2.45) [0 0 1])
-       (translate [38.21 124.35 25]))
+       (translate [37.21 124.35 28]))
     (->> (cube 14.5 14.5 30)
          (rotate (/ π 2.45) [0 0 1])
          (translate [36 125 54.5])))
@@ -284,7 +284,7 @@
     (->> (with-fn 100 (cylinder 110 30)) ; cut for a cable
          (rotate (/ π 2) [1 0 0])
          (translate [0 15 -70]))
-    (->> (cylinder 4.5 25)
+    (->> (cylinder 3.7 25)
          (translate [203 8 7]))
     ))
 
@@ -621,11 +621,11 @@
 
 (def usb-hole-cut
   (hull
-    (->> (cylinder 1.7 4)
+    (->> (cylinder 2 4)
          (with-fn 50)
          (rotate (/ π 2) [1 0 0])
          (translate [4, 31, 25]))
-    (->> (cylinder 1.7 4)
+    (->> (cylinder 2 4)
          (with-fn 50)
          (rotate (/ π 2) [1 0 0])
          (translate [4, 31, 25])
