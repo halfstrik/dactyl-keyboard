@@ -161,7 +161,7 @@
 
 (def support-pillar-home-well
   (difference
-    (->> (cube 24 20 49)
+    (->> (cube 35 17 49)
        (rotate (/ π 2.45) [0 0 1])
        (translate [37.21 124.35 28]))
     (->> (cube 14.5 14.5 30)
@@ -519,11 +519,11 @@
       bottom-negative-inline
       (->> (cylinder 1.7, 45)
            (translate [36 125 (+ 19.4 12.4)]))
-      (->> (cylinder 4, 35)
+      (->> (cylinder 3.7, 35)
            (translate [36 125 17]))
       (->> (cylinder 1.7, 25)
            (rotate (/ π 20) [1 0 0])
-           (translate [45 125 10]))
+           (translate [42.7 125 10]))
       (difference ; Cut for tilted connection for 3d print optimization
         (->> (cube 25 16 20)
              (rotate (/ π 5.45) [0 1 0])
@@ -692,7 +692,7 @@
                (translate [203 112 6]))
           (->> (cylinder [4.5 1.4] 3) ; well home
                (with-fn 50)
-               (translate [45 125 7.9]))
+               (translate [42.7 125 7.9]))
           (->> (cylinder 1.7 10) ; Middle hole in glue mount
                (with-fn 50)
                (translate [-5 9 40]))

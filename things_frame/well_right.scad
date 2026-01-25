@@ -39946,7 +39946,7 @@ union () {
       difference () {
         translate ([37.21, 124.35, 28]) {
           rotate (a=73.46938775510203, v=[0, 0, 1]) {
-            cube ([24, 20, 49], center=true);
+            cube ([35, 17, 49], center=true);
           }
         }
         translate ([36, 125, 54.5]) {
@@ -40132,9 +40132,9 @@ union () {
       cylinder (h=45, r=1.7, center=true);
     }
     translate ([36, 125, 17]) {
-      cylinder (h=35, r=4, center=true);
+      cylinder (h=35, r=3.7, center=true);
     }
-    translate ([45, 125, 10]) {
+    translate ([42.7, 125, 10]) {
       rotate (a=9.0, v=[1, 0, 0]) {
         cylinder (h=25, r=1.7, center=true);
       }
