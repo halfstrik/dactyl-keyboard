@@ -339,9 +339,10 @@
 (def bottom-negative-inline
   (difference
     bottom-main-inline
-    (union bottom-main-cylinder-inline
-           bottom-hand-rest-inline
-           bottom-thumbs-spacer-inline)))
+    (translate [0 0 0.5] ; Move objects slightly up, so we will have a tiny gap, otherwise sending required
+      (union bottom-main-cylinder-inline
+             bottom-hand-rest-inline
+             bottom-thumbs-spacer-inline))))
 
 (spit "things_frame/base_right_most_up.scad"
       (write-scad
