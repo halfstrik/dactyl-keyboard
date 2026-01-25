@@ -136,20 +136,20 @@
   (->> (cube 21 9.5 9)
        (translate [115 4 41.6])))
 
-(def support-pillar-home-up
-  (union
-    (->> (cube 14 14 30)
-         (rotate (/ π 2.45) [0 0 1])
-         (translate [36 125 54.5]))
-    (difference
-      (->> (cube 25 14 20)
-           (rotate (/ π 5.45) [0 1 0])
-           (translate [25.5 127 52.5]))
-      (->> (cube 40 40 10)
-           (translate [25.5 127 34.5]))
-      ))
-    )
-
+;(def support-pillar-home-up
+;  (union
+;    (->> (cube 14 14 30)
+;         (rotate (/ π 2.45) [0 0 1])
+;         (translate [36 125 54.5]))
+;    (difference
+;      (->> (cube 25 14 20)
+;           (rotate (/ π 5.45) [0 1 0])
+;           (translate [25.5 127 52.5]))
+;      (->> (cube 40 40 10)
+;           (translate [25.5 127 34.5]))
+;      ))
+;    )
+; TODO remove and refactor, needed for PI mount
 (def support-pillar-home-up-negative
   (difference
     (->> (cube 25 14 20)
@@ -160,14 +160,14 @@
     ))
 
 (def support-pillar-home-well
-  (difference
-    (->> (cube 16 20 35.5)
+  ;(difference
+    (->> (cube 16 20 42)
        (rotate (/ π 2.45) [0 0 1])
        (translate [38.21 124.35 25]))
-    (->> (cube 14.5 14.5 30)
-         (rotate (/ π 2.45) [0 0 1])
-         (translate [36 125 54.5]))
-    ))
+    ;(->> (cube 14.5 14.5 30)
+    ;     (rotate (/ π 2.45) [0 0 1])
+    ;     (translate [36 125 54.5])))
+    )
 
 (def support-pillar-command-up
   (->> (cube 20 18.5 30)
@@ -412,15 +412,16 @@
              (mirror [1 0 0]))))
 
 (spit "things_frame/base_middle_up_final.scad"
-      (let [well-mount
-              (difference
-                (intersection
-                  support-pillar-home-up
-                  main-inline
-                  )
-                (->> (cylinder 1.3, 35)
-                     (with-fn 50)
-                     (translate [36 125 29])))
+      (let [
+            ;well-mount
+            ;  (difference
+            ;    (intersection
+            ;      support-pillar-home-up
+            ;      main-inline
+            ;      )
+            ;    (->> (cylinder 1.3, 35)
+            ;         (with-fn 50)
+            ;         (translate [36 125 29])))
               rear-mount
                 (difference
                   (intersection
@@ -442,8 +443,8 @@
       (write-scad
         (union
           (import "base_middle_up.stl")
-          well-mount
-          (mirror [1 0 0] well-mount)
+          ;well-mount
+          ;(mirror [1 0 0] well-mount)
 
           rear-mount
           ;(mirror [1 0 0] rear-mount)
@@ -536,12 +537,14 @@
       (->> (cylinder 1.3, 25)
            (translate [108 5.5 (+ 19.4 18.4)])))
     (difference
+      (intersection
         support-pillar-home-well
-        bottom-negative-inline
-      (->> (cylinder 1.3, 45)
-           (translate [36 125 (+ 19.4 12.4)]))
-      (->> (cylinder 5, 35)
-           (translate [36 125 17])) ; Indent for a wooden screw:)
+        main-inline)
+      bottom-negative-inline
+      ;(->> (cylinder 1.3, 45)
+      ;     (translate [36 125 (+ 19.4 12.4)]))
+      ;(->> (cylinder 5, 35)
+      ;     (translate [36 125 17])) ; Indent for a wooden screw:)
       (->> (cylinder 1.7, 25)
            (rotate (/ π 20) [1 0 0])
            (translate [45 125 10]))
