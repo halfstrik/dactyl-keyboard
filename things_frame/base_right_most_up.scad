@@ -51,7 +51,7 @@ union () {
       }
     }
     translate ([193, 112, 12.799999999999997]) {
-      cylinder ($fn=50, h=35, r=1.3, center=true);
+      cylinder ($fn=50, h=35, r=1.7, center=true);
     }
   }
   difference () {
@@ -100,7 +100,7 @@ union () {
       }
     }
     translate ([193, 9, 18.799999999999997]) {
-      cylinder ($fn=50, h=25, r=1.3, center=true);
+      cylinder ($fn=50, h=25, r=1.7, center=true);
     }
   }
   difference () {
@@ -156,7 +156,7 @@ union () {
       }
     }
     translate ([108, 5.5, 37.8]) {
-      cylinder ($fn=50, h=25, r=1.3, center=true);
+      cylinder ($fn=50, h=25, r=1.7, center=true);
     }
   }
   difference () {

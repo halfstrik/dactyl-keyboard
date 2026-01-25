@@ -136,20 +136,20 @@
   (->> (cube 21 9.5 9)
        (translate [115 4 41.6])))
 
-;(def support-pillar-home-up
-;  (union
-;    (->> (cube 14 14 30)
-;         (rotate (/ π 2.45) [0 0 1])
-;         (translate [36 125 54.5]))
-;    (difference
-;      (->> (cube 25 14 20)
-;           (rotate (/ π 5.45) [0 1 0])
-;           (translate [25.5 127 52.5]))
-;      (->> (cube 40 40 10)
-;           (translate [25.5 127 34.5]))
-;      ))
-;    )
-; TODO remove and refactor, needed for PI mount
+(def support-pillar-home-up
+  (union
+    (->> (cube 14 14 30)
+         (rotate (/ π 2.45) [0 0 1])
+         (translate [36 125 54.5]))
+    (difference
+      (->> (cube 25 14 20)
+           (rotate (/ π 5.45) [0 1 0])
+           (translate [25.5 127 52.5]))
+      (->> (cube 40 40 10)
+           (translate [25.5 127 34.5]))
+      ))
+    )
+
 (def support-pillar-home-up-negative
   (difference
     (->> (cube 25 14 20)
@@ -160,31 +160,19 @@
     ))
 
 (def support-pillar-home-well
-  ;(difference
-    (->> (cube 16 20 42)
+  (difference
+    (->> (cube 16 20 45)
        (rotate (/ π 2.45) [0 0 1])
        (translate [38.21 124.35 25]))
-    ;(->> (cube 14.5 14.5 30)
-    ;     (rotate (/ π 2.45) [0 0 1])
-    ;     (translate [36 125 54.5])))
+    (->> (cube 14.5 14.5 30)
+         (rotate (/ π 2.45) [0 0 1])
+         (translate [36 125 54.5])))
     )
 
 (def support-pillar-command-up
   (->> (cube 20 18.5 30)
        (rotate (/ π 2.45) [0 0 1])
        (translate [90 151.2 48.5])))
-
-(def top-plate-mount-top
-  (->> (cube 15 15 44.8)
-       (translate [75 12 25])))
-(def screw-cut-top-plate-mount-top
-  (union
-    (->> (cylinder 5, 47)
-         (translate [75 12 15])) ; Indent for a wooden screw:)
-    (->> (cylinder 1.3, 52)
-         (translate [75 12 25]))
-    )
-  )
 
 (def bottom-plate-mount-shift
   (->> (cube 35 21 45)
@@ -207,18 +195,6 @@
            (translate [58 177 57]))
       (->> (cube 40 14 55)
            (translate [88 177 55])))))
-
-(def top-plate-mount-home
-  (->> (cube 15 15 25)
-       (translate [25 174 17.4])))
-(def screw-cut-top-plate-mount-home
-  (union
-    (->> (cylinder 5, 13)
-         (translate [25 174 17.4])) ; Indent for a wooden screw:)
-    (->> (cylinder 1.3, 32)
-         (translate [25 174 17.4]))
-    )
-  )
 
 (def middle-glue-reinforcement-up
   (union
@@ -378,14 +354,14 @@
               support-pillar-shift-up
               main-inline)
             (well-sphere 78)
-            (->> (with-fn 50 (cylinder 1.3, 35))
+            (->> (with-fn 50 (cylinder 1.7, 35))
                  (translate [193 112 (+ 19.4 8.4 -15)])))
           (difference
             (intersection
               support-pillar-plus-up
               main-inline)
             (well-sphere 78)
-            (->> (with-fn 50 (cylinder 1.3, 25))
+            (->> (with-fn 50 (cylinder 1.7, 25))
                  (translate [193 9 (+ 19.4 8.4 -9)])))
           (difference
             (intersection
@@ -393,7 +369,7 @@
               main-inline
               )
             (well-sphere 78)
-            (->> (with-fn 50 (cylinder 1.3, 25))
+            (->> (with-fn 50 (cylinder 1.7, 25))
                  (translate [108 5.5 (+ 19.4 18.4)])))
           (difference
             (intersection
@@ -413,15 +389,15 @@
 
 (spit "things_frame/base_middle_up_final.scad"
       (let [
-            ;well-mount
-            ;  (difference
-            ;    (intersection
-            ;      support-pillar-home-up
-            ;      main-inline
-            ;      )
-            ;    (->> (cylinder 1.3, 35)
-            ;         (with-fn 50)
-            ;         (translate [36 125 29])))
+              well-mount
+                (difference
+                  (intersection
+                    support-pillar-home-up
+                    main-inline
+                    )
+                  (->> (cylinder 1.7, 35)
+                       (with-fn 50)
+                       (translate [36 125 29])))
               rear-mount
                 (difference
                   (intersection
@@ -437,14 +413,14 @@
                     bottom-plate-mount-home
                     main-inline)
                   bottom-negative-inline
-                  (->> (cylinder 1.3, 35)
+                  (->> (cylinder 1.7, 35)
                        (with-fn 50)
                        (translate [75 177 15])))]
       (write-scad
         (union
           (import "base_middle_up.stl")
-          ;well-mount
-          ;(mirror [1 0 0] well-mount)
+          well-mount
+          (mirror [1 0 0] well-mount)
 
           rear-mount
           ;(mirror [1 0 0] rear-mount)
@@ -511,7 +487,7 @@
       bottom-negative-inline
       (translate [193 112 (+ 19.4 8.4 -17)] ; Indent for a wooden screw:)
                  (cylinder 4.5, 15))
-      (->> (cylinder 1.3, 25)
+      (->> (cylinder 1.7, 25)
            (translate [193 112 (+ 19.4 8.4 -1)]))
       (->> (cylinder 1.7, 25)
            (rotate (/ π 20) [1 0 0])
@@ -523,7 +499,7 @@
                  (cylinder 4.5, 15))
       (->> (cube 22 2 17) ; Cut for switch to be able to insert
            (translate [190 15 16.4]))
-      (->> (cylinder 1.3, 25)
+      (->> (cylinder 1.7, 25)
            (translate [193 9 (+ 19.4 8.4 -4)]))
       (->> (cylinder 6 25)
            (translate [203 8 10]))
@@ -534,17 +510,17 @@
         support-pillar-five-well
         main-inline)
       (well-sphere 78)
-      (->> (cylinder 1.3, 25)
+      (->> (cylinder 1.7, 25)
            (translate [108 5.5 (+ 19.4 18.4)])))
     (difference
       (intersection
         support-pillar-home-well
         main-inline)
       bottom-negative-inline
-      ;(->> (cylinder 1.3, 45)
-      ;     (translate [36 125 (+ 19.4 12.4)]))
-      ;(->> (cylinder 5, 35)
-      ;     (translate [36 125 17])) ; Indent for a wooden screw:)
+      (->> (cylinder 1.7, 45)
+           (translate [36 125 (+ 19.4 12.4)]))
+      (->> (cylinder 4, 35)
+           (translate [36 125 17]))
       (->> (cylinder 1.7, 25)
            (rotate (/ π 20) [1 0 0])
            (translate [45 125 10]))
