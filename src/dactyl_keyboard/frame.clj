@@ -731,8 +731,6 @@
                            ;(->> (cube 2 2 2) ; Aim for usb cut
                            ;     (translate [0 30 (- 26 5.5)]))
                            ;middle-glue-reinforcement-bottom-left
-
-
                              (difference
                                (->> (cube 48 91 50)
                                     (translate [0 78 50]))
@@ -757,8 +755,6 @@
                                     (with-fn 25)
                                     (translate [-20, (+ 35 65.5), 28]))
                                )
-
-
                              )
                            )
             main-inline)
