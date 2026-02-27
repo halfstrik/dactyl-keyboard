@@ -319,7 +319,12 @@
                          cap-top-height)
         #_(+ (/ (/ (+ pillar-width 5) 2)
                             (Math/sin (/ β 2)))
-                         cap-top-height)]
+                         cap-top-height)
+        ; Raise for top thumbs buttons +3mm as Kinesis has non-standard tall buttons
+        button-raise (if (or
+                           (and (= column 1) (= row 1))
+                           (and (= column 2) (= row 1)))
+                       40 37)]
     (->> shape
          (translate [0 0 (- row-radius)])
          (rotate (* α row) [1 0 0])
@@ -330,7 +335,7 @@
          (translate [mount-width 0 0])
          (rotate (* π (- 1/4 5/32)) [0 0 1])
          (rotate (/ π 24) [1 -0.1 0])
-         (translate [-52 -53 37]))))  ; Rotate more outwards and less stick up
+         (translate [-52 -53 button-raise]))))  ; Rotate more outwards and less stick up
 
 (defn thumb-2x-column [shape]
   (thumb-place 0 -1/2 shape))

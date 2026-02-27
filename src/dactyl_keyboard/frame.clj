@@ -161,38 +161,18 @@
 
 (def support-pillar-home-well
   (difference
-    (->> (cube 16 20 35.5)
+    (->> (cube 35 17 49)
        (rotate (/ π 2.45) [0 0 1])
-       (translate [38.21 124.35 25]))
+       (translate [37.21 124.35 28]))
     (->> (cube 14.5 14.5 30)
          (rotate (/ π 2.45) [0 0 1])
-         (translate [36 125 54.5]))
-    ))
-
-(def support-pillar-command-up
-  (->> (cube 20 18.5 30)
-       (rotate (/ π 2.45) [0 0 1])
-       (translate [90 151.2 48.5])))
-
-(def top-plate-mount-top
-  (->> (cube 15 15 44.8)
-       (translate [75 12 25])))
-(def screw-cut-top-plate-mount-top
-  (union
-    (->> (cylinder 5, 47)
-         (translate [75 12 15])) ; Indent for a wooden screw:)
-    (->> (cylinder 1.3, 52)
-         (translate [75 12 25]))
+         (translate [36 125 54.5])))
     )
-  )
 
 (def bottom-plate-mount-shift
   (->> (cube 35 21 45)
        (translate [195 177 27])))
 
-(def top-plate-mount-shift
-  (->> (cube 15 15 25)
-       (translate [185 174 5.9])))
 (def screw-cut-top-plate-mount-shift
     (->> (with-fn 50 (cylinder 1.7, 32))
          (translate [185 174 5.9])))
@@ -207,18 +187,6 @@
            (translate [58 177 57]))
       (->> (cube 40 14 55)
            (translate [88 177 55])))))
-
-(def top-plate-mount-home
-  (->> (cube 15 15 25)
-       (translate [25 174 17.4])))
-(def screw-cut-top-plate-mount-home
-  (union
-    (->> (cylinder 5, 13)
-         (translate [25 174 17.4])) ; Indent for a wooden screw:)
-    (->> (cylinder 1.3, 32)
-         (translate [25 174 17.4]))
-    )
-  )
 
 (def middle-glue-reinforcement-up
   (union
@@ -308,7 +276,7 @@
     (->> (with-fn 100 (cylinder 110 30)) ; cut for a cable
          (rotate (/ π 2) [1 0 0])
          (translate [0 15 -70]))
-    (->> (cylinder 4.5 25)
+    (->> (cylinder 3.7 25)
          (translate [203 8 7]))
     ))
 
@@ -363,9 +331,10 @@
 (def bottom-negative-inline
   (difference
     bottom-main-inline
-    (union bottom-main-cylinder-inline
-           bottom-hand-rest-inline
-           bottom-thumbs-spacer-inline)))
+    (translate [0 0 0.5] ; Move objects slightly up, so we will have a tiny gap, otherwise sending required
+      (union bottom-main-cylinder-inline
+             bottom-hand-rest-inline
+             bottom-thumbs-spacer-inline))))
 
 (spit "things_frame/base_right_most_up.scad"
       (write-scad
@@ -378,14 +347,14 @@
               support-pillar-shift-up
               main-inline)
             (well-sphere 78)
-            (->> (with-fn 50 (cylinder 1.3, 35))
+            (->> (with-fn 50 (cylinder 1.7, 35))
                  (translate [193 112 (+ 19.4 8.4 -15)])))
           (difference
             (intersection
               support-pillar-plus-up
               main-inline)
             (well-sphere 78)
-            (->> (with-fn 50 (cylinder 1.3, 25))
+            (->> (with-fn 50 (cylinder 1.7, 25))
                  (translate [193 9 (+ 19.4 8.4 -9)])))
           (difference
             (intersection
@@ -393,7 +362,7 @@
               main-inline
               )
             (well-sphere 78)
-            (->> (with-fn 50 (cylinder 1.3, 25))
+            (->> (with-fn 50 (cylinder 1.7, 25))
                  (translate [108 5.5 (+ 19.4 18.4)])))
           (difference
             (intersection
@@ -412,15 +381,16 @@
              (mirror [1 0 0]))))
 
 (spit "things_frame/base_middle_up_final.scad"
-      (let [well-mount
-              (difference
-                (intersection
-                  support-pillar-home-up
-                  main-inline
-                  )
-                (->> (cylinder 1.3, 35)
-                     (with-fn 50)
-                     (translate [36 125 29])))
+      (let [
+              well-mount
+                (difference
+                  (intersection
+                    support-pillar-home-up
+                    main-inline
+                    )
+                  (->> (cylinder 1.7, 35)
+                       (with-fn 50)
+                       (translate [36 125 29])))
               rear-mount
                 (difference
                   (intersection
@@ -436,7 +406,7 @@
                     bottom-plate-mount-home
                     main-inline)
                   bottom-negative-inline
-                  (->> (cylinder 1.3, 35)
+                  (->> (cylinder 1.7, 35)
                        (with-fn 50)
                        (translate [75 177 15])))]
       (write-scad
@@ -446,7 +416,6 @@
           (mirror [1 0 0] well-mount)
 
           rear-mount
-          ;(mirror [1 0 0] rear-mount)
 
           front-mount
           (mirror [1 0 0] front-mount)
@@ -510,7 +479,7 @@
       bottom-negative-inline
       (translate [193 112 (+ 19.4 8.4 -17)] ; Indent for a wooden screw:)
                  (cylinder 4.5, 15))
-      (->> (cylinder 1.3, 25)
+      (->> (cylinder 1.7, 25)
            (translate [193 112 (+ 19.4 8.4 -1)]))
       (->> (cylinder 1.7, 25)
            (rotate (/ π 20) [1 0 0])
@@ -522,7 +491,7 @@
                  (cylinder 4.5, 15))
       (->> (cube 22 2 17) ; Cut for switch to be able to insert
            (translate [190 15 16.4]))
-      (->> (cylinder 1.3, 25)
+      (->> (cylinder 1.7, 25)
            (translate [193 9 (+ 19.4 8.4 -4)]))
       (->> (cylinder 6 25)
            (translate [203 8 10]))
@@ -533,18 +502,20 @@
         support-pillar-five-well
         main-inline)
       (well-sphere 78)
-      (->> (cylinder 1.3, 25)
+      (->> (cylinder 1.7, 25)
            (translate [108 5.5 (+ 19.4 18.4)])))
     (difference
+      (intersection
         support-pillar-home-well
-        bottom-negative-inline
-      (->> (cylinder 1.3, 45)
+        main-inline)
+      bottom-negative-inline
+      (->> (cylinder 1.7, 45)
            (translate [36 125 (+ 19.4 12.4)]))
-      (->> (cylinder 5, 35)
-           (translate [36 125 17])) ; Indent for a wooden screw:)
+      (->> (cylinder 3.7, 35)
+           (translate [36 125 17]))
       (->> (cylinder 1.7, 25)
            (rotate (/ π 20) [1 0 0])
-           (translate [45 125 10]))
+           (translate [42.7 125 10]))
       (difference ; Cut for tilted connection for 3d print optimization
         (->> (cube 25 16 20)
              (rotate (/ π 5.45) [0 1 0])
@@ -642,11 +613,11 @@
 
 (def usb-hole-cut
   (hull
-    (->> (cylinder 1.7 4)
+    (->> (cylinder 2 4)
          (with-fn 50)
          (rotate (/ π 2) [1 0 0])
          (translate [4, 31, 25]))
-    (->> (cylinder 1.7 4)
+    (->> (cylinder 2 4)
          (with-fn 50)
          (rotate (/ π 2) [1 0 0])
          (translate [4, 31, 25])
@@ -713,7 +684,7 @@
                (translate [203 112 6]))
           (->> (cylinder [4.5 1.4] 3) ; well home
                (with-fn 50)
-               (translate [45 125 7.9]))
+               (translate [42.7 125 7.9]))
           (->> (cylinder 1.7 10) ; Middle hole in glue mount
                (with-fn 50)
                (translate [-5 9 40]))
@@ -760,8 +731,6 @@
                            ;(->> (cube 2 2 2) ; Aim for usb cut
                            ;     (translate [0 30 (- 26 5.5)]))
                            ;middle-glue-reinforcement-bottom-left
-
-
                              (difference
                                (->> (cube 48 91 50)
                                     (translate [0 78 50]))
@@ -786,8 +755,6 @@
                                     (with-fn 25)
                                     (translate [-20, (+ 35 65.5), 28]))
                                )
-
-
                              )
                            )
             main-inline)
