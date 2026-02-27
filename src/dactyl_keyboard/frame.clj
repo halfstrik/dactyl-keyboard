@@ -794,6 +794,32 @@
             support-pillar-home-up-negative
             (mirror [1 0 0] support-pillar-home-up-negative)))))
 
+(spit "things_frame/led_right_mount.scad"
+      (write-scad
+        (difference
+          (intersection
+            (union
+              (->> (cube 40 100 40)
+                   (translate [100 60 20]))
+              (->> (cube 50 50 50)
+                   (translate [38 128 17])
+                   (rotate  (/ π 10.5) [0 0 -1]))
+              )
+            (union
+              bottom-main-cylinder-inline
+              (translate [0 0 18] main-inline)
+              bottom-thumbs-spacer-inline)
+              (->> main-outline
+                   (translate [0 0 -18])))
+          (well-sphere 92)
+        )
+        ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
+        ))
+
+(spit "things_frame/led_left_mount.scad"
+      (write-scad
+        (mirror [1 0 0] (import "led_right_mount.stl"))))
+
 (spit "things_frame/all_combined.scad"
       (write-scad
         (union
