@@ -273,7 +273,22 @@ union () {
                       sphere ($fn=300, r=1400);
                     }
                     translate ([0, 93, 35]) {
-                      cube ([420, 186, 70], center=true);
+                      linear_extrude (height=70, center=true){
+                        hull () {
+                          translate ([-206, -89, 0]) {
+                            circle (r = 4);
+                          }
+                          translate ([-206, 89, 0]) {
+                            circle (r = 4);
+                          }
+                          translate ([206, -89, 0]) {
+                            circle (r = 4);
+                          }
+                          translate ([206, 89, 0]) {
+                            circle (r = 4);
+                          }
+                        }
+                      }
                     }
                     translate ([0, 310, -785]) {
                       sphere ($fn=300, r=900);

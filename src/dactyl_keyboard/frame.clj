@@ -30,13 +30,23 @@
   (->> (cube 117.75 189 70)
        (translate [(+ (/ 184.5 2) (/ 117.75 2)) 94 35])))
 
+(defn rounded-z-cube
+  [[x y z] r]
+  (let [dx (- (/ x 2) r)
+        dy (- (/ y 2) r)]
+    (extrude-linear {:height z}
+                    (hull
+                      (for [ix [-1 1] iy [-1 1]]
+                        (translate [(* dx ix) (* dy iy) 0]
+                                   (circle r)))))))
+
 (def main-outline
   (let [main-sphere (->> (with-fn 300 (sphere 1400))
                          (translate [0 -110 -1330]))
         main-cube-length 420
         main-cube-width 186
         main-cube-heigh 70
-        main-cube (->> (cube main-cube-length main-cube-width main-cube-heigh)
+        main-cube (->> (rounded-z-cube [main-cube-length main-cube-width main-cube-heigh] 4)
                        (translate [0 (/ main-cube-width 2) (/ main-cube-heigh 2)]))
         main-back-sphere (->> (with-fn 300 (sphere 900))
                               (translate [0 310 -785]))]
