@@ -24,11 +24,11 @@
 
 (def third-divide-cube-inner
   (->> (cube 184.5 189 70)
-       (translate [0 94 35]))) ; TODO
+       (translate [0 94 35])))
 
 (def third-divide-cube-outer
-  (->> (cube 117.75 189 70)
-       (translate [(+ (/ 184.5 2) (/ 117.75 2)) 94 35])))
+  (->> (cube 117.99 189 70) ; used to be 117.75, but due to two glue points, had to shorten middle part by 0.13
+       (translate [(+ (/ 184.5 2) (/ 117.75 2)) 94 35]))) ; if still back will pop, then cut a bit more
 
 (defn rounded-z-cube
   [[x y z] r]
