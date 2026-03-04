@@ -668,7 +668,7 @@
             (->> (cube 44 2 25)
                  (rotate (/ π 7) [0 1 0])
                  (translate [141 183 7]))
-            (translate [0 0 -18] main-inline)))
+            (translate [0 0.2 -18] main-inline)))
         ))
 
 (spit "things_frame/base_right_bottom.scad"
