@@ -15,7 +15,22 @@ union () {
           sphere ($fn=300, r=1400);
         }
         translate ([0, 93, 33]) {
-          cube ([416, 182, 70], center=true);
+          linear_extrude (height=70, center=true){
+            hull () {
+              translate ([-204, -87, 0]) {
+                circle (r = 4);
+              }
+              translate ([-204, 87, 0]) {
+                circle (r = 4);
+              }
+              translate ([204, -87, 0]) {
+                circle (r = 4);
+              }
+              translate ([204, 87, 0]) {
+                circle (r = 4);
+              }
+            }
+          }
         }
         translate ([0, 310, -787]) {
           sphere ($fn=300, r=900);
@@ -64,7 +79,22 @@ union () {
           sphere ($fn=300, r=1400);
         }
         translate ([0, 93, 33]) {
-          cube ([416, 182, 70], center=true);
+          linear_extrude (height=70, center=true){
+            hull () {
+              translate ([-204, -87, 0]) {
+                circle (r = 4);
+              }
+              translate ([-204, 87, 0]) {
+                circle (r = 4);
+              }
+              translate ([204, -87, 0]) {
+                circle (r = 4);
+              }
+              translate ([204, 87, 0]) {
+                circle (r = 4);
+              }
+            }
+          }
         }
         translate ([0, 310, -787]) {
           sphere ($fn=300, r=900);
@@ -120,7 +150,22 @@ union () {
           sphere ($fn=300, r=1400);
         }
         translate ([0, 93, 33]) {
-          cube ([416, 182, 70], center=true);
+          linear_extrude (height=70, center=true){
+            hull () {
+              translate ([-204, -87, 0]) {
+                circle (r = 4);
+              }
+              translate ([-204, 87, 0]) {
+                circle (r = 4);
+              }
+              translate ([204, -87, 0]) {
+                circle (r = 4);
+              }
+              translate ([204, 87, 0]) {
+                circle (r = 4);
+              }
+            }
+          }
         }
         translate ([0, 310, -787]) {
           sphere ($fn=300, r=900);
@@ -169,7 +214,22 @@ union () {
           sphere ($fn=300, r=1400);
         }
         translate ([0, 93, 33]) {
-          cube ([416, 182, 70], center=true);
+          linear_extrude (height=70, center=true){
+            hull () {
+              translate ([-204, -87, 0]) {
+                circle (r = 4);
+              }
+              translate ([-204, 87, 0]) {
+                circle (r = 4);
+              }
+              translate ([204, -87, 0]) {
+                circle (r = 4);
+              }
+              translate ([204, 87, 0]) {
+                circle (r = 4);
+              }
+            }
+          }
         }
         translate ([0, 310, -787]) {
           sphere ($fn=300, r=900);
@@ -187,7 +247,22 @@ union () {
               sphere ($fn=300, r=1400);
             }
             translate ([0, 93, 33]) {
-              cube ([416, 182, 70], center=true);
+              linear_extrude (height=70, center=true){
+                hull () {
+                  translate ([-204, -87, 0]) {
+                    circle (r = 4);
+                  }
+                  translate ([-204, 87, 0]) {
+                    circle (r = 4);
+                  }
+                  translate ([204, -87, 0]) {
+                    circle (r = 4);
+                  }
+                  translate ([204, 87, 0]) {
+                    circle (r = 4);
+                  }
+                }
+              }
             }
             translate ([0, 310, -787]) {
               sphere ($fn=300, r=900);
@@ -230,7 +305,22 @@ union () {
                       sphere ($fn=300, r=1400);
                     }
                     translate ([0, 93, 33]) {
-                      cube ([416, 182, 70], center=true);
+                      linear_extrude (height=70, center=true){
+                        hull () {
+                          translate ([-204, -87, 0]) {
+                            circle (r = 4);
+                          }
+                          translate ([-204, 87, 0]) {
+                            circle (r = 4);
+                          }
+                          translate ([204, -87, 0]) {
+                            circle (r = 4);
+                          }
+                          translate ([204, 87, 0]) {
+                            circle (r = 4);
+                          }
+                        }
+                      }
                     }
                     translate ([0, 310, -787]) {
                       sphere ($fn=300, r=900);
@@ -342,7 +432,22 @@ union () {
                     sphere ($fn=300, r=1400);
                   }
                   translate ([0, 93, 33]) {
-                    cube ([416, 182, 70], center=true);
+                    linear_extrude (height=70, center=true){
+                      hull () {
+                        translate ([-204, -87, 0]) {
+                          circle (r = 4);
+                        }
+                        translate ([-204, 87, 0]) {
+                          circle (r = 4);
+                        }
+                        translate ([204, -87, 0]) {
+                          circle (r = 4);
+                        }
+                        translate ([204, 87, 0]) {
+                          circle (r = 4);
+                        }
+                      }
+                    }
                   }
                   translate ([0, 310, -787]) {
                     sphere ($fn=300, r=900);
@@ -372,7 +477,22 @@ union () {
               sphere ($fn=300, r=1400);
             }
             translate ([0, 93, 33]) {
-              cube ([416, 182, 70], center=true);
+              linear_extrude (height=70, center=true){
+                hull () {
+                  translate ([-204, -87, 0]) {
+                    circle (r = 4);
+                  }
+                  translate ([-204, 87, 0]) {
+                    circle (r = 4);
+                  }
+                  translate ([204, -87, 0]) {
+                    circle (r = 4);
+                  }
+                  translate ([204, 87, 0]) {
+                    circle (r = 4);
+                  }
+                }
+              }
             }
             translate ([0, 310, -787]) {
               sphere ($fn=300, r=900);
@@ -385,7 +505,22 @@ union () {
           sphere ($fn=300, r=1400);
         }
         translate ([0, 93, 33]) {
-          cube ([416, 182, 70], center=true);
+          linear_extrude (height=70, center=true){
+            hull () {
+              translate ([-204, -87, 0]) {
+                circle (r = 4);
+              }
+              translate ([-204, 87, 0]) {
+                circle (r = 4);
+              }
+              translate ([204, -87, 0]) {
+                circle (r = 4);
+              }
+              translate ([204, 87, 0]) {
+                circle (r = 4);
+              }
+            }
+          }
         }
         translate ([0, 310, -787]) {
           sphere ($fn=300, r=900);
@@ -405,7 +540,22 @@ union () {
               sphere ($fn=300, r=1400);
             }
             translate ([0, 93, 33]) {
-              cube ([416, 182, 70], center=true);
+              linear_extrude (height=70, center=true){
+                hull () {
+                  translate ([-204, -87, 0]) {
+                    circle (r = 4);
+                  }
+                  translate ([-204, 87, 0]) {
+                    circle (r = 4);
+                  }
+                  translate ([204, -87, 0]) {
+                    circle (r = 4);
+                  }
+                  translate ([204, 87, 0]) {
+                    circle (r = 4);
+                  }
+                }
+              }
             }
             translate ([0, 310, -787]) {
               sphere ($fn=300, r=900);
@@ -418,7 +568,22 @@ union () {
           sphere ($fn=300, r=1400);
         }
         translate ([0, 93, 33]) {
-          cube ([416, 182, 70], center=true);
+          linear_extrude (height=70, center=true){
+            hull () {
+              translate ([-204, -87, 0]) {
+                circle (r = 4);
+              }
+              translate ([-204, 87, 0]) {
+                circle (r = 4);
+              }
+              translate ([204, -87, 0]) {
+                circle (r = 4);
+              }
+              translate ([204, 87, 0]) {
+                circle (r = 4);
+              }
+            }
+          }
         }
         translate ([0, 310, -787]) {
           sphere ($fn=300, r=900);
@@ -438,7 +603,22 @@ union () {
               sphere ($fn=300, r=1400);
             }
             translate ([0, 93, 33]) {
-              cube ([416, 182, 70], center=true);
+              linear_extrude (height=70, center=true){
+                hull () {
+                  translate ([-204, -87, 0]) {
+                    circle (r = 4);
+                  }
+                  translate ([-204, 87, 0]) {
+                    circle (r = 4);
+                  }
+                  translate ([204, -87, 0]) {
+                    circle (r = 4);
+                  }
+                  translate ([204, 87, 0]) {
+                    circle (r = 4);
+                  }
+                }
+              }
             }
             translate ([0, 310, -787]) {
               sphere ($fn=300, r=900);
@@ -458,7 +638,22 @@ union () {
           sphere ($fn=300, r=1400);
         }
         translate ([0, 93, 33]) {
-          cube ([416, 182, 70], center=true);
+          linear_extrude (height=70, center=true){
+            hull () {
+              translate ([-204, -87, 0]) {
+                circle (r = 4);
+              }
+              translate ([-204, 87, 0]) {
+                circle (r = 4);
+              }
+              translate ([204, -87, 0]) {
+                circle (r = 4);
+              }
+              translate ([204, 87, 0]) {
+                circle (r = 4);
+              }
+            }
+          }
         }
         translate ([0, 310, -787]) {
           sphere ($fn=300, r=900);

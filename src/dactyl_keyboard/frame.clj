@@ -27,7 +27,7 @@
        (translate [0 94 35])))
 
 (def third-divide-cube-outer
-  (->> (cube 117.99 189 70) ; used to be 117.75, but due to two glue points, had to shorten middle part by 0.13
+  (->> (cube 117.95 189 70) ; used to be 117.75, but due to two glue points, had to shorten middle part by 0.13
        (translate [(+ (/ 184.5 2) (/ 117.75 2)) 94 35]))) ; if still back will pop, then cut a bit more
 
 (defn rounded-z-cube
@@ -58,7 +58,7 @@
          main-cube-length (- 420 4)
          main-cube-width (- 186 4)
          main-cube-heigh 70
-         main-cube (->> (cube main-cube-length main-cube-width main-cube-heigh)
+         main-cube (->> (rounded-z-cube [main-cube-length main-cube-width main-cube-heigh] 4)
                         (translate [0 (+ (/ main-cube-width 2) 2) (- (/ main-cube-heigh 2) 2)]))
         main-back-sphere (->> (with-fn 300 (sphere 900))
                               (translate [0 310 (+ -785 -2)]))]
@@ -597,12 +597,12 @@
 
 (def middle-glue-reinforcement-bottom-left
   (union
-    (difference
-      (->> (cube 16 2 14) ; main-cube-width / 2
-           (rotate (/ π 26) [0 0 1])
-           (translate [0 32 14])
-           (intersection bottom-main-cylinder-inline))
-      (translate [0 2 0] bottom-main-cylinder-inline))
+    ;(difference
+    ;  (->> (cube 16 2 14) ; main-cube-width / 2
+    ;       (rotate (/ π 26) [0 0 1])
+    ;       (translate [0 32 14])
+    ;       (intersection bottom-main-cylinder-inline))
+    ;  (translate [0 2 0] bottom-main-cylinder-inline))
     (difference
       (->> (cube 24 33.5 25) ; main-cube-width / 2
            (rotate (/ π 6) [0 -1 0])
@@ -623,14 +623,14 @@
 
 (def usb-hole-cut
   (hull
-    (->> (cylinder 2 4)
+    (->> (cylinder 3 4)
          (with-fn 50)
          (rotate (/ π 2) [1 0 0])
-         (translate [4, 31, 25]))
-    (->> (cylinder 2 4)
+         (translate [3, 31, 25]))
+    (->> (cylinder 3 4)
          (with-fn 50)
          (rotate (/ π 2) [1 0 0])
-         (translate [4, 31, 25])
+         (translate [3, 31, 25])
          (mirror [1 0 0]))))
 
 (spit "things_frame/base_bottom_common.scad"
