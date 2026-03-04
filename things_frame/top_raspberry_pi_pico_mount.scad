@@ -24,17 +24,17 @@ union () {
           translate ([-20, 99.5, 20]) {
             cylinder ($fn=25, h=20, r=1.3, center=true);
           }
-          translate ([0, 1, 1]) {
+          translate ([0, 0, 1]) {
             intersection () {
               union () {
                 import ("base_bottom_common.stl");
                 mirror ([1, 0, 0]) {
                   import ("base_bottom_common.stl");
                 }
-                translate ([0, 1.5, 1.5]) {
+                translate ([0, 0, 1.5]) {
                   import ("base_bottom_common.stl");
                 }
-                translate ([0, 1.5, 1.5]) {
+                translate ([0, 0, 1.5]) {
                   mirror ([1, 0, 0]) {
                     import ("base_bottom_common.stl");
                   }
