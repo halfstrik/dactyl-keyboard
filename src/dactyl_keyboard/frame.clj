@@ -734,42 +734,59 @@
         (union
           ;(import "case_right_bottom.stl")
           ;(import "case_middle_up.stl")
+          ;(->> (cube 2 2 2) ; Aim for usb cut
+          ;     (translate [0 32 25]))
+          ;(->> (cube 30 2 2) ; Aim for usb cut
+          ;     (translate [0 32 20]))
           (difference
             (intersection
-              (translate [0 0 4.5]
+              ;(translate [0 0 4.5]
                          (union
-                           ;(->> (cube 2 2 2) ; Aim for usb cut
-                           ;     (translate [0 30 (- 26 5.5)]))
-                           ;middle-glue-reinforcement-bottom-left
-                             (difference
-                               (->> (cube 48 91 50)
-                                    (translate [0 78 50]))
+                           (difference
+                             (->> (cube 48 71 20)
+                                  (translate [0 67 10]))
 
-                               (->> (cube 32 55 10)
-                                    (translate [0 60 27]))
-                               (->> (cube 45 70 2)
-                                    (translate [0 67.5 90]))
-                               (->> (cube 45 70 2)
-                                    (translate [0 67.5 26]))
-                               ; Screw holes
-                               (->> (cylinder 1.3, 20)
-                                    (with-fn 25)
-                                    (translate [20, 35, 28]))
-                               (->> (cylinder 1.3, 20)
-                                    (with-fn 25)
-                                    (translate [-20, 35, 28]))
-                               (->> (cylinder 1.3, 20)
-                                    (with-fn 25)
-                                    (translate [20, (+ 35 65.5), 28]))
-                               (->> (cylinder 1.3, 20)
-                                    (with-fn 25)
-                                    (translate [-20, (+ 35 65.5), 28]))
+                             (->> (cube 32 65 10)
+                                  (translate [0 64 17]))
+                             ;(->> (cube 45 70 2)
+                             ;     (translate [0 67.5 90]))
+                             (->> (cube 45 70 2)
+                                  (translate [0 66.5 19]))
+                             ; Screw holes
+                             (->> (cylinder 1.3, 20)
+                                  (with-fn 25)
+                                  (translate [20, 34, 20]))
+                             (->> (cylinder 1.3, 20)
+                                  (with-fn 25)
+                                  (translate [-20, 34, 20]))
+                             (->> (cylinder 1.3, 20)
+                                  (with-fn 25)
+                                  (translate [20, (+ 34 65.5), 20]))
+                             (->> (cylinder 1.3, 20)
+                                  (with-fn 25)
+                                  (translate [-20, (+ 34 65.5), 20]))
+
+                             (->>
+                               (intersection
+                                 (union
+                                   (import "base_bottom_common.stl")
+                                   (mirror [1 0 0] (import "base_bottom_common.stl"))
+                                   (translate [0 1.5 1.5] (import "base_bottom_common.stl"))
+                                   (translate [0 1.5 1.5] (mirror [1 0 0] (import "base_bottom_common.stl")))
+                                   )
+
+                                 (cube 30 300 300)
                                )
+                               (translate [0 1 1])
+                               )
+                             ;middle-glue-reinforcement-bottom-left
+                             ;middle-glue-reinforcement-bottom-right
                              )
                            )
-            main-inline)
-            support-pillar-home-up-negative
-            (mirror [1 0 0] support-pillar-home-up-negative)))))
+                         ;)
+              (union
+                bottom-thumbs-spacer-inline
+                bottom-main-cylinder-inline))))))
 
 (spit "things_frame/led_right_mount.scad"
       (write-scad
