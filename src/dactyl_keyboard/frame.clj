@@ -103,7 +103,20 @@
   (difference main-box-right (well-sphere 78)))
 
 (def main-box-minus-well-sphere-top
-  (difference main-box-minus-well-sphere (translate [0 0 -11] main-box-minus-well-sphere)))
+  (let [main-cube-length (- 420 2)
+        main-cube-width (- 186 2)
+        main-cube-heigh 70
+        main-cube (->> (rounded-z-cube [main-cube-length main-cube-width main-cube-heigh] 4)
+                       (translate [0 (+ (/ main-cube-width 2) 1) (- (/ main-cube-heigh 2) 2)]))]
+  (difference main-box-minus-well-sphere
+              (translate [0 0 -14] main-box-minus-well-sphere)
+              ; TODO: Cut corner where it goes beyond
+              (difference (translate [0 0 -11] main-box-minus-well-sphere)
+                          main-cube))))
+
+(spit "things_frame/main-box-minus-well-sphere-top.scad"
+       (write-scad
+         main-box-minus-well-sphere-top))
 
 (def keys-well
     (intersection (difference (well-sphere 78) (well-sphere 76)) main-outline))
@@ -159,15 +172,6 @@
            (translate [25.5 127 34.5]))
       ))
     )
-
-(def support-pillar-home-up-negative
-  (difference
-    (->> (cube 25 14 20)
-         (rotate (/ π 5.45) [0 1 0])
-         (translate [25.5 127 52.5]))
-    (->> (cube 40 40 10)
-         (translate [25.5 127 34.5]))
-    ))
 
 (def support-pillar-home-well
   (difference
@@ -597,12 +601,6 @@
 
 (def middle-glue-reinforcement-bottom-left
   (union
-    ;(difference
-    ;  (->> (cube 16 2 14) ; main-cube-width / 2
-    ;       (rotate (/ π 26) [0 0 1])
-    ;       (translate [0 32 14])
-    ;       (intersection bottom-main-cylinder-inline))
-    ;  (translate [0 2 0] bottom-main-cylinder-inline))
     (difference
       (->> (cube 24 33.5 25) ; main-cube-width / 2
            (rotate (/ π 6) [0 -1 0])
