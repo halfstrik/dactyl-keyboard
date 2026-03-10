@@ -110,9 +110,9 @@
                        (translate [0 (+ (/ main-cube-width 2) 1) (- (/ main-cube-heigh 2) 2)]))]
   (difference main-box-minus-well-sphere
               (translate [0 0 -14] main-box-minus-well-sphere)
-              ; TODO: Cut corner where it goes beyond
               (difference (translate [0 0 -11] main-box-minus-well-sphere)
-                          main-cube))))
+                          main-cube)
+              (translate [200 6 13.2] (cube 30 20 20)))))
 
 (spit "things_frame/main-box-minus-well-sphere-top.scad"
        (write-scad
@@ -653,7 +653,8 @@
               bottom-thumbs-spacer-inline
 
               usb-hole-cut
-              half-divide-cube-left))
+              half-divide-cube-left
+              base-right-up))
           bottom-corner-leg
           bottom-middle-leg
           ; right
@@ -666,8 +667,14 @@
             (->> (cube 44 2 25)
                  (rotate (/ π 7) [0 1 0])
                  (translate [141 183 7]))
-            (translate [0 0.2 -18] main-inline)))
-        ))
+            (translate [0 0.2 -18] main-inline))
+          ; rear
+          (intersection
+            (->> (cube 50 2 25)
+                 (rotate (/ π 7) [0 1 0])
+                 (translate [150 3 21]))
+            bottom-main-cylinder-inline)
+          )))
 
 (spit "things_frame/base_right_bottom.scad"
       (write-scad
@@ -803,11 +810,12 @@
       (write-scad
         (union
           ;(import "base_right_up.stl")
+          (import "base_bottom_common.stl")
           ;(convert-dactyl-shapes caps thumbcaps)
           ;(convert-dactyl-shapes caps-combined-outline)
           ;(import "base_middle_up.stl")
-          ;(import "well_right.stl")
-          (import "case_right_bottom.stl")
+          (import "well_right.stl")
+          ;(import "case_right_bottom.stl")
           ;(intersection
           ;  bottom-main-cylinder
           ;  bottom-main-outline
