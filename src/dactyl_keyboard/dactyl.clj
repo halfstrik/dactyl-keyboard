@@ -73,8 +73,8 @@
 
 (def sa-length 18.75)
 (def sa-double-length (* sa-length 2))
-(def sa-1p2-length (* sa-length 1.2))
-(def sa-2p2-length (* sa-length 2.2))
+(def sa-1p2-length (* sa-length 1.08))
+(def sa-2p2-length (* sa-length 2.08))
 (def sa-cap {1 (let [bl2 (/ 18.5 2)
                      m (/ 17 2)
                      key-cap (hull (->> (polygon [[bl2 bl2] [bl2 (- bl2)] [(- bl2) (- bl2)] [(- bl2) bl2]])
@@ -107,7 +107,7 @@
                        bw2 (/ 24 2)
                        key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                          (translate [0 0 0.05])) ; 0.05
+                                          (translate [0 0 -0.05])) ; 0.05
                                      (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                           (translate [0 0 6])) ; 6
@@ -121,41 +121,59 @@
                        bw2 (/ 4 2)
                        key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                          (translate [0 0 0.05])) ; 0.05
+                                          (translate [0 0 -5])) ; 0.05
                                      (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                          (translate [0 0 6])) ; 6
-                                     (->> (polygon [[9 6] [-9 6] [-9 -6] [9 -6]])
-                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                          (translate [0 0 12])))]
+                                          (translate [0 0 14])) ; 6
+                                     ;(->> (polygon [[9 6] [-9 6] [-9 -6] [9 -6]])
+                                     ;     (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                     ;     (translate [0 0 12]))
+                                     )]
                    (->> key-cap
                         (translate [0 0 (+ 5 plate-thickness)])
                         (color [20/255 223/255 175/255 1])))
              1.2 (let [bl2 (/ sa-1p2-length 2) ; very skinny key-cap just to emulate undercut for the keys (to sand it later manually)
-                       bw2 (/ (* 17 1.2) 2)
+                       bw2 (/ (* 17.3 1.2) 2)
                        key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                          (translate [0 0 0.05])) ; 0.05
+                                          (translate [0 0 -5])) ; 0.05
                                      (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                          (translate [0 0 6])) ; 6
-                                     (->> (polygon [[9 6] [-9 6] [-9 -6] [9 -6]])
+                                          (translate [0 0 14])) ; 6
+                                     ;(->> (polygon [[9 6] [-9 6] [-9 -6] [9 -6]])
+                                     ;     (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                     ;     (translate [0 0 12]))
+                                     )]
+                   (->> key-cap
+                        (translate [0 0 (+ 5 plate-thickness)])
+                        (color [20/255 223/255 175/255 1])))
+             1.7 (let [bl2 (/ sa-1p2-length 2) ; very skinny key-cap just to emulate undercut for the keys (to sand it later manually)
+                       bw2 (/ (* 17 1.5) 2)
+                       key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                          (translate [0 0 12])))]
+                                          (translate [0 0 -5])) ; 0.05
+                                     (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
+                                          (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                          (translate [0 0 14])) ; 6
+                                     ;(->> (polygon [[9 6] [-9 6] [-9 -6] [9 -6]])
+                                     ;     (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                     ;     (translate [0 0 12]))
+                                     )]
                    (->> key-cap
                         (translate [0 0 (+ 5 plate-thickness)])
                         (color [20/255 223/255 175/255 1])))
              2.2 (let [bl2 (/ sa-2p2-length 2)
-                     bw2 (/ (* 18.25 1.2) 2)
+                     bw2 (/ (* 17 1.2) 2)
                      key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                        (translate [0 0 0.05])) ; 0.05
+                                        (translate [0 0 -5])) ; 0.05
                                    (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                        (translate [0 0 6])) ; 6
-                                   (->> (polygon [[6 16] [6 -16] [-6 -16] [-6 16]])
-                                        (extrude-linear {:height 0.1 :twist 0 :convexity 0})
-                                        (translate [0 0 12])))]
+                                        (translate [0 0 14])) ; 6
+                                   ;(->> (polygon [[6 16] [6 -16] [-6 -16] [-6 16]])
+                                   ;     (extrude-linear {:height 0.1 :twist 0 :convexity 0})
+                                   ;     (translate [0 0 12]))
+                                   )]
                  (->> key-cap
                       (translate [0 0 (+ 5 plate-thickness)])
                       (color [127/255 159/255 127/255 1])))})
@@ -301,7 +319,12 @@
                          cap-top-height)
         #_(+ (/ (/ (+ pillar-width 5) 2)
                             (Math/sin (/ β 2)))
-                         cap-top-height)]
+                         cap-top-height)
+        ; Raise for top thumbs buttons +3mm as Kinesis has non-standard tall buttons
+        button-raise (if (or
+                           (and (= column 1) (= row 1))
+                           (and (= column 2) (= row 1)))
+                       40 37)]
     (->> shape
          (translate [0 0 (- row-radius)])
          (rotate (* α row) [1 0 0])
@@ -312,7 +335,7 @@
          (translate [mount-width 0 0])
          (rotate (* π (- 1/4 5/32)) [0 0 1])
          (rotate (/ π 24) [1 -0.1 0])
-         (translate [-52 -53 37]))))  ; Rotate more outwards and less stick up
+         (translate [-52 -53 button-raise]))))  ; Rotate more outwards and less stick up
 
 (defn thumb-2x-column [shape]
   (thumb-place 0 -1/2 shape))
@@ -446,7 +469,7 @@
 ;;;;;;;;;;
 
 ;; In column units
-(def right-wall-column (+ (last columns) 0.74))
+(def right-wall-column (+ (last columns) 0.78))
 (def left-wall-column (- (first columns) 1/2))
 (def thumb-back-y 0.93)
 (def thumb-right-wall (- -1/2 0.05))
@@ -1320,12 +1343,21 @@
               (key-place column row))))
 
      (key-place 0 0 (sa-cap 1.2))
+     (key-place 0 1 (sa-cap 1.2))
+     (key-place 0 2 (sa-cap 1.2))
+     (key-place 0 3 (sa-cap 1.2))
      (key-place 1 0 (sa-cap 1.2))
+     (key-place 1 1 (sa-cap 1.2))
+     (key-place 1 2 (sa-cap 1.2))
+     (key-place 1 3 (sa-cap 1.2))
+     (key-place 1 4 (sa-cap 1.2))
      (key-place 2 0 (sa-cap 1.2))
      (key-place 3 0 (sa-cap 1.2))
      (key-place 4 0 (sa-cap 1.2))
-     (key-place 5 0 (sa-cap 1.2))
-     (key-place 1 4 (sa-cap 1.2))
+     (key-place 5 0 (sa-cap 1.7))
+     (key-place 5 1 (sa-cap 1.7))
+     (key-place 5 2 (sa-cap 1.7))
+     (key-place 5 3 (sa-cap 1.7))
      (key-place 2 4 (sa-cap 1.2))
      (key-place 3 4 (sa-cap 1.2))
      (key-place 4 4 (sa-cap 1.2))
