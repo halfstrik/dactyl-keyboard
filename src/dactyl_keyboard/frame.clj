@@ -309,6 +309,14 @@
     (->> (cube 416 2 70) ; Rear side limiter
          (translate [0 1 35]))))
 
+(def bottom-main-cylinder-inline-cut-rgb
+  (intersection
+    (->> (with-fn 50 (cylinder 91 416))
+         (rotate (/ π 2) [0 1 0])
+         (translate [0 63 89]))
+    (->> (cube 78 86 40)
+         (translate [158 53 21]))))
+
 (def bottom-hand-rest-outline
   (intersection
     (difference (->> (difference main-outline (well-sphere 78))
@@ -638,13 +646,12 @@
             (union
               (intersection
                 bottom-main-cylinder
-                bottom-main-outline
-                )
+                bottom-main-outline)
               bottom-hand-rest-outline
-              bottom-thumbs-spacer
-              )
+              bottom-thumbs-spacer)
             (union
               bottom-main-cylinder-inline
+              bottom-main-cylinder-inline-cut-rgb
               (difference (->> (difference main-inline
                                            (translate [0 0 -13] main-inline))
                                (translate [0 0 -5]))
@@ -816,6 +823,7 @@
           ;(import "base_middle_up.stl")
           (import "well_right.stl")
           ;(import "case_right_bottom.stl")
+          bottom-main-cylinder-inline-cut-rgb
           ;(intersection
           ;  bottom-main-cylinder
           ;  bottom-main-outline
