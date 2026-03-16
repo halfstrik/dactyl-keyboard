@@ -3,7 +3,7 @@
   (:require [scad-clj.scad :refer :all]
             [scad-clj.model :refer :all]
             [unicode-math.core :refer :all]
-            [dactyl-keyboard.frame :refer [bottom-main-cylinder main-outline bottom-hand-rest-outline bottom-thumbs-spacer]]))
+            [dactyl-keyboard.frame :refer [bottom-main-cylinder main-outline bottom-hand-rest-outline bottom-thumbs-spacer well-sphere]]))
 
 (spit "things_support/support_bottom_middle.scad"
       (write-scad
@@ -48,9 +48,32 @@
         (mirror [1 0 0]
                 (import "../things_support/support_bottom_side.stl"))))
 
+(spit "things_support/support_top.scad"
+      (write-scad
+        (difference
+          (union
+            (->> (cube 200 174 36)
+                 (translate [0 103 52]))
+            (->> (cube 200 22 26)
+                 (translate [0 5 57])))
+          (union
+            (difference
+              main-outline
+              (union (well-sphere 76) (mirror [1 0 0] (well-sphere 76))))
+            (->> (cube 80 85 45)
+                 (translate [100 50 20]))
+            (->> (cube 80 85 45)
+                 (translate [100 50 20])
+                 (mirror [1 0 0]))
+            ))))
+
 (spit "things_support/all_combined.scad"
       (write-scad
         (union
-          (import "../things_frame/base_bottom_common.stl")
+          ;(import "../things_frame/base_bottom_common.stl")
           (import "../things_support/support_bottom_middle.stl")
-          (import "../things_support/support_bottom_side.stl"))))
+          ;(import "../things_support/support_bottom_side.stl")
+          ;(import "../things_frame/case_middle_up.stl")
+          (import "../things_support/support_top.stl")
+
+        )))
