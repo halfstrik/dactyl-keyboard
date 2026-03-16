@@ -803,7 +803,7 @@
               (translate [0 0 18] main-inline)
               bottom-thumbs-spacer-inline)
               (->> main-outline
-                   (translate [0 0 -18])))
+                   (translate [0 0 -20])))
           (well-sphere 92)
         )
         ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
