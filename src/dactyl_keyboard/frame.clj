@@ -471,8 +471,8 @@
 
     (difference
       (intersection
-       ;(convert-dactyl-shapes dactyl-top-right)
-       (convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
+       (convert-dactyl-shapes dactyl-top-right)
+       ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
        main-inline)
 
       support-pillar-shift-up-negative
@@ -860,14 +860,14 @@
 (spit "things_frame/all_combined.scad"
       (write-scad
         (union
-          ;(import "base_right_up.stl")
-          (import "base_bottom_common.stl")
-          ;(convert-dactyl-shapes caps thumbcaps)
+          (import "base_right_up.stl")
+          ;(import "base_bottom_common.stl")
+          (convert-dactyl-shapes caps thumbcaps)
           ;(convert-dactyl-shapes caps-combined-outline)
           ;(import "base_middle_up.stl")
-          (import "well_right.stl")
+          ;(import "well_right.stl")
           ;(import "case_right_bottom.stl")
-          bottom-main-cylinder-inline-cut-rgb
+          ;bottom-main-cylinder-inline-cut-rgb
           ;(intersection
           ;  bottom-main-cylinder
           ;  bottom-main-outline
