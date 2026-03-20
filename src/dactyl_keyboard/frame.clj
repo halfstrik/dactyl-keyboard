@@ -471,8 +471,8 @@
 
     (difference
       (intersection
-       (convert-dactyl-shapes dactyl-top-right)
-       ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
+       ;(convert-dactyl-shapes dactyl-top-right)
+       (convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
        main-inline)
 
       support-pillar-shift-up-negative
@@ -501,7 +501,7 @@
       bottom-negative-inline
       (translate [193 112 (+ 19.4 8.4 -17)] ; Indent for a wooden screw:)
                  (cylinder 4.5, 15))
-      (->> (cylinder 1.7, 25)
+      (->> (cylinder 2, 25)
            (translate [193 112 (+ 19.4 8.4 -1)]))
       (->> (cylinder 1.7, 25)
            (rotate (/ π 20) [1 0 0])
@@ -513,7 +513,7 @@
                  (cylinder 4.5, 15))
       (->> (cube 22 2 17) ; Cut for switch to be able to insert
            (translate [190 15 16.4]))
-      (->> (cylinder 1.7, 25)
+      (->> (cylinder 2, 25)
            (translate [193 9 (+ 19.4 8.4 -4)]))
       (->> (cylinder 6 25)
            (translate [203 8 10]))
@@ -524,14 +524,14 @@
         support-pillar-five-well
         main-inline)
       (well-sphere 78)
-      (->> (cylinder 1.7, 25)
+      (->> (cylinder 2, 25)
            (translate [108 5.5 (+ 19.4 18.4)])))
     (difference
       (intersection
         support-pillar-home-well
         main-inline)
       bottom-negative-inline
-      (->> (cylinder 1.7, 45)
+      (->> (cylinder 2, 45)
            (translate [36 125 (+ 19.4 12.4)]))
       (->> (cylinder 3.7, 35)
            (translate [36 125 17]))
