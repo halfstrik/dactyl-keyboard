@@ -39487,6 +39487,24 @@ union () {
         }
       }
     }
+    translate ([131.4, 10.4, 30]) {
+      rotate (a=6.666666666666667, v=[0, 0, 1]) {
+        rotate (a=18.0, v=[-1, 0, 0]) {
+          rotate (a=18.0, v=[0, 1, 0]) {
+            cube ([19, 5, 5], center=true);
+          }
+        }
+      }
+    }
+    translate ([96.2, 18.5, 44.6]) {
+      rotate (a=12.857142857142858, v=[0, 0, 1]) {
+        rotate (a=25.714285714285715, v=[-1, 0, 0]) {
+          rotate (a=29.999999999999996, v=[0, 1, 0]) {
+            cube ([19, 19, 5], center=true);
+          }
+        }
+      }
+    }
     translate ([195.25, 108, 39]) {
       cube ([26.5, 25, 31], center=true);
     }
@@ -39525,7 +39543,7 @@ union () {
       }
     }
     translate ([193, 9, 23.799999999999997]) {
-      cylinder (h=25, r=1.3, center=true);
+      cylinder (h=25, r=2.2, center=true);
     }
     translate ([203, 8, 10]) {
       cylinder (h=25, r=6, center=true);

@@ -475,11 +475,21 @@
        ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
        main-inline)
 
+      (->> (cube 19 5 5) ; cut for "3" key, so keycap won't stick
+           (rotate (/ π 10) [0 1 0])
+           (rotate (/ π 10) [-1 0 0])
+           (rotate (/ π 27) [0 0 1])
+           (translate [131.4 10.4 30]))
+      (->> (cube 19 19 5) ; cut for "5" key, so keycap won't stick
+           (rotate (/ π 6) [0 1 0])
+           (rotate (/ π 7) [-1 0 0])
+           (rotate (/ π 14) [0 0 1])
+           (translate [96.2 18.5 44.6]))
       support-pillar-shift-up-negative
       support-pillar-five-up-negative
       support-pillar-plus-up-negative
       (well-sphere 78)
-      (->> (cylinder 1.3, 25)
+      (->> (cylinder 2.2, 25); TODO - MAKE 2.2?
            (translate [193 9 (+ 19.4 8.4 -4)]))
       (->> (cylinder 6 25)
            (translate [203 8 10]))
@@ -548,6 +558,23 @@
 (spit "things_frame/well_right.scad"
       (write-scad
         well-right))
+
+(spit "things_frame/well_right1.scad"
+      (write-scad
+        (difference
+            (convert-dactyl-shapes dactyl-top-right)
+            (->> (cube 19 5 5)
+                 (rotate (/ π 10) [0 1 0])
+                 (rotate (/ π 10) [-1 0 0])
+                 (rotate (/ π 27) [0 0 1])
+                 (translate [131.4 10.4 30]))
+            (->> (cube 19 19 5)
+                 (rotate (/ π 6) [0 1 0])
+                 (rotate (/ π 7) [-1 0 0])
+                 (rotate (/ π 14) [0 0 1])
+                 (translate [96.2 18.5 44.6]))
+            )
+        ))
 
 (spit "things_frame/well_left.scad"
       (write-scad
@@ -860,12 +887,15 @@
 (spit "things_frame/all_combined.scad"
       (write-scad
         (union
-          (import "base_right_up.stl")
+          ;(import "base_right_up.stl")
           ;(import "base_bottom_common.stl")
-          (convert-dactyl-shapes caps thumbcaps)
+          ;(convert-dactyl-shapes caps thumbcaps)
           ;(convert-dactyl-shapes caps-combined-outline)
           ;(import "base_middle_up.stl")
-          ;(import "well_right.stl")
+          (import "well_right.stl")
+          (->> (cube 19 3 5)
+               (rotate (/ π 10.1) [0 1 0])
+               (translate [131.4 9.5 30.2]))
           ;(import "case_right_bottom.stl")
           ;bottom-main-cylinder-inline-cut-rgb
           ;(intersection
