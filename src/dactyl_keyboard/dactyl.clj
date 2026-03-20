@@ -324,14 +324,16 @@
         button-raise (if (or
                            (and (= column 1) (= row 1))
                            (and (= column 2) (= row 1)))
-                       40 37)]
+                       40 37)
+        shift (if (= row 1) 0.8 (if (= row -1) -0.5 (if (= row 0) 0.4 0)))] ; Make proper spacing for thumbs
+                                                                            ; otherwise they're touching each other
     (->> shape
          (translate [0 0 (- row-radius)])
          (rotate (* α row) [1 0 0])
          (translate [0 0 row-radius])
          (translate [0 0 (- column-radius)])
          (rotate (* column β) [0 1 0])
-         (translate [0 0 column-radius])
+         (translate [0 shift column-radius])
          (translate [mount-width 0 0])
          (rotate (* π (- 1/4 5/32)) [0 0 1])
          (rotate (/ π 24) [1 -0.1 0])
