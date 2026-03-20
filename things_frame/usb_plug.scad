@@ -1,13 +1,13 @@
 difference () {
   translate ([0, 33, 25]) {
-    cube ([25, 2.6, 10], center=true);
+    cube ([28, 2.6, 10], center=true);
   }
   union () {
     translate ([0, 66.5, 19.3]) {
       cube ([45, 70, 2], center=true);
     }
-    translate ([0, 67.1, 23.3]) {
-      cube ([21.3, 70, 1], center=true);
+    translate ([0, 67.1, 23.1]) {
+      cube ([23.3, 70, 1.4], center=true);
     }
     difference () {
       translate ([0, 31.5, 25]) {
@@ -29,29 +29,29 @@ difference () {
       }
     }
     hull () {
-      translate ([3, 35, 25]) {
+      translate ([3, 35, 25.3]) {
         rotate (a=90.0, v=[1, 0, 0]) {
-          cylinder ($fn=50, h=6, r=1.3, center=true);
+          cylinder ($fn=50, h=6, r=1.6, center=true);
         }
       }
       mirror ([1, 0, 0]) {
-        translate ([3, 35, 25]) {
+        translate ([3, 35, 25.3]) {
           rotate (a=90.0, v=[1, 0, 0]) {
-            cylinder ($fn=50, h=6, r=1.3, center=true);
+            cylinder ($fn=50, h=6, r=1.6, center=true);
           }
         }
       }
     }
     hull () {
-      translate ([3, 30, 25]) {
+      translate ([3, 30, 25.3]) {
         rotate (a=90.0, v=[1, 0, 0]) {
-          cylinder ($fn=50, h=6, r=1.28, center=true);
+          cylinder ($fn=50, h=6, r=1.4, center=true);
         }
       }
       mirror ([1, 0, 0]) {
-        translate ([3, 30, 25]) {
+        translate ([3, 30, 25.3]) {
           rotate (a=90.0, v=[1, 0, 0]) {
-            cylinder ($fn=50, h=6, r=1.28, center=true);
+            cylinder ($fn=50, h=6, r=1.4, center=true);
           }
         }
       }

@@ -815,38 +815,38 @@
 
 (def usb-female-socket
   (hull
-    (->> (cylinder 1.3 6)
+    (->> (cylinder 1.6 6)
          (with-fn 50)
          (rotate (/ π 2) [1 0 0])
-         (translate [3, 35, 25]))
-    (->> (cylinder 1.3 6)
+         (translate [3, 35, 25.3]))
+    (->> (cylinder 1.6 6)
          (with-fn 50)
          (rotate (/ π 2) [1 0 0])
-         (translate [3, 35, 25])
+         (translate [3, 35, 25.3])
          (mirror [1 0 0]))))
 
 (def usb-male-socket-cut
   (hull
-    (->> (cylinder 1.28 6)
+    (->> (cylinder 1.4 6)
          (with-fn 50)
          (rotate (/ π 2) [1 0 0])
-         (translate [3, 30, 25]))
-    (->> (cylinder 1.28 6)
+         (translate [3, 30, 25.3]))
+    (->> (cylinder 1.4 6)
          (with-fn 50)
          (rotate (/ π 2) [1 0 0])
-         (translate [3, 30, 25])
+         (translate [3, 30, 25.3])
          (mirror [1 0 0]))))
 
 (spit "things_frame/usb_plug.scad"
       (write-scad
         (difference
-          (->> (cube 25 2.6 10)
+          (->> (cube 28 2.6 10)
                (translate [0 33 25]))
           (union
             (->> (cube 45 70 2) ; PCB
                  (translate [0 66.5 19.3]))
-            (->> (cube 21.3 70 1) ; pico
-                 (translate [0 67.1 23.3]))
+            (->> (cube 23.3 70 1.4) ; pico
+                 (translate [0 67.1 23.1]))
             (difference
               (->> (cube 50 2 50)
                    (translate [0 31.5 25]))
