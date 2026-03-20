@@ -485,6 +485,8 @@
            (rotate (/ π 7) [-1 0 0])
            (rotate (/ π 14) [0 0 1])
            (translate [96.2 18.5 44.6]))
+      (->> (cube 5 5 5) ; cut top most corner so it won't hinder middle plate
+           (translate [90 13 58.5]))
       support-pillar-shift-up-negative
       support-pillar-five-up-negative
       support-pillar-plus-up-negative
@@ -893,9 +895,8 @@
           ;(convert-dactyl-shapes caps-combined-outline)
           ;(import "base_middle_up.stl")
           (import "well_right.stl")
-          (->> (cube 19 3 5)
-               (rotate (/ π 10.1) [0 1 0])
-               (translate [131.4 9.5 30.2]))
+          (->> (cube 5 5 5)
+               (translate [90 13 58.5]))
           ;(import "case_right_bottom.stl")
           ;bottom-main-cylinder-inline-cut-rgb
           ;(intersection

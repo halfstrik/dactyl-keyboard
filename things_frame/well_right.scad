@@ -39505,6 +39505,9 @@ union () {
         }
       }
     }
+    translate ([90, 13, 58.5]) {
+      cube ([5, 5, 5], center=true);
+    }
     translate ([195.25, 108, 39]) {
       cube ([26.5, 25, 31], center=true);
     }
