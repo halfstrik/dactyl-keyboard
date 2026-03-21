@@ -140,8 +140,12 @@
        (translate [195.25 9 42])))
 
 (def support-pillar-plus-well
-  (->> (cube 25.5 14 20)
-       (translate [195.25 9 16.9])))
+  (difference
+    (->> (cube 25.5 14 20)
+         (translate [195.25 9 16.9]))
+    (->> (cube 10 10 10) ; cut outer support for curved corner
+         (rotate (/ π 4) [0 0 1]) ; TODO: double check that this is correct
+         (translate [213 2 24.5]))))
 
 (def support-pillar-five-up
   (difference
@@ -491,7 +495,7 @@
       support-pillar-five-up-negative
       support-pillar-plus-up-negative
       (well-sphere 78)
-      (->> (cylinder 2.2, 25); TODO - MAKE 2.2?
+      (->> (cylinder 2.2, 25)
            (translate [193 9 (+ 19.4 8.4 -4)]))
       (->> (cylinder 6 25)
            (translate [203 8 10]))
@@ -895,8 +899,9 @@
           ;(convert-dactyl-shapes caps-combined-outline)
           ;(import "base_middle_up.stl")
           (import "well_right.stl")
-          (->> (cube 5 5 5)
-               (translate [90 13 58.5]))
+          (->> (cube 10 10 10)
+               (rotate (/ π 4) [0 0 1])
+               (translate [213 2 24.5]))
           ;(import "case_right_bottom.stl")
           ;bottom-main-cylinder-inline-cut-rgb
           ;(intersection

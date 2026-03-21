@@ -39840,8 +39840,15 @@ union () {
     }
   }
   difference () {
-    translate ([195.25, 9, 16.9]) {
-      cube ([25.5, 14, 20], center=true);
+    difference () {
+      translate ([195.25, 9, 16.9]) {
+        cube ([25.5, 14, 20], center=true);
+      }
+      translate ([213, 2, 24.5]) {
+        rotate (a=45.0, v=[0, 0, 1]) {
+          cube ([10, 10, 10], center=true);
+        }
+      }
     }
     difference () {
       difference () {
