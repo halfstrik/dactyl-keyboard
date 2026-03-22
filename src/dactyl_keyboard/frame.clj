@@ -207,32 +207,36 @@
            (translate [88 177 55])))))
 
 (def middle-glue-reinforcement-up
-  (union
-    (intersection
-      (difference
-        (->> (cube 62 40 30)
-             (translate [118 164 14])
-             (rotate (/ π 12) [0 -1 0]))
-        (->> main-inline
-             (translate [0 -2 1])))
-      main-inline)
-    (intersection
-      (difference
-        (->> (cube 52 40 30)
-             (translate [115 160 57])
-             (rotate (/ π 12) [-0.8 -1 0]))
-        (->> main-inline
-             (translate [0 1 -2])))
-      main-inline)
-    (intersection
-      (difference
-        (->> (cube 40 10 34)
-             (translate [118 7 15])
-             (rotate (/ π 7) [0 -1 0]))
-        (->> main-inline
-             (translate [0 2 -2]))
-        (well-sphere1 78))
-      main-inline)))
+  (difference
+    (union
+      (intersection
+        (difference
+          (->> (cube 62 40 30)
+               (translate [118 164 14])
+               (rotate (/ π 12) [0 -1 0]))
+          (->> main-inline
+               (translate [0 -2 1])))
+        main-inline)
+      (intersection
+        (difference
+          (->> (cube 52 40 30)
+               (translate [115 160 57])
+               (rotate (/ π 12) [-0.8 -1 0]))
+          (->> main-inline
+               (translate [0 1 -2])))
+        main-inline)
+      (intersection
+        (difference
+          (->> (cube 40 10 34)
+               (translate [118 7 15])
+               (rotate (/ π 7) [0 -1 0]))
+          (->> main-inline
+               (translate [0 2 -2]))
+          (well-sphere1 78))
+        main-inline))
+    (->> (cube 10 30 30)
+         (translate [77.5 184.5 30]))
+    ))
 
 (def base-right-up
   (union
@@ -752,7 +756,6 @@
             (mirror [1 0 0]
                     (import "base_bottom_common.stl"))
             middle-glue-reinforcement-bottom-left)
-          ; TODO: add holes for screws once wells are ready
           (->> (cube 20 200 70)
                (translate [19 100 35]))
           (->> (cylinder [4.5 1.4] 3) ; In rear cylinder
@@ -893,15 +896,12 @@
 (spit "things_frame/all_combined.scad"
       (write-scad
         (union
-          ;(import "base_right_up.stl")
+          (import "case_right_most_up.stl")
           ;(import "base_bottom_common.stl")
-          ;(convert-dactyl-shapes caps thumbcaps)
+          (convert-dactyl-shapes caps thumbcaps)
           ;(convert-dactyl-shapes caps-combined-outline)
-          ;(import "base_middle_up.stl")
-          (import "well_right.stl")
-          (->> (cube 10 10 10)
-               (rotate (/ π 4) [0 0 1])
-               (translate [213 2 24.5]))
+          (import "case_middle_up_final.stl")
+          ;(import "well_right.stl")
           ;(import "case_right_bottom.stl")
           ;bottom-main-cylinder-inline-cut-rgb
           ;(intersection
