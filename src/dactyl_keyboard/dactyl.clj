@@ -27,7 +27,7 @@
                        (translate [(+ (/ 1.5 2) (/ keyswitch-width 2))
                                    0
                                    (/ plate-thickness 2)]))
-        side-nub (->> (binding [*fn* 30] (cylinder 1 2.75))
+        side-nub (->> (binding [*fn* 30] (cylinder 0.9 2.75))
                       (rotate (/ π 2) [1 0 0])
                       (translate [(+ (/ keyswitch-width 2)) 0 1])
                       (hull (->> (cube 1.5 2.75 plate-thickness)
@@ -39,6 +39,67 @@
            (->> plate-half
                 (mirror [1 0 0])
                 (mirror [0 1 0])))))
+
+(def hotswap-plate-bottom
+  (let [top-joint (->> (cube (+ keyswitch-width 3) 1.5 1)
+                       (translate [0
+                                   (+ (/ 1.5 2) (/ keyswitch-height 2))
+                                   -0.5]))
+        left-joint (->> (cube 1.5 (+ keyswitch-width 3) 1)
+                        (translate [(+ (/ 1.5 2) (/ keyswitch-height 2))
+                                    0
+                                    -0.5]))
+        half-joint (union top-joint left-joint)
+        full-joint (union half-joint
+                          (->> half-joint
+                               (mirror [1 0 0])
+                               (mirror [0 1 0])))]
+    (union full-joint
+           (difference
+             (->> (cube (+ keyswitch-width 3) (+ keyswitch-width 3) 1.3)
+                  (translate [0 0 -1.65]))
+             (->> (cylinder 2.34 2)
+                  (translate [0 0 -2])
+                  (with-fn 50))
+             (->> (cylinder 0.96 2)
+                  (translate [-5.08 0 -2])
+                  (with-fn 50))
+             (->> (cylinder 0.96 2)
+                  (translate [5.08 0 -2])
+                  (with-fn 50))
+             (->> (cylinder 1.1 1)
+                  (translate [-4.6 -6.2 -1])
+                  (with-fn 50))
+             (->> (cylinder 1.1 1)
+                  (translate [4.6 -6.2 -1])
+                  (with-fn 50))
+             (->> (cylinder 1.1 1)
+                  (translate [-4.6 6.2 -1])
+                  (with-fn 50))
+             (->> (cylinder 1.1 1)
+                  (translate [4.6 6.2 -1])
+                  (with-fn 50))
+             (->> (cube 5.5 6.4 0.6)
+                  (translate [-4 4 -1]))
+             (->> (cube 5.5 6.4 0.6)
+                  (translate [4 4 -1]))
+             ; metal pins
+             (->> (cylinder 1.7 2)
+                  (translate [2.54 5.08 -2])
+                  (with-fn 50))
+             (->> (cylinder 1.7 2)
+                  (translate [-3.81 2.54 -2])
+                  (with-fn 50))
+             )
+           ))
+  )
+
+(def single-plate-hotswap
+  (union single-plate hotswap-plate-bottom))
+
+(spit "things/single_plate_hotswap.scad"
+      (write-scad
+        single-plate-hotswap))
 
 (def alps-width 15.6)
 (def alps-notch-width 15.5)
@@ -245,7 +306,7 @@
                :when (or (and (not= column 0)
                               (not= column 5)) ; Skip under pinky extra button
                          (not= row 4))]
-           (->> single-plate
+           (->> single-plate-hotswap
                 (key-place column row)))))
 
 (def caps
@@ -469,7 +530,7 @@
 (def thumb
   (union
    thumb-connectors
-   (thumb-layout (rotate (/ π 2) [0 0 1] single-plate))
+   (thumb-layout (rotate (/ π 2) [0 0 1] single-plate-hotswap))
    (thumb-place 0 -1/2 double-plates)
    (thumb-place 1 -1/2 double-plates)))
 

@@ -12,7 +12,7 @@ union () {
       }
       translate ([7.2, 0, 1]) {
         rotate (a=90.0, v=[1, 0, 0]) {
-          cylinder ($fn=30, h=2.75, r=1, center=true);
+          cylinder ($fn=30, h=2.75, r=0.9, center=true);
         }
       }
     }
@@ -32,7 +32,7 @@ union () {
           }
           translate ([7.2, 0, 1]) {
             rotate (a=90.0, v=[1, 0, 0]) {
-              cylinder ($fn=30, h=2.75, r=1, center=true);
+              cylinder ($fn=30, h=2.75, r=0.9, center=true);
             }
           }
         }
