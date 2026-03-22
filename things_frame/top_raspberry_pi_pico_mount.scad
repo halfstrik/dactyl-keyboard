@@ -10,19 +10,19 @@ union () {
             cube ([32, 65, 10], center=true);
           }
           translate ([0, 66.5, 19]) {
-            cube ([45, 70, 2], center=true);
+            cube ([45, 70, 3], center=true);
           }
           translate ([20, 34, 20]) {
-            cylinder ($fn=25, h=20, r=1.3, center=true);
+            cylinder ($fn=25, h=20, r=1, center=true);
           }
           translate ([-20, 34, 20]) {
-            cylinder ($fn=25, h=20, r=1.3, center=true);
+            cylinder ($fn=25, h=20, r=1, center=true);
           }
           translate ([20, 99.5, 20]) {
-            cylinder ($fn=25, h=20, r=1.3, center=true);
+            cylinder ($fn=25, h=20, r=1, center=true);
           }
           translate ([-20, 99.5, 20]) {
-            cylinder ($fn=25, h=20, r=1.3, center=true);
+            cylinder ($fn=25, h=20, r=1, center=true);
           }
           translate ([0, 0, 1]) {
             intersection () {

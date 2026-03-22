@@ -140,8 +140,12 @@
        (translate [195.25 9 42])))
 
 (def support-pillar-plus-well
-  (->> (cube 25.5 14 20)
-       (translate [195.25 9 16.9])))
+  (difference
+    (->> (cube 25.5 14 20)
+         (translate [195.25 9 16.9]))
+    (->> (cube 10 10 10) ; cut outer support for curved corner
+         (rotate (/ π 4) [0 0 1]) ; TODO: double check that this is correct
+         (translate [213 2 24.5]))))
 
 (def support-pillar-five-up
   (difference
@@ -203,32 +207,36 @@
            (translate [88 177 55])))))
 
 (def middle-glue-reinforcement-up
-  (union
-    (intersection
-      (difference
-        (->> (cube 62 40 30)
-             (translate [118 164 14])
-             (rotate (/ π 12) [0 -1 0]))
-        (->> main-inline
-             (translate [0 -2 1])))
-      main-inline)
-    (intersection
-      (difference
-        (->> (cube 52 40 30)
-             (translate [115 160 57])
-             (rotate (/ π 12) [-0.8 -1 0]))
-        (->> main-inline
-             (translate [0 1 -2])))
-      main-inline)
-    (intersection
-      (difference
-        (->> (cube 40 10 34)
-             (translate [118 7 15])
-             (rotate (/ π 7) [0 -1 0]))
-        (->> main-inline
-             (translate [0 2 -2]))
-        (well-sphere1 78))
-      main-inline)))
+  (difference
+    (union
+      (intersection
+        (difference
+          (->> (cube 62 40 30)
+               (translate [118 164 14])
+               (rotate (/ π 12) [0 -1 0]))
+          (->> main-inline
+               (translate [0 -2 1])))
+        main-inline)
+      (intersection
+        (difference
+          (->> (cube 52 40 30)
+               (translate [115 160 57])
+               (rotate (/ π 12) [-0.8 -1 0]))
+          (->> main-inline
+               (translate [0 1 -2])))
+        main-inline)
+      (intersection
+        (difference
+          (->> (cube 40 10 34)
+               (translate [118 7 15])
+               (rotate (/ π 7) [0 -1 0]))
+          (->> main-inline
+               (translate [0 2 -2]))
+          (well-sphere1 78))
+        main-inline))
+    (->> (cube 10 30 30)
+         (translate [77.5 184.5 30]))
+    ))
 
 (def base-right-up
   (union
@@ -475,11 +483,23 @@
        ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
        main-inline)
 
+      (->> (cube 19 5 5) ; cut for "3" key, so keycap won't stick
+           (rotate (/ π 10) [0 1 0])
+           (rotate (/ π 10) [-1 0 0])
+           (rotate (/ π 27) [0 0 1])
+           (translate [131.4 10.4 30]))
+      (->> (cube 19 19 5) ; cut for "5" key, so keycap won't stick
+           (rotate (/ π 6) [0 1 0])
+           (rotate (/ π 7) [-1 0 0])
+           (rotate (/ π 14) [0 0 1])
+           (translate [96.2 18.5 44.6]))
+      (->> (cube 5 5 5) ; cut top most corner so it won't hinder middle plate
+           (translate [90 13 58.5]))
       support-pillar-shift-up-negative
       support-pillar-five-up-negative
       support-pillar-plus-up-negative
       (well-sphere 78)
-      (->> (cylinder 1.3, 25)
+      (->> (cylinder 2.2, 25)
            (translate [193 9 (+ 19.4 8.4 -4)]))
       (->> (cylinder 6 25)
            (translate [203 8 10]))
@@ -501,7 +521,7 @@
       bottom-negative-inline
       (translate [193 112 (+ 19.4 8.4 -17)] ; Indent for a wooden screw:)
                  (cylinder 4.5, 15))
-      (->> (cylinder 1.7, 25)
+      (->> (cylinder 2, 25)
            (translate [193 112 (+ 19.4 8.4 -1)]))
       (->> (cylinder 1.7, 25)
            (rotate (/ π 20) [1 0 0])
@@ -513,7 +533,7 @@
                  (cylinder 4.5, 15))
       (->> (cube 22 2 17) ; Cut for switch to be able to insert
            (translate [190 15 16.4]))
-      (->> (cylinder 1.7, 25)
+      (->> (cylinder 2, 25)
            (translate [193 9 (+ 19.4 8.4 -4)]))
       (->> (cylinder 6 25)
            (translate [203 8 10]))
@@ -524,14 +544,14 @@
         support-pillar-five-well
         main-inline)
       (well-sphere 78)
-      (->> (cylinder 1.7, 25)
+      (->> (cylinder 2, 25)
            (translate [108 5.5 (+ 19.4 18.4)])))
     (difference
       (intersection
         support-pillar-home-well
         main-inline)
       bottom-negative-inline
-      (->> (cylinder 1.7, 45)
+      (->> (cylinder 2, 45)
            (translate [36 125 (+ 19.4 12.4)]))
       (->> (cylinder 3.7, 35)
            (translate [36 125 17]))
@@ -548,6 +568,23 @@
 (spit "things_frame/well_right.scad"
       (write-scad
         well-right))
+
+(spit "things_frame/well_right1.scad"
+      (write-scad
+        (difference
+            (convert-dactyl-shapes dactyl-top-right)
+            (->> (cube 19 5 5)
+                 (rotate (/ π 10) [0 1 0])
+                 (rotate (/ π 10) [-1 0 0])
+                 (rotate (/ π 27) [0 0 1])
+                 (translate [131.4 10.4 30]))
+            (->> (cube 19 19 5)
+                 (rotate (/ π 6) [0 1 0])
+                 (rotate (/ π 7) [-1 0 0])
+                 (rotate (/ π 14) [0 0 1])
+                 (translate [96.2 18.5 44.6]))
+            )
+        ))
 
 (spit "things_frame/well_left.scad"
       (write-scad
@@ -719,7 +756,6 @@
             (mirror [1 0 0]
                     (import "base_bottom_common.stl"))
             middle-glue-reinforcement-bottom-left)
-          ; TODO: add holes for screws once wells are ready
           (->> (cube 20 200 70)
                (translate [19 100 35]))
           (->> (cylinder [4.5 1.4] 3) ; In rear cylinder
@@ -752,19 +788,19 @@
                         (translate [0 67 10]))
                    (->> (cube 32 65 10)
                         (translate [0 64 17]))
-                   (->> (cube 45 70 2)
+                   (->> (cube 45 70 3) ; make .5mm bit deeper, we can adjust height with washers if needed
                         (translate [0 66.5 19]))
                    ; Screw holes
-                   (->> (cylinder 1.3, 20)
+                   (->> (cylinder 1, 20)
                         (with-fn 25)
                         (translate [20, 34, 20]))
-                   (->> (cylinder 1.3, 20)
+                   (->> (cylinder 1, 20)
                         (with-fn 25)
                         (translate [-20, 34, 20]))
-                   (->> (cylinder 1.3, 20)
+                   (->> (cylinder 1, 20)
                         (with-fn 25)
                         (translate [20, (+ 34 65.5), 20]))
-                   (->> (cylinder 1.3, 20)
+                   (->> (cylinder 1, 20)
                         (with-fn 25)
                         (translate [-20, (+ 34 65.5), 20]))
 
@@ -803,7 +839,7 @@
               (translate [0 0 18] main-inline)
               bottom-thumbs-spacer-inline)
               (->> main-outline
-                   (translate [0 0 -18])))
+                   (translate [0 0 -20])))
           (well-sphere 92)
         )
         ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
@@ -813,17 +849,61 @@
       (write-scad
         (mirror [1 0 0] (import "led_right_mount.stl"))))
 
+(def usb-female-socket
+  (hull
+    (->> (cylinder 1.6 6)
+         (with-fn 50)
+         (rotate (/ π 2) [1 0 0])
+         (translate [3, 35, 25.3]))
+    (->> (cylinder 1.6 6)
+         (with-fn 50)
+         (rotate (/ π 2) [1 0 0])
+         (translate [3, 35, 25.3])
+         (mirror [1 0 0]))))
+
+(def usb-male-socket-cut
+  (hull
+    (->> (cylinder 1.4 6)
+         (with-fn 50)
+         (rotate (/ π 2) [1 0 0])
+         (translate [3, 30, 25.3]))
+    (->> (cylinder 1.4 6)
+         (with-fn 50)
+         (rotate (/ π 2) [1 0 0])
+         (translate [3, 30, 25.3])
+         (mirror [1 0 0]))))
+
+(spit "things_frame/usb_plug.scad"
+      (write-scad
+        (difference
+          (->> (cube 28 2.6 10)
+               (translate [0 33 25]))
+          (union
+            (->> (cube 45 70 2) ; PCB
+                 (translate [0 66.5 19.3]))
+            (->> (cube 23.3 70 1.4) ; pico
+                 (translate [0 67.1 23.1]))
+            (difference
+              (->> (cube 50 2 50)
+                   (translate [0 31.5 25]))
+              ; back plate
+              usb-hole-cut)
+            usb-female-socket
+            usb-male-socket-cut
+            ))
+        ))
+
 (spit "things_frame/all_combined.scad"
       (write-scad
         (union
-          ;(import "base_right_up.stl")
-          (import "base_bottom_common.stl")
-          ;(convert-dactyl-shapes caps thumbcaps)
+          (import "case_right_most_up.stl")
+          ;(import "base_bottom_common.stl")
+          (convert-dactyl-shapes caps thumbcaps)
           ;(convert-dactyl-shapes caps-combined-outline)
-          ;(import "base_middle_up.stl")
-          (import "well_right.stl")
+          (import "case_middle_up_final.stl")
+          ;(import "well_right.stl")
           ;(import "case_right_bottom.stl")
-          bottom-main-cylinder-inline-cut-rgb
+          ;bottom-main-cylinder-inline-cut-rgb
           ;(intersection
           ;  bottom-main-cylinder
           ;  bottom-main-outline
