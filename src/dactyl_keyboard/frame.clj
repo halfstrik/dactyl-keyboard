@@ -893,6 +893,32 @@
             ))
         ))
 
+(def micro-usb-female-socket
+  (->> (polygon [[-4.0 -1.5] [4.0 -1.5] [3.0 1.0] [-3.0 1.0]]) ; Define the 2D trapezoid points
+       (extrude-linear {:height 20})
+       (rotate (/ π 2) [-1 0 0])
+       (translate [0 35 25])))     ; Extrude it vertically
+
+
+(spit "things_frame/micro_usb_plug.scad"
+      (write-scad
+        (difference
+          (->> (cube 28 2.6 10)
+               (translate [0 33 25]))
+          (union
+            (->> (cube 45 70 2) ; PCB
+                 (translate [0 66.5 19.3]))
+            (->> (cube 23.3 70 1.4) ; pico
+                 (translate [0 67.1 23.1]))
+            (difference
+              (->> (cube 50 2 50)
+                   (translate [0 31.5 25]))
+              ; back plate
+              usb-hole-cut)
+            micro-usb-female-socket
+            ))
+        ))
+
 (spit "things_frame/all_combined.scad"
       (write-scad
         (union
