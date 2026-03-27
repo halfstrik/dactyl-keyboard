@@ -85,10 +85,10 @@
                   (translate [4 4 -1]))
              ; metal pins
              (->> (cylinder 1.7 2)
-                  (translate [2.54 5.08 -2])
+                  (translate [-2.54 5.08 -2])
                   (with-fn 50))
              (->> (cylinder 1.7 2)
-                  (translate [-3.81 2.54 -2])
+                  (translate [3.81 2.54 -2])
                   (with-fn 50))
              )
            ))
