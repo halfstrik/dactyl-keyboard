@@ -873,6 +873,13 @@
          (translate [3, 30, 25.3])
          (mirror [1 0 0]))))
 
+(def plastic-pin-cuts
+  (union
+    (->> (cube 4 2 10)
+         (translate [7.62 34.4 18.5]))
+    (->> (cube 4 2 10)
+         (translate [-7.62 34.4 18.5]))))
+
 (spit "things_frame/usb_plug.scad"
       (write-scad
         (difference
@@ -890,6 +897,7 @@
               usb-hole-cut)
             usb-female-socket
             usb-male-socket-cut
+            plastic-pin-cuts
             ))
         ))
 
@@ -913,7 +921,6 @@
 
 (spit "things_frame/micro_usb_plug.scad"
       (write-scad
-        ;micro-usb-female-socket
         (difference
           (->> (cube 28 2.6 10)
                (translate [0 33 25]))
@@ -929,6 +936,7 @@
               usb-hole-cut)
             micro-usb-male-socket
             micro-usb-female-socket
+            plastic-pin-cuts
             ))
         ))
 
