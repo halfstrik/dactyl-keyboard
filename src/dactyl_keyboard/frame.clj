@@ -873,6 +873,13 @@
          (translate [3, 30, 25.3])
          (mirror [1 0 0]))))
 
+(def plastic-pin-cuts
+  (union
+    (->> (cube 4 2 10)
+         (translate [7.62 34.4 18.5]))
+    (->> (cube 4 2 10)
+         (translate [-7.62 34.4 18.5]))))
+
 (spit "things_frame/usb_plug.scad"
       (write-scad
         (difference
@@ -890,6 +897,46 @@
               usb-hole-cut)
             usb-female-socket
             usb-male-socket-cut
+            plastic-pin-cuts
+            ))
+        ))
+
+(def micro-usb-male-socket
+  (->> (minkowski
+         (->> (polygon [[-3.55 -1.05] [3.55 -1.05] [2.6 1.05] [-2.6 1.05]])
+              (extrude-linear {:height 20}))
+         ;; The "rounding" tool
+         (with-fn 25 (cylinder 0.3 0.1)))
+       (rotate (/ π 2) [-1 0 0])
+       (translate [0 23 25])))
+
+(def micro-usb-female-socket
+  (->> (minkowski
+         (->> (polygon [[-3.95 -1.25] [3.95 -1.25] [2.9 1.05] [-2.9 1.05]])
+              (extrude-linear {:height 20}))
+         ;; The "rounding" tool
+         (with-fn 25 (cylinder 0.3 0.1)))
+       (rotate (/ π 2) [-1 0 0])
+       (translate [0 42.2 25])))
+
+(spit "things_frame/micro_usb_plug.scad"
+      (write-scad
+        (difference
+          (->> (cube 28 2.6 10)
+               (translate [0 33 25]))
+          (union
+            (->> (cube 45 70 2) ; PCB
+                 (translate [0 66.5 19.3]))
+            (->> (cube 23.3 70 1.4) ; pico
+                 (translate [0 67.1 23.1]))
+            (difference
+              (->> (cube 50 2 50)
+                   (translate [0 31.5 25]))
+              ; back plate
+              usb-hole-cut)
+            micro-usb-male-socket
+            micro-usb-female-socket
+            plastic-pin-cuts
             ))
         ))
 
