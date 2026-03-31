@@ -97,9 +97,9 @@
 (def single-plate-hotswap
   (union single-plate hotswap-plate-bottom))
 
-(spit "things/single_plate_hotswap.scad"
-      (write-scad
-        single-plate-hotswap))
+;(spit "things/single_plate_hotswap.scad"
+;      (write-scad
+;        single-plate-hotswap))
 
 (def alps-width 15.6)
 (def alps-notch-width 15.5)
@@ -252,7 +252,7 @@
 
 (def hotswap-socket-body
   (union
-    (->> (cube 11.5 4.5 1.5)
+    (->> (cube 11.7 4.5 1.5)
          (translate [0.5 5 -3.12]))
     (->> (cube 4 4.5 1.5)
          (translate [4.2 2.8 -3.12]))))
@@ -261,13 +261,19 @@
   (difference
     (union
       (->> (cube 11 5 2.2)
-           (translate [1.7 5.55 -3.5]))
+           (translate [1.7 5.65 -3.5]))
       (->> (cube 5 3 2.2)
-           (translate [-3.7 3.4 -3.5]))
-      (->> (cube 4 5 1.8)
-           (translate [4.2 2.2 -3.7]))
+           (translate [-3.7 3.25 -3.5]))
+      (->> (cube 4 5 1.6)
+           (translate [4.2 2.2 -3.8]))
     )
     hotswap-socket-body))
+
+(def hotswap-socket-support-pillar
+  (union hotswap-socket-support
+         (translate [0 0 -54.5]
+                    (extrude-linear {:height 100}
+            (project hotswap-socket-support)))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Placement Functions ;;
@@ -342,15 +348,15 @@
            (->> (sa-cap (if (= column 5) 1.5 1))
                 (key-place column row)))))
 
-(def hotswap-sockets-under-caps
-  (apply union
-         (for [column columns
-               row rows
-               :when (or (and (not= column 0)
-                              (not= column 5)) ; Skip under pinky extra button
-                         (not= row 4))]
-           (->> hotswap-socket-body
-                (key-place column row)))))
+;(def hotswap-sockets-under-caps
+;  (apply union
+;         (for [column columns
+;               row rows
+;               :when (or (and (not= column 0)
+;                              (not= column 5)) ; Skip under pinky extra button
+;                         (not= row 4))]
+;           (->> hotswap-socket-body
+;                (key-place column row)))))
 
 (def hotswap-sockets-support-under-caps
   (apply union
@@ -359,7 +365,7 @@
                :when (or (and (not= column 0)
                               (not= column 5)) ; Skip under pinky extra button
                          (not= row 4))]
-           (->> hotswap-socket-support
+           (->> hotswap-socket-support-pillar
                 (key-place column row)))))
 
 ;;;;;;;;;;;;;;;;;;;;
@@ -1501,8 +1507,14 @@
 (spit "things/hotswap-sockets-under-caps.scad"
       (write-scad
         (rotate-y-3-degree
-          (union hotswap-sockets-support-under-caps
-                 dactyl-top-right))))
+          (union
+            (difference hotswap-sockets-support-under-caps
+                        (translate [0 0 -50] (cube 300 300 100))
+                        (translate [-20 0 0] (cube 100 200 100))
+                 ;dactyl-top-right
+                 )
+            (translate [55 -1 0.5] (cube 43 122 1))
+            ))))
 
 (spit "things/combined-caps.scad"
       (write-scad (rotate-y-3-degree (union thumbcaps caps))))
