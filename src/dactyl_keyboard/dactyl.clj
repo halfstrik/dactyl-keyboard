@@ -252,20 +252,20 @@
 
 (def hotswap-socket-body
   (union
-    (->> (cube 12 4.5 1.5)
+    (->> (cube 11.5 4.5 1.5)
          (translate [0.5 5 -3.12]))
     (->> (cube 4 4.5 1.5)
-         (translate [4.2 2.6 -3.12]))))
+         (translate [4.2 2.8 -3.12]))))
 
 (def hotswap-socket-support
   (difference
     (union
-      (->> (cube 11 4 1.5)
-           (translate [1.5 5.5 -3.5]))
-      (->> (cube 5 4 1.5)
-           (translate [-3.5 4.5 -3.5]))
-      (->> (cube 1.7 5 1.5)
-           (translate [3.2 2.5 -3.5]))
+      (->> (cube 11 5 2.2)
+           (translate [1.7 5.55 -3.5]))
+      (->> (cube 5 3 2.2)
+           (translate [-3.7 3.4 -3.5]))
+      (->> (cube 4 5 1.8)
+           (translate [4.2 2.2 -3.7]))
     )
     hotswap-socket-body))
 
