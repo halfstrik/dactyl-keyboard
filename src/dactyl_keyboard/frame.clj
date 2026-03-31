@@ -3,7 +3,7 @@
   (:require [scad-clj.scad :refer :all]
             [scad-clj.model :refer :all]
             [unicode-math.core :refer :all]
-            [dactyl-keyboard.dactyl :refer [thumbcaps caps caps-combined-outline dactyl-top-right hotswap-socket-support]]))
+            [dactyl-keyboard.dactyl :refer [thumbcaps caps caps-combined-outline dactyl-top-right hotswap-sockets-support-under-caps]]))
 
 (defn convert-dactyl-shapes [& shapes]
   (translate [125 58 0]
@@ -940,9 +940,15 @@
             ))
         ))
 
-(spit "things_frame/hotswap-socket-support.scad"
+(spit "things_frame/hotswap-socket-support-mount.scad"
       (write-scad
-        (convert-dactyl-shapes hotswap-socket-support)))
+        (union
+          (difference
+            (convert-dactyl-shapes hotswap-sockets-support-under-caps)
+            (translate [100 100 -100] (cube 300 300 200))
+            (translate [110 100 0] (cube 100 400 200))
+            (translate [193 3.7 23] (cube 20 20 20)))
+          (translate [180 58 0.5] (cube 43 122 1)))))
 
 (spit "things_frame/all_combined.scad"
       (write-scad

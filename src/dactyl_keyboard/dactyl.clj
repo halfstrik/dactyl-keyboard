@@ -1504,18 +1504,6 @@
 (spit "things/dactyl-top-right.scad"
       (write-scad (rotate-y-3-degree dactyl-top-right)))
 
-(spit "things/hotswap-sockets-under-caps.scad"
-      (write-scad
-        (rotate-y-3-degree
-          (union
-            (difference hotswap-sockets-support-under-caps
-                        (translate [0 0 -50] (cube 300 300 100))
-                        (translate [-20 0 0] (cube 100 200 100))
-                 ;dactyl-top-right
-                 )
-            (translate [55 -1 0.5] (cube 43 122 1))
-            ))))
-
 (spit "things/combined-caps.scad"
       (write-scad (rotate-y-3-degree (union thumbcaps caps))))
 
