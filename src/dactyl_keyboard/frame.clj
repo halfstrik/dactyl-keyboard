@@ -3,7 +3,7 @@
   (:require [scad-clj.scad :refer :all]
             [scad-clj.model :refer :all]
             [unicode-math.core :refer :all]
-            [dactyl-keyboard.dactyl :refer [thumbcaps caps caps-combined-outline dactyl-top-right]]))
+            [dactyl-keyboard.dactyl :refer [thumbcaps caps caps-combined-outline dactyl-top-right hotswap-socket-support]]))
 
 (defn convert-dactyl-shapes [& shapes]
   (translate [125 58 0]
@@ -939,6 +939,10 @@
             plastic-pin-cuts
             ))
         ))
+
+(spit "things_frame/hotswap-socket-support.scad"
+      (write-scad
+        (convert-dactyl-shapes hotswap-socket-support)))
 
 (spit "things_frame/all_combined.scad"
       (write-scad

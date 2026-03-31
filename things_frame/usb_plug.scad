@@ -56,5 +56,13 @@ difference () {
         }
       }
     }
+    union () {
+      translate ([7.62, 34.4, 18.5]) {
+        cube ([4, 2, 10], center=true);
+      }
+      translate ([-7.62, 34.4, 18.5]) {
+        cube ([4, 2, 10], center=true);
+      }
+    }
   }
 }

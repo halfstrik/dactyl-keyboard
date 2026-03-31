@@ -246,6 +246,29 @@
                       (translate [0 0 (+ 5 plate-thickness)])
                       (color [127/255 159/255 127/255 1])))})
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; HotSwap sockets model for future negative support ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def hotswap-socket-body
+  (union
+    (->> (cube 12 4.5 1.5)
+         (translate [0.5 5 -3.12]))
+    (->> (cube 4 4.5 1.5)
+         (translate [4.2 2.6 -3.12]))))
+
+(def hotswap-socket-support
+  (difference
+    (union
+      (->> (cube 11 4 1.5)
+           (translate [1.5 5.5 -3.5]))
+      (->> (cube 5 4 1.5)
+           (translate [-3.5 4.5 -3.5]))
+      (->> (cube 1.7 5 1.5)
+           (translate [3.2 2.5 -3.5]))
+    )
+    hotswap-socket-body))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Placement Functions ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -317,6 +340,26 @@
                               (not= column 5)) ; Skip under pinky extra button
                          (not= row 4))]
            (->> (sa-cap (if (= column 5) 1.5 1))
+                (key-place column row)))))
+
+(def hotswap-sockets-under-caps
+  (apply union
+         (for [column columns
+               row rows
+               :when (or (and (not= column 0)
+                              (not= column 5)) ; Skip under pinky extra button
+                         (not= row 4))]
+           (->> hotswap-socket-body
+                (key-place column row)))))
+
+(def hotswap-sockets-support-under-caps
+  (apply union
+         (for [column columns
+               row rows
+               :when (or (and (not= column 0)
+                              (not= column 5)) ; Skip under pinky extra button
+                         (not= row 4))]
+           (->> hotswap-socket-support
                 (key-place column row)))))
 
 ;;;;;;;;;;;;;;;;;;;;
@@ -1454,6 +1497,12 @@
 
 (spit "things/dactyl-top-right.scad"
       (write-scad (rotate-y-3-degree dactyl-top-right)))
+
+(spit "things/hotswap-sockets-under-caps.scad"
+      (write-scad
+        (rotate-y-3-degree
+          (union hotswap-sockets-support-under-caps
+                 dactyl-top-right))))
 
 (spit "things/combined-caps.scad"
       (write-scad (rotate-y-3-degree (union thumbcaps caps))))
