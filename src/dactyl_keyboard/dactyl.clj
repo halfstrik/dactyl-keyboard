@@ -261,9 +261,9 @@
   (difference
     (union
       (->> (cube 11 5 2.2)
-           (translate [1.7 5.65 -3.5]))
+           (translate [1.7 5.75 -3.5]))
       (->> (cube 5 3 2.2)
-           (translate [-3.7 3.25 -3.5]))
+           (translate [-3.7 3.15 -3.5]))
       (->> (cube 4 5 1.6)
            (translate [4.2 2.2 -3.8]))
     )

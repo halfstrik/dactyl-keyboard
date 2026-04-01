@@ -943,12 +943,35 @@
 (spit "things_frame/hotswap-socket-support-mount.scad"
       (write-scad
         (union
+          ;(difference bottom-negative-inline
+          ;            ;(translate [0 0 -0.5] bottom-negative-inline)
+          ;            (import "case_right_bottom.stl")
+          ;            (translate [-70 100 100] (cube 260 200 200))
+          ;            (translate [150 190 100] (cube 250 100 200))
+          ;            (->> (cube 25.5 14 40)
+          ;                 (translate [195.25 9 16.9])))
+          ; Simpler
+          (difference
+            (difference (union bottom-main-cylinder-inline
+                               (->> (cube 416 110 30)
+                                    (rotate (/ π 22) [1 0 0] )
+                                    (translate [0 130 25.4])))
+                        (translate [0 0 0.3] (union bottom-main-cylinder-inline
+                                                    (->> (cube 416 110 30)
+                                                         (rotate (/ π 22) [1 0 0] )
+                                                         (translate [0 130 25.4])))))
+
+            (translate [-70 100 100] (cube 260 200 200))
+            (translate [150 190 100] (cube 250 100 200))
+            (->> (cube 25.5 14 40)
+                 (translate [195.25 9 16.9])))
           (difference
             (convert-dactyl-shapes hotswap-sockets-support-under-caps)
-            (translate [100 100 -100] (cube 300 300 200))
-            (translate [110 100 0] (cube 100 400 200))
-            (translate [193 3.7 23] (cube 20 20 20)))
-          (translate [180 58 0.5] (cube 43 122 1)))))
+            (translate [100 100 -98] (cube 300 300 200))
+            (translate [0 -147.1 0] (cube 500 300 200))
+            support-pillar-plus-well
+            bottom-negative-inline)
+          )))
 
 (spit "things_frame/all_combined.scad"
       (write-scad
