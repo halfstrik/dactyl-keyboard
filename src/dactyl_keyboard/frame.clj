@@ -942,50 +942,74 @@
 
 (spit "things_frame/hotswap-socket-support-mount.scad"
       (write-scad
-        (union
-          ;(difference bottom-negative-inline
-          ;            ;(translate [0 0 -0.5] bottom-negative-inline)
-          ;            (import "case_right_bottom.stl")
-          ;            (translate [-70 100 100] (cube 260 200 200))
-          ;            (translate [150 190 100] (cube 250 100 200))
-          ;            (->> (cube 25.5 14 40)
-          ;                 (translate [195.25 9 16.9])))
-          ; Simpler
-          (difference
-            (difference (union bottom-main-cylinder-inline
+        (difference
+          (union
+            (difference (translate [0 0 -0.9] (union bottom-main-cylinder-inline
                                (->> (cube 416 110 30)
                                     (rotate (/ π 22) [1 0 0] )
-                                    (translate [0 130 25.4])))
-                        (translate [0 0 0.3] (union bottom-main-cylinder-inline
+                                    (translate [0 130 25.4]))))
+                        (translate [0 0 0.1] (union bottom-main-cylinder-inline
                                                     (->> (cube 416 110 30)
                                                          (rotate (/ π 22) [1 0 0] )
                                                          (translate [0 130 25.4])))))
-
-            (translate [-70 100 100] (cube 260 200 200))
-            (translate [150 190 100] (cube 250 100 200))
-            (->> (cube 25.5 14 40)
-                 (translate [195.25 9 16.9])))
-          (difference
-            (convert-dactyl-shapes hotswap-sockets-support-under-caps)
-            (translate [100 100 -98] (cube 300 300 200))
-            (translate [0 -147.1 0] (cube 500 300 200))
-            support-pillar-plus-well
-            bottom-negative-inline)
-          )))
+            (intersection (union
+                            (convert-dactyl-shapes hotswap-sockets-support-under-caps)
+                            ; connectors
+                            ; shift col
+                            (translate [190 25 8] (rotate (/ π 6.5) [-1 0 0] (cube 2 20 5))) ; "-" to tab
+                            (translate [190 48 1.2] (rotate (/ π 18.5) [-1 0 0] (cube 2 20 5))) ; tab to caps
+                            (translate [190 71 0.4] (rotate (/ π 90.5) [1 0 0] (cube 2 20 5))) ; caps to shift
+                            ; 1 col
+                            (translate [165 23 8] (rotate (/ π 6.5) [-1 0 0] (cube 2 20 10))) ; 1 to q
+                            (translate [165 46 1] (rotate (/ π 18.5) [-1 0 0] (cube 2 20 10))) ; q to a
+                            (translate [165 71 0.4] (rotate (/ π 90.5) [1 0 0] (cube 2 20 10))) ; a to z
+                            (translate [165 96 3.4] (rotate (/ π 10.5) [1 0 0] (cube 2 20 10))) ; z to `
+                            ; 2 col
+                            (translate [145 18 7] (rotate (/ π 6.5) [-1 0 0] (cube 2 20 10))) ; 2 to w
+                            (translate [143 40 0] (rotate (/ π 22.5) [-1 0 0] (cube 2 20 10))) ; w to s
+                            (translate [142 65 -1.6] (rotate (/ π 90.5) [1 0 0] (cube 2 20 10))) ; s to x
+                            (translate [143 90 2] (rotate (/ π 10.5) [1 0 0] (cube 2 20 10))) ; x to ;
+                            ; 3 col
+                            (translate [124 14 9.5] (rotate (/ π 6.5) [-1 0 0] (cube 2 20 10))) ; 3 to e
+                            (translate [121 37 1] (rotate (/ π 15.5) [-1 0 0] (cube 2 20 10))) ; e to d
+                            (translate [120 63 0] (rotate (/ π 90.5) [1 0 0] (cube 2 20 10))) ; d to c
+                            (translate [120 88 2] (rotate (/ π 10.5) [1 1 0] (cube 2 23 10))) ; x to ;
+                            ; 4 col
+                            (translate [104 14 14.5] (rotate (/ π 6.5) [-1 0 0] (cube 2 25 10))) ; 4 to r
+                            (translate [102 40 7] (rotate (/ π 15.5) [-1 0 0] (cube 2 25 10))) ; r to f
+                            (translate [102 67 5] (rotate (/ π 90.5) [1 0 0] (cube 2 26 10))) ; f to v
+                            (translate [102 93 8] (rotate (/ π 8.5) [1 1 0] (cube 2 27 10))) ; v to left
+                            ; 5 col
+                            (translate [84 13 18.5] (rotate (/ π 6) [-1 0.6 0] (cube 2 29 15))) ; 5 to t
+                            (translate [82 40 10] (rotate (/ π 13.5) [-1 1.4 0] (cube 2 25 15))) ; t to g
+                            (translate [80 67 8] (rotate (/ π 70.5) [1 12 0] (cube 2 26 15))) ; g to b
+                            ; few rows for structure
+                            (translate [88 53 10] (rotate (/ π 10.5) [1 12 0] (cube 20 2 15))) ; g to f
+                            (translate [110 51.5 0] (rotate (/ π 10.5) [1 12 0] (cube 20 2 15))) ; f to d
+                            (translate [88 79 10] (rotate (/ π 10.5) [1 12 0] (cube 20 2 15))) ; b to v
+                            (translate [111 100 10] (rotate (/ π 10.5) [1 12 0] (cube 20 2 15))) ; right to left
+                            (translate [132 100 4] (rotate (/ π 10.5) [1 12 0] (cube 20 2 15))) ; left to ;
+                            (translate [158 103 4] (rotate (/ π 20.5) [1 1 31] (cube 20 2 15))) ; ; to ~
+                            )
+                          (union (translate [0 0 -0.9] bottom-main-cylinder-inline)
+                                 (->> (cube 416 110 30)
+                                      (rotate (/ π 22) [1 0 0] )
+                                      (translate [0 130 25.4]))))
+            (translate [95 2.7 27.6] (cube 35 1 10)))
+          (translate [-70 100 100] (cube 280 200 200))
+          (translate [150 190 100] (cube 250 160 200))
+          (translate [100 100 -99] (cube 700 300 200))
+          (translate [0 -147.8 0] (cube 500 300 200))
+          (translate [198 110 0] (cube 40 40 200))
+          (translate [72 110 0] (cube 40 40 200))
+          (->> (cube 25.5 14 40)
+               (translate [195.25 7.8 16.9]))
+          (->> (cube 66 2 35)
+               (translate [150 3 21])))))
 
 (spit "things_frame/all_combined.scad"
       (write-scad
         (union
-          (import "case_right_most_up.stl")
-          ;(import "base_bottom_common.stl")
-          (convert-dactyl-shapes caps thumbcaps)
-          ;(convert-dactyl-shapes caps-combined-outline)
-          (import "case_middle_up_final.stl")
-          ;(import "well_right.stl")
-          ;(import "case_right_bottom.stl")
-          ;bottom-main-cylinder-inline-cut-rgb
-          ;(intersection
-          ;  bottom-main-cylinder
-          ;  bottom-main-outline
-          ;  )
+          (import "case_right_bottom.stl")
+          (import "hotswap-socket-support-mount.stl")
           )))
