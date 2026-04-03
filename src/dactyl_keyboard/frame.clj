@@ -980,14 +980,14 @@
                             (translate [120 63 0] (rotate (/ π 90.5) [1 0 0] (cube 2 20 10))) ; d to c
                             (translate [120 88 2] (rotate (/ π 10.5) [1 1 0] (cube 2 23 10))) ; x to ;
                             ; 4 col
-                            (translate [104 14 14.5] (rotate (/ π 6.5) [-1 0 0] (cube 2 25 10))) ; 4 to r
-                            (translate [102 40 7] (rotate (/ π 15.5) [-1 0 0] (cube 2 25 10))) ; r to f
-                            (translate [102 67 5] (rotate (/ π 90.5) [1 0 0] (cube 2 26 10))) ; f to v
-                            (translate [102 93 8] (rotate (/ π 8.5) [1 1 0] (cube 2 27 10))) ; v to left
+                            (translate [104 14 14.5] (rotate (/ π 6.5) [-1 0 0] (cube 2 25 12))) ; 4 to r
+                            (translate [102 40 7] (rotate (/ π 15.5) [-1 0 0] (cube 2 25 12))) ; r to f
+                            (translate [102 67 5] (rotate (/ π 90.5) [1 0 0] (cube 2 26 12))) ; f to v
+                            (translate [102 93 8] (rotate (/ π 8.5) [1 1 0] (cube 2 27 12))) ; v to left
                             ; 5 col
-                            (translate [84 13 18.5] (rotate (/ π 6) [-1 0.6 0] (cube 2 29 15))) ; 5 to t
-                            (translate [82 40 10] (rotate (/ π 13.5) [-1 1.4 0] (cube 2 25 15))) ; t to g
-                            (translate [80 67 8] (rotate (/ π 70.5) [1 12 0] (cube 2 26 15))) ; g to b
+                            (translate [84 13 18.5] (rotate (/ π 6) [-1 0.6 0] (cube 2 29 21))) ; 5 to t
+                            (translate [82 40 10] (rotate (/ π 13.5) [-1 1.4 0] (cube 2 25 21))) ; t to g
+                            (translate [80 67 8] (rotate (/ π 70.5) [1 12 0] (cube 2 26 21))) ; g to b
                             ; few rows for structure
                             (translate [88 53 10] (rotate (/ π 10.5) [1 12 0] (cube 20 2 15))) ; g to f
                             (translate [110 51.5 0] (rotate (/ π 10.5) [1 12 0] (cube 20 2 15))) ; f to d
@@ -1000,7 +1000,7 @@
                                  (->> (cube 416 110 30)
                                       (rotate (/ π 22) [1 0 0] )
                                       (translate [0 130 25.4]))))
-            (translate [95 2.7 27.6] (cube 35 1 10)))
+            (translate [95 2.7 29.6] (cube 35 1 14)))
           (translate [-70 100 100] (cube 280 200 200))
           (translate [150 190 100] (cube 250 160 200))
           (translate [100 100 -99] (cube 700 300 200))
