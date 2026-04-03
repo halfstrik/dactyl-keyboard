@@ -960,10 +960,10 @@
                             (translate [190 48 1.2] (rotate (/ π 18.5) [-1 0 0] (cube 2 20 5))) ; tab to caps
                             (translate [190 71 0.4] (rotate (/ π 90.5) [1 0 0] (cube 2 20 5))) ; caps to shift
                             ; 1 col
-                            (translate [165 23 8] (rotate (/ π 6.5) [-1 0 0] (cube 2 20 10))) ; 1 to q
-                            (translate [165 46 1] (rotate (/ π 18.5) [-1 0 0] (cube 2 20 10))) ; q to a
-                            (translate [165 71 0.4] (rotate (/ π 90.5) [1 0 0] (cube 2 20 10))) ; a to z
-                            (translate [165 96 3.4] (rotate (/ π 10.5) [1 0 0] (cube 2 20 10))) ; z to `
+                            (translate [165 23 7] (rotate (/ π 6.5) [-1 0 0] (cube 2 20 10))) ; 1 to q
+                            (translate [165 46 0] (rotate (/ π 18.5) [-1 0 0] (cube 2 20 10))) ; q to a
+                            (translate [165 71 -0.6] (rotate (/ π 90.5) [1 0 0] (cube 2 20 10))) ; a to z
+                            (translate [165 96 2.4] (rotate (/ π 10.5) [1 0 0] (cube 2 20 10))) ; z to `
                             ; 2 col
                             (translate [145 18 7] (rotate (/ π 6.5) [-1 0 0] (cube 2 20 10))) ; 2 to w
                             (translate [143 40 0] (rotate (/ π 22.5) [-1 0 0] (cube 2 20 10))) ; w to s
