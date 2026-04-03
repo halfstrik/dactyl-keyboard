@@ -1029,6 +1029,7 @@
                 (translate [50 215 0] (cube 600 150 300))
                 (translate [165 100 0] (cube 120 200 300))
                 (translate [-125 100 0] (cube 320 200 300))
+                (translate [50 140 50] (cube 30 30 30)) ; cut artefact garbage
                 (->> (cube 60 18 50)
                      (rotate (/ π 2.45) [0 0 1])
                      (translate [37.21 124.35 28]))
