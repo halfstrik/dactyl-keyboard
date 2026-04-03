@@ -1016,6 +1016,7 @@
 
 (def hotswap-socket-support-mount-thumbs
   (union
+
     (difference (translate [0 0 -0.3] (union bottom-main-cylinder-inline
                                              (->> (cube 416 110 30)
                                                   (rotate (/ π 22) [1 0 0] )
@@ -1025,17 +1026,31 @@
                                                  (rotate (/ π 22) [1 0 0] )
                                                  (translate [0 130 25.4]))))
                 (translate [50 0 0] (cube 600 150 300))
-                (translate [50 212 0] (cube 600 150 300))
+                (translate [50 215 0] (cube 600 150 300))
                 (translate [165 100 0] (cube 120 200 300))
                 (translate [-125 100 0] (cube 320 200 300))
+                (->> (cube 60 18 50)
+                     (rotate (/ π 2.45) [0 0 1])
+                     (translate [37.21 124.35 28]))
+                (->> (cube 24 50 50)
+                     (rotate (/ π 2.45) [0 0 1])
+                     (translate [87 134 28]))
                 )
     (intersection
-      (convert-dactyl-shapes hotswap-sockets-support-under-thumbcaps)
-      (union (translate [0 0 -0.3] (union bottom-main-cylinder-inline
+      (union (convert-dactyl-shapes hotswap-sockets-support-under-thumbcaps)
+             ; connectors
+             (translate [48 115 8] (rotate (/ π 10.5) [-1 0 -1] (cube 2 40 35))) ; right most
+             (translate [66 105 8] (rotate (/ π 10.5) [-1 0 -1] (cube 2 28 35))) ; middle two
+             (translate [68 115 8] (rotate (/ π 10.5) [-1 0 -1] (cube 40 2 35))) ; space - cmd - outer
+             (translate [61 85 8] (rotate (/ π 10.5) [-1 0 -1] (cube 42 2 34)))
+             (translate [94 105 2] (rotate (/ π 10.5) [-1 0 -1] (cube 20 2 30)))
+             (translate [85 97 8] (rotate (/ π 70.5) [1 12 0] (cube 2 34 21))) ; g to b
+             )
+      (translate [0 0 -0.3] (union bottom-main-cylinder-inline
                                           (->> (cube 416 110 30)
                                                (rotate (/ π 22) [1 0 0] )
                                                (translate [0 130 25.4]))))
-      ))
+      )
   ))
 
 (spit "things_frame/hotswap-socket-support-mount-thumbs.scad"
@@ -1051,7 +1066,7 @@
 (spit "things_frame/all_combined.scad"
       (write-scad
         (union
-          ;(import "case_right_bottom.stl")
+          (import "case_right_bottom.stl")
           (import "hotswap-socket-support-mount.stl")
           (import "well_right.stl")
           )))
