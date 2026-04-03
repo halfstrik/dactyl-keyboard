@@ -497,6 +497,16 @@
    (thumb-place 1 1 (sa-cap 1))
    (thumb-1x-column (sa-cap 1))))
 
+(def hotswap-sockets-support-under-thumbcaps
+  (union
+    (thumb-2x-column (rotate (/ π 2) [0 0 1] hotswap-socket-support-pillar))
+    (thumb-place 1 -1/2 (rotate (/ π 2) [0 0 1] hotswap-socket-support-pillar))
+    (thumb-place 1 1 (rotate (/ π 2) [0 0 1] hotswap-socket-support-pillar))
+    (thumb-1x-column (rotate (/ π 2) [0 0 1] hotswap-socket-support-pillar))))
+
+(spit "things/hotswap-socket-support-thumbcaps-mount.scad"
+      (write-scad hotswap-sockets-support-under-thumbcaps))
+
 (def thumb-connectors
   (union
    (apply union
