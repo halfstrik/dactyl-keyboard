@@ -944,14 +944,19 @@
       (write-scad
         (difference
           (union
-            (difference (translate [0 0 -0.9] (union bottom-main-cylinder-inline
+            (difference (translate [0 0 -0.3] (union bottom-main-cylinder-inline
                                (->> (cube 416 110 30)
                                     (rotate (/ π 22) [1 0 0] )
                                     (translate [0 130 25.4]))))
-                        (translate [0 0 0.1] (union bottom-main-cylinder-inline
+                        (translate [0 0 0.7] (union bottom-main-cylinder-inline
                                                     (->> (cube 416 110 30)
                                                          (rotate (/ π 22) [1 0 0] )
-                                                         (translate [0 130 25.4])))))
+                                                         (translate [0 130 25.4]))))
+                        (translate [198 60 7.2] (cube 5.4 8 10)) ; cut for caps
+                        (translate [151 54 6.2] (cube 5.4 8 10)) ; cut for S
+                        (translate [152.7 10 6.2] (cube 12.4 7 35)) ; cut for 2
+                        (translate [132.7 7.5 6.2] (cube 12.4 7 35)) ; cut for 3
+                        )
             (intersection (union
                             (convert-dactyl-shapes hotswap-sockets-support-under-caps)
                             ; connectors
@@ -991,7 +996,7 @@
                             (translate [132 100 4] (rotate (/ π 10.5) [1 12 0] (cube 20 2 15))) ; left to ;
                             (translate [158 103 4] (rotate (/ π 20.5) [1 1 31] (cube 20 2 15))) ; ; to ~
                             )
-                          (union (translate [0 0 -0.9] bottom-main-cylinder-inline)
+                          (union (translate [0 0 -0.3] bottom-main-cylinder-inline)
                                  (->> (cube 416 110 30)
                                       (rotate (/ π 22) [1 0 0] )
                                       (translate [0 130 25.4]))))
@@ -1002,6 +1007,9 @@
           (translate [0 -147.8 0] (cube 500 300 200))
           (translate [198 110 0] (cube 40 40 200))
           (translate [72 110 0] (cube 40 40 200))
+          (translate [210 65 0] (cube 10 52 200)) ; Cut for left notch
+          (translate [156 8 6.2] (cube 10 10 200)) ; Cut for 2
+          (translate [133.5 6 6.2] (cube 5 6.5 35)) ; Cut for 3
           (->> (cube 25.5 14 40)
                (translate [195.25 7.8 16.9]))
           (->> (cube 66 2 35)
