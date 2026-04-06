@@ -3,12 +3,22 @@
   (:require [scad-clj.scad :refer :all]
             [scad-clj.model :refer :all]
             [unicode-math.core :refer :all]
-            [dactyl-keyboard.dactyl :refer [thumbcaps caps caps-combined-outline dactyl-top-right hotswap-sockets-support-under-caps hotswap-sockets-support-under-thumbcaps]]))
+            [dactyl-keyboard.dactyl :refer [thumbcaps caps caps-combined-outline dactyl-top-right dactyl-top-left hotswap-sockets-support-under-caps hotswap-sockets-support-under-thumbcaps]]))
 
 (defn convert-dactyl-shapes [& shapes]
   (translate [125 58 0]
              (mirror [0 1 0]
                      (rotate (/ π 60) [0 1 0]
+                             (list shapes)
+                             )
+                     )
+             )
+  )
+
+(defn convert-dactyl-shapes-left [& shapes]
+  (translate [-125 58 0]
+             (mirror [0 1 0]
+                     (rotate (/ π 60) [0 -1 0]
                              (list shapes)
                              )
                      )
@@ -569,28 +579,127 @@
       (write-scad
         well-right))
 
-(spit "things_frame/well_right1.scad"
-      (write-scad
-        (difference
-            (convert-dactyl-shapes dactyl-top-right)
-            (->> (cube 19 5 5)
-                 (rotate (/ π 10) [0 1 0])
-                 (rotate (/ π 10) [-1 0 0])
-                 (rotate (/ π 27) [0 0 1])
-                 (translate [131.4 10.4 30]))
-            (->> (cube 19 19 5)
-                 (rotate (/ π 6) [0 1 0])
-                 (rotate (/ π 7) [-1 0 0])
-                 (rotate (/ π 14) [0 0 1])
-                 (translate [96.2 18.5 44.6]))
-            )
-        ))
-
 (spit "things_frame/well_left.scad"
       (write-scad
-        (->> ; well-right
-             (import "well_right.stl")
-             (mirror [1 0 0]))))
+          (union
+            (->> (cube 3 36 2) ; to close right border
+                 (translate [202 61 7])
+                 (mirror [1 0 0]))
+            (->> (cube 3 35 2)
+                 (translate [202 22 25.8])
+                 (rotate (/ π -7) [1 0 0])
+                 (mirror [1 0 0]))
+            (->> (cube 3 26 2)
+                 (translate [202 86 -20.5])
+                 (rotate (/ π 9) [1 0 0])
+                 (mirror [1 0 0]))
+            (mirror [1 0 0] (difference
+              (intersection
+                (union
+                  (->> (cube 2.5 23 22) ; to support middle connection to thumb isle
+                       (rotate (/ π 10) [0 0 -1])
+                       (translate [103 105 49]))
+                  (->> (cube 18 4 22)
+                       (translate [91.5 92 46]))
+                  (->> (cube 4.5 18 22)
+                       (rotate (/ π 10) [0 0 -1])
+                       (translate [78.3 86.3 46])))
+                main-inline)
+              (well-sphere1 78)))
+
+            (difference
+              (intersection
+                (convert-dactyl-shapes-left dactyl-top-left)
+                main-inline)
+
+              (->> (cube 19 5 5) ; cut for "3" key, so keycap won't stick
+                   (rotate (/ π 10) [0 1 0])
+                   (rotate (/ π 10) [-1 0 0])
+                   (rotate (/ π 27) [0 0 1])
+                   (translate [131.4 10.4 30])
+                   (mirror [1 0 0]))
+              (->> (cube 19 19 5) ; cut for "5" key, so keycap won't stick
+                   (rotate (/ π 6) [0 1 0])
+                   (rotate (/ π 7) [-1 0 0])
+                   (rotate (/ π 14) [0 0 1])
+                   (translate [96.2 18.5 44.6])
+                   (mirror [1 0 0]))
+              (->> (cube 5 5 5) ; cut top most corner so it won't hinder middle plate
+                   (translate [90 13 58.5])
+                   (mirror [1 0 0]))
+              (mirror [1 0 0] support-pillar-shift-up-negative)
+              (mirror [1 0 0] support-pillar-five-up-negative)
+              (mirror [1 0 0] support-pillar-plus-up-negative)
+              (mirror [1 0 0] (well-sphere 78))
+              (->> (cylinder 2.2, 25)
+                   (translate [193 9 (+ 19.4 8.4 -4)])
+                   (mirror [1 0 0]))
+              (->> (cylinder 6 25)
+                   (translate [203 8 10])
+                   (mirror [1 0 0]))
+              (->> (cylinder 1.7, 27)
+                   (translate [203 8 13])
+                   (mirror [1 0 0]))
+              (mirror [1 0 0] (difference ; Top corner middle glue plate cut
+                (->> (cube 40.2 10.2 34.2)
+                     (translate [118 7 15])
+                     (rotate (/ π 7) [0 -1 0]))
+                (->> main-inline
+                     (translate [0 2 -2]))
+                (well-sphere1 78)))
+              (->> (cube 2.2 46.2 10.2) ; Right-most mount plate cut
+                   (translate [207 63 7])
+                   (mirror [1 0 0]))
+              )
+
+            (mirror [1 0 0] (difference
+              support-pillar-shift-well
+              bottom-negative-inline
+              (translate [193 112 (+ 19.4 8.4 -17)] ; Indent for a wooden screw:)
+                         (cylinder 4.5, 15))
+              (->> (cylinder 2, 25)
+                   (translate [193 112 (+ 19.4 8.4 -1)]))
+              (->> (cylinder 1.7, 25)
+                   (rotate (/ π 20) [1 0 0])
+                   (translate [203 112 10]))))
+            (mirror [1 0 0] (difference
+              support-pillar-plus-well
+              bottom-negative-inline
+              (translate [193 9 (+ 19.4 8.4 -13)] ; Indent for a wooden screw:)
+                         (cylinder 4.5, 15))
+              (->> (cube 22 2 17) ; Cut for switch to be able to insert
+                   (translate [190 15 16.4]))
+              (->> (cylinder 2, 25)
+                   (translate [193 9 (+ 19.4 8.4 -4)]))
+              (->> (cylinder 6 25)
+                   (translate [203 8 10]))
+              (->> (cylinder 1.7, 27)
+                   (translate [203 8 13]))))
+            (mirror [1 0 0] (difference
+              (intersection
+                support-pillar-five-well
+                main-inline)
+              (well-sphere 78)
+              (->> (cylinder 2, 25)
+                   (translate [108 5.5 (+ 19.4 18.4)]))))
+            (mirror [1 0 0] (difference
+              (intersection
+                support-pillar-home-well
+                main-inline)
+              bottom-negative-inline
+              (->> (cylinder 2, 45)
+                   (translate [36 125 (+ 19.4 12.4)]))
+              (->> (cylinder 3.7, 35)
+                   (translate [36 125 17]))
+              (->> (cylinder 1.7, 25)
+                   (rotate (/ π 20) [1 0 0])
+                   (translate [42.7 125 10]))
+              (difference ; Cut for tilted connection for 3d print optimization
+                (->> (cube 25 16 20)
+                     (rotate (/ π 5.45) [0 1 0])
+                     (translate [25.5 127 52.5]))
+                (->> (cube 40 40 10)
+                     (translate [25.5 127 34.5]))))))))
 
 (def bottom-corner-leg
   (difference
