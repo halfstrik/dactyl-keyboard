@@ -1052,20 +1052,20 @@
 (def hotswap-socket-support-mount
   (difference
     (union
-      (difference (translate [0 0 0.3] (union bottom-main-cylinder-inline
+      (difference (translate [0 0 0.4] (union bottom-main-cylinder-inline
                                                (->> (cube 416 110 30)
                                                     (rotate (/ π 22) [1 0 0] )
                                                     (translate [0 130 25.4]))))
-                  (translate [0 0 0.9] (union bottom-main-cylinder-inline
+                  (translate [0 0 1.4] (union bottom-main-cylinder-inline
                                               (->> (cube 416 110 30)
                                                    (rotate (/ π 22) [1 0 0] )
                                                    (translate [0 130 25.4]))))
-                  (translate [197 60 7.2] (cube 13 8 10)) ; cut for caps
-                  (translate [172 62 6.2] (cube 13 5 10)) ; cut for A
-                  (translate [151 54 6.2] (cube 11 8 10)) ; cut for S
-                  (translate [152 34 6.2] (cube 11 8 10)) ; cut for W
+                  (translate [193.3 60 7.2] (cube 15 8 10)) ; cut for caps
+                  (translate [172 61.3 6.2] (cube 13 5 10)) ; cut for A
+                  (translate [150 54 6.2] (cube 13 8 10)) ; cut for S
+                  (translate [151 31.5 6.2] (cube 13 7 10)) ; cut for W
                   (translate [152.7 10 6.2] (cube 14.2 7 35)) ; cut for 2
-                  (translate [132.7 7.5 6.2] (cube 12.4 7 35)) ; cut for 3
+                  (translate [132 7.5 6.2] (cube 14.4 7 35)) ; cut for 3
                   )
       (intersection (union
                       (convert-dactyl-shapes hotswap-sockets-support-under-caps)
@@ -1106,34 +1106,37 @@
                       (translate [132 100 4] (rotate (/ π 10.5) [1 12 0] (cube 20 2 15))) ; left to ;
                       (translate [158 103 4] (rotate (/ π 20.5) [1 1 31] (cube 20 2 15))) ; ; to ~
                       )
-                    (translate [0 0 0.3]
+                    (translate [0 0 0.4]
                                (union bottom-main-cylinder-inline
                                       (->> (cube 416 110 30)
                                            (rotate (/ π 22) [1 0 0] )
                                            (translate [0 130 25.4])))))
       (translate [95 2.7 29.6] (cube 35 1 14)))
     (translate [-70 100 100] (cube 280 200 200))
-    (translate [150 195 100] (cube 250 160 200))
-    (translate [100 100 -99] (cube 700 300 200))
-    (translate [0 -147.8 0] (cube 500 300 200))
-    (translate [198 110 0] (cube 40 40 200))
-    (translate [72 110 0] (cube 40 40 200))
-    (translate [210 65 0] (cube 20 68 200)) ; Cut for left notch
+    (translate [150 193 100] (cube 250 160 200))
+    (translate [100 100 -97.1] (cube 700 300 200)) ; cut for bottom
+    (translate [0 -147.8 0] (cube 500 300 200)) ; cut for rear junk
+    (translate [198 110 0] (cube 40 40 200)) ; cut for shift pillar
+    ;(translate [72 110 0] (cube 40 40 200))
+    (translate [209 65 0] (cube 20 108 200)) ; Cut for left notch
     (translate [156 8 6.2] (cube 10 10 200)) ; Cut for 2
     (translate [133.5 6 6.2] (cube 5 6.5 35)) ; Cut for 3
     (->> (cube 25.5 14 40)
-         (translate [195.25 7.8 16.9]))
-    (->> (cube 66 2 35)
-         (translate [150 3 21]))))
+         (translate [195.25 7.9 16.9])) ; cut for top left screw
+    (->> (cube 68 7 35) ; cut for top left numbers
+         (translate [150 3 21]))
+    (->> (cube 20 13 35) ; cut for number 1
+         (translate [148 3 21]))
+    ))
 
 (def hotswap-socket-support-mount-thumbs
   (union
 
-    (difference (translate [0 0 0.3] (union bottom-main-cylinder-inline
+    (difference (translate [0 0 0.4] (union bottom-main-cylinder-inline
                                              (->> (cube 416 110 30)
                                                   (rotate (/ π 22) [1 0 0] )
                                                   (translate [0 130 25.4]))))
-                (translate [0 0 0.9] (union bottom-main-cylinder-inline
+                (translate [0 0 1.4] (union bottom-main-cylinder-inline
                                             (->> (cube 416 110 30)
                                                  (rotate (/ π 22) [1 0 0] )
                                                  (translate [0 130 25.4]))))
@@ -1160,7 +1163,7 @@
              (translate [94 105 2] (rotate (/ π 10.5) [-1 0 -1] (cube 20 2 30)))
              (translate [85 97 8] (rotate (/ π 10) [0.5 1 0] (cube 2 34 30))) ; g to b
              )
-      (translate [0 0 0.3] (union bottom-main-cylinder-inline
+      (translate [0 0 0.4] (union bottom-main-cylinder-inline
                                           (->> (cube 416 110 30)
                                                (rotate (/ π 22) [1 0 0] )
                                                (translate [0 130 25.4]))))
