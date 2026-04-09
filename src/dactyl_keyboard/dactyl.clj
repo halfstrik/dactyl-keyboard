@@ -260,14 +260,23 @@
 (def hotswap-socket-support
   (difference
     (union
-      (->> (cube 11 5 2.2)
+      (->> (cube 11 5 2)
            (translate [1.7 5.75 -3.5]))
-      (->> (cube 5 3 2.2)
+      (->> (cube 5 3 2)
            (translate [-3.7 3.15 -3.5]))
       (->> (cube 4 5 1.6)
-           (translate [4.2 2.2 -3.8]))
-    )
-    hotswap-socket-body))
+           (translate [4.2 2.2 -3.8])))
+    hotswap-socket-body
+    (->> (cube 2 2 10)
+         (rotate (/ π 18) [1 0 0])
+         (translate [-6.3 5.5 -3.5])) ; angle cat for metal part
+    (->> (cube 2 2 10)
+         (rotate (/ π 18) [-1 0 0])
+         (translate [7.3 3.5 -3.5])) ; angle cat for metal part with diode
+    (->> (cube 4 4 10)
+         (rotate (/ π 4) [0 0 1])
+         (rotate (/ π 8) [1 -1 0])
+         (translate [8.1 9.1 -3.5]))))
 
 (def hotswap-socket-support-pillar
   (union hotswap-socket-support
@@ -275,6 +284,9 @@
                     (extrude-linear {:height 100}
             (project hotswap-socket-support)))))
 
+(spit "things/hotswap-socket-support.scad"
+      (write-scad
+        hotswap-socket-support-pillar))
 ;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Placement Functions ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;
