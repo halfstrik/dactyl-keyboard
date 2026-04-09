@@ -280,11 +280,20 @@
          (rotate (/ π 8) [1 -1 0])
          (translate [8.1 9.1 -3.5]))))
 
+(def hotswap-socket-support-left
+  (mirror [1 0 0] hotswap-socket-support))
+
 (def hotswap-socket-support-pillar
   (union hotswap-socket-support
          (translate [0 0 -54.5]
                     (extrude-linear {:height 100}
             (project hotswap-socket-support)))))
+
+(def hotswap-socket-support-pillar-left
+  (union hotswap-socket-support-left
+         (translate [0 0 -54.5]
+                    (extrude-linear {:height 100}
+                                    (project hotswap-socket-support-left)))))
 
 (spit "things/hotswap-socket-support.scad"
       (write-scad
@@ -362,16 +371,6 @@
            (->> (sa-cap (if (= column 5) 1.5 1))
                 (key-place column row)))))
 
-;(def hotswap-sockets-under-caps
-;  (apply union
-;         (for [column columns
-;               row rows
-;               :when (or (and (not= column 0)
-;                              (not= column 5)) ; Skip under pinky extra button
-;                         (not= row 4))]
-;           (->> hotswap-socket-body
-;                (key-place column row)))))
-
 (def hotswap-sockets-support-under-caps
   (apply union
          (for [column columns
@@ -382,6 +381,15 @@
            (->> hotswap-socket-support-pillar
                 (key-place column row)))))
 
+(def hotswap-sockets-support-under-caps-left
+  (apply union
+         (for [column columns
+               row rows
+               :when (or (and (not= column 0)
+                              (not= column 5)) ; Skip under pinky extra button
+                         (not= row 4))]
+           (->> hotswap-socket-support-pillar-left
+                (key-place column row)))))
 ;;;;;;;;;;;;;;;;;;;;
 ;; Web Connectors ;;
 ;;;;;;;;;;;;;;;;;;;;
@@ -520,6 +528,13 @@
 
 (spit "things/hotswap-socket-support-thumbcaps-mount.scad"
       (write-scad hotswap-sockets-support-under-thumbcaps))
+
+(def hotswap-sockets-support-under-thumbcaps-left
+  (union
+    (thumb-2x-column (rotate (/ π 2) [0 0 1] hotswap-socket-support-pillar-left))
+    (thumb-place 1 -1/2 (rotate (/ π 2) [0 0 1] hotswap-socket-support-pillar-left))
+    (thumb-place 1 1 (rotate (/ π 2) [0 0 1] hotswap-socket-support-pillar-left))
+    (thumb-1x-column (rotate (/ π 2) [0 0 1] hotswap-socket-support-pillar-left))))
 
 (def thumb-connectors
   (union
