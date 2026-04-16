@@ -551,8 +551,8 @@
       bottom-negative-inline
       (translate [193 9 (+ 19.4 8.4 -13)] ; Indent for a wooden screw:)
                  (cylinder 4.5, 15))
-      (->> (cube 22 2 17) ; Cut for switch to be able to insert
-           (translate [190 15 16.4]))
+      (->> (cube 20 3.5 17) ; Cut for switch to be able to insert
+           (translate [189.5 15 16.4]))
       (->> (cylinder 2, 25)
            (translate [193 9 (+ 19.4 8.4 -4)]))
       (->> (cylinder 6 25)
@@ -677,8 +677,8 @@
               bottom-negative-inline
               (translate [193 9 (+ 19.4 8.4 -13)] ; Indent for a wooden screw:)
                          (cylinder 4.5, 15))
-              (->> (cube 22 2 17) ; Cut for switch to be able to insert
-                   (translate [190 15 16.4]))
+              (->> (cube 20 3.5 17) ; Cut for switch to be able to insert
+                   (translate [189.5 15 16.4]))
               (->> (cylinder 2, 25)
                    (translate [193 9 (+ 19.4 8.4 -4)]))
               (->> (cylinder 6 25)
@@ -1076,6 +1076,6 @@
       (write-scad
         (union
           (import "case_right_bottom.stl")
-          (import "hotswap-socket-support-mount.stl")
+          ;(import "hotswap-socket-support-mount.stl")
           (import "well_right.stl")
           )))
