@@ -29,7 +29,7 @@
   (->> (cube 210 186 70)
        (translate [105 93 35])))
 (def half-divide-cube-left
-  (->> (cube 210 186 70)
+  (->> (cube 210 186 72)
        (translate [-105 93 35])))
 
 (def third-divide-cube-inner
@@ -290,50 +290,60 @@
   (difference
     (->> (difference main-outline (well-sphere 78))
          (translate [0 0 -11]))
-    (translate [0 0 -10] (cube 500 500 20)) ; cut below 0z
+    (translate [0 0 -10.5] (cube 500 500 20)) ; cut below -0.5z
     ))
 
 (def bottom-main-inline
   (difference
     (->> main-inline
          (translate [0 0 -9]))
-    (translate [0 0 -8] (cube 500 500 20)) ; cut below 2z
+    (translate [0 0 -8.5] (cube 500 500 20)) ; cut below 1.5z
     ))
 
 (def bottom-main-cylinder
   (difference
-    (->> (with-fn 150 (cylinder 92 420))
+    (->> (with-fn 150 (cylinder 93 420))
          (rotate (/ π 2) [0 1 0])
          (translate [0 63 89]))
     (->> (with-fn 100 (cylinder 110 30)) ; cut for a cable
          (rotate (/ π 2) [1 0 0])
          (translate [0 15 -70]))
     (->> (cylinder 3.7 25)
-         (translate [203 8 7]))
+         (translate [203 8 6]))
     ))
 
 (def bottom-main-cylinder-inline
   (difference
-    (->> (with-fn 50 (cylinder 90 416))
+    (->> (with-fn 50 (cylinder 91 416))
          (rotate (/ π 2) [0 1 0])
          (translate [0 63 89]))
+    (intersection
+      (difference
+        (->> (with-fn 50 (cylinder 91 416))
+             (rotate (/ π 2) [0 1 0])
+             (translate [0 63 89]))
+        (->> (with-fn 50 (cylinder 90 416))
+             (rotate (/ π 2) [0 1 0])
+             (translate [0 63 89])))
+      (->> (cube 26 18 31)
+           (translate [195.25 6 22]))) ; slight raise to match old support pillar
     (->> (with-fn 50 (cylinder 112 32)) ; cut for a cable
          (rotate (/ π 2) [1 0 0])
          (translate [0 16 -70]))
     (->> (cylinder 5.8 25)
          (translate[203 8 9.8]))
     (->> (cube 416 186 2) ; Bottom limiter
-         (translate [0 93 1]))
+         (translate [0 93 0.5]))
     (->> (cube 416 2 70) ; Rear side limiter
          (translate [0 1 35]))))
 
-(def bottom-main-cylinder-inline-cut-rgb
-  (intersection
-    (->> (with-fn 50 (cylinder 91 416))
-         (rotate (/ π 2) [0 1 0])
-         (translate [0 63 89]))
-    (->> (cube 78 86 40)
-         (translate [158 53 21]))))
+;(def bottom-main-cylinder-inline-cut-rgb
+;  (intersection
+;    (->> (with-fn 50 (cylinder 91 416))
+;         (rotate (/ π 2) [0 1 0])
+;         (translate [0 63 89]))
+;    (->> (cube 78 86 40)
+;         (translate [158 53 21]))))
 
 (def bottom-hand-rest-outline
   (intersection
@@ -704,11 +714,17 @@
 (def bottom-corner-leg
   (difference
     (->> (cylinder 7.5 2)
-         (translate [100 49 0])
+         (translate [100 49 -0.5])
          (with-fn 50))
     (->> (cylinder 6.4 5)
          (translate [100 49 0])
          (with-fn 50))))
+
+(def bottom-corner-leg-negative
+    ; Puts rear legs on 0 heights, as we lower bottom by -0.5
+    (->> (cylinder 6.4 2)
+         (translate [100 49 -1])
+         (with-fn 50)))
 
 (def bottom-middle-leg
   (union
@@ -756,9 +772,9 @@
 (def middle-glue-reinforcement-bottom-left
   (union
     (difference
-      (->> (cube 24 33.5 25) ; main-cube-width / 2
-           (rotate (/ π 6) [0 -1 0])
-           (translate [0 90 -1.5])
+      (->> (cube 20 33.5 25) ; main-cube-width / 2
+           (rotate (/ π 5) [0 -1 0])
+           (translate [6 90 -1.5])
            (intersection (union (intersection bottom-main-cylinder-inline bottom-main-inline) bottom-thumbs-spacer-inline)))
       (translate [0 0 2] (union (intersection bottom-main-cylinder-inline bottom-main-inline) bottom-thumbs-spacer-inline)))
     (difference
@@ -767,11 +783,11 @@
            (translate [5 168.3 0])
            (intersection bottom-thumbs-spacer-inline))
       (translate [0 0 2] bottom-thumbs-spacer-inline))
-    (difference
+    (intersection
       (->> (cube 44 2 15)
            (rotate (/ π 7) [0 -11 0])
            (translate [-4 183 20]))
-      (translate [0 0 0] bottom-negative-inline))))
+        bottom-thumbs-spacer-inline)))
 
 (def usb-hole-cut
   (hull
@@ -806,13 +822,14 @@
               bottom-thumbs-spacer-inline
 
               usb-hole-cut
+              bottom-corner-leg-negative
               half-divide-cube-left
               base-right-up))
           bottom-corner-leg
           bottom-middle-leg
           ; right
-          (->> (cube 2 46 10)
-               (translate [207 63 7]))
+          (->> (cube 2 46 9)
+               (translate [207 63 7.5]))
           (->> (cube 2 30 12)
                (translate [207 144 18]))
           ; front
@@ -823,9 +840,9 @@
             (translate [0 0.2 -18] main-inline))
           ; rear
           (intersection
-            (->> (cube 50 2 25)
+            (->> (cube 54 2 27)
                  (rotate (/ π 7) [0 1 0])
-                 (translate [150 3 21]))
+                 (translate [150 3 19.5]))
             bottom-main-cylinder-inline)
           )))
 
@@ -840,7 +857,10 @@
                (translate [-19 100 36]))
           (->> (cylinder [4.5 1.4] 3) ; In rear cylinder
                (with-fn 50)
-               (translate [203 8 21]))
+               (translate [203 8 20]))
+          (->> (cylinder 1.4 3) ; In rear cylinder
+               (with-fn 50)
+               (translate [203 8 22]))
           (->> (cylinder [4.5 1.4] 3) ; Side front
                (with-fn 50)
                (translate [185 174 6.5]))
@@ -869,7 +889,10 @@
                (translate [19 100 35]))
           (->> (cylinder [4.5 1.4] 3) ; In rear cylinder
                (with-fn 50)
-               (translate [-203 8 21]))
+               (translate [-203 8 20]))
+          (->> (cylinder 1.4 3) ; In rear cylinder
+               (with-fn 50)
+               (translate [-203 8 22]))
           (->> (cylinder [4.5 1.4] 3) ; Side front
                (with-fn 50)
                (translate [-185 174 6.5]))
