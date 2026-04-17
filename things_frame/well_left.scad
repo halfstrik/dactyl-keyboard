@@ -42323,8 +42323,8 @@ union () {
       translate ([193, 9, 14.799999999999997]) {
         cylinder (h=15, r=4.5, center=true);
       }
-      translate ([190, 15, 16.4]) {
-        cube ([22, 2, 17], center=true);
+      translate ([189.5, 15, 16.4]) {
+        cube ([20, 3.5, 17], center=true);
       }
       translate ([193, 9, 23.799999999999997]) {
         cylinder (h=25, r=2, center=true);
