@@ -475,20 +475,20 @@
           ;(import "case_right_bottom.stl")
           ))))
 
-(def well-right
+(defn well-common [dactyl-well]
   (union
     (intersection  ; to close right border
       (difference
-      (->> (with-fn 50 (cylinder 82.5 416))
+      (->> (with-fn 200 (cylinder 88.5 416))
            (rotate (/ π 2) [0 1 0])
-           (translate [0 63 89]))
-      (->> (with-fn 50 (cylinder 79.5 416))
+           (translate [0 64 95]))
+      (->> (with-fn 200 (cylinder 85.1 416))
            (rotate (/ π 2) [0 1 0])
-           (translate [0 63 89])))
+           (translate [0 64 95])))
       (union
         (->> (cube 3 36 10) ; to close right border
              (translate [202 61 7]))
-        (->> (cube 3 35 10)
+        (->> (cube 3 40 10)
              (translate [202 22 25.8])
              (rotate (/ π -7) [1 0 0]))
         (->> (cube 3 26 10)
@@ -511,8 +511,8 @@
 
     (difference
       (intersection
-       (convert-dactyl-shapes dactyl-top-right)
-       ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
+       (convert-dactyl-shapes dactyl-well)
+       ;(import "../things/dactyl-top-right.stl")
        main-inline)
 
       (->> (cube 19 5 5) ; cut for "3" key, so keycap won't stick
@@ -599,7 +599,10 @@
 
 (spit "things_frame/well_right.scad"
       (write-scad
-        well-right))
+        (well-common dactyl-top-right)))
+(spit "things/dactyl-top-right.scad"
+      (write-scad
+        (convert-dactyl-shapes dactyl-top-right)))
 
 (spit "things_frame/well_left.scad"
       (write-scad
