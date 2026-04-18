@@ -351,14 +351,14 @@
          (rotate (/ π 12) [0 1 0])
          (translate [0 0 13]))))
 
-(def key-holes
+(defn key-holes [plate-hotswap]
   (apply union
          (for [column columns
                row rows
                :when (or (and (not= column 0)
                               (not= column 5)) ; Skip under pinky extra button
                          (not= row 4))]
-           (->> single-plate-hotswap
+           (->> plate-hotswap
                 (key-place column row)))))
 
 (def caps
@@ -615,10 +615,10 @@
             (key-place 1 4 web-post-bl)
             (key-place 1 4 web-post-tl))))))
 
-(def thumb
+(defn thumb [plate-hotswap]
   (union
    thumb-connectors
-   (thumb-layout (rotate (/ π 2) [0 0 1] single-plate-hotswap))
+   (thumb-layout (rotate (/ π 2) [0 0 1] plate-hotswap))
    (thumb-place 0 -1/2 double-plates)
    (thumb-place 1 -1/2 double-plates)))
 
@@ -1459,29 +1459,21 @@
             screw-holes))))
 
 (def dactyl-top-right
-  ;(difference
-    (union
-      connectors
-      thumb
-      new-case
-      key-holes
-      ;;teensy-support
-     )
-    ;;trrs-hole-just-circle
-    ;;screw-holes
-  ;)
-)
+  (union
+    connectors
+    (thumb (mirror [1 0 0] single-plate-hotswap))
+    new-case
+    (key-holes (mirror [1 0 0] single-plate-hotswap))
+   ))
 
 (def dactyl-top-left
   (mirror [-1 0 0]
-          ;(difference
-           (union key-holes
-                  connectors
-                  thumb
-                  new-case)
-           ;trrs-hole-just-circle
-           ;screw-holes
-          ))
+          (union
+            connectors
+            (thumb single-plate-hotswap)
+            new-case
+            (key-holes single-plate-hotswap)
+            )))
 
 (def caps-combined-outline
   ;(minkowski (sphere 2.3) (union thumbcaps caps)))
@@ -1534,8 +1526,8 @@
 (spit "things/switch-hole.scad"
       (write-scad single-plate))
 
-(spit "things/alps-holes.scad"
-      (write-scad (union connectors key-holes)))
+;(spit "things/alps-holes.scad"
+;      (write-scad (union connectors key-holes)))
 
 (defn rotate-y-3-degree [shape]
   (rotate (/ π 60) [0 1 0] shape))
