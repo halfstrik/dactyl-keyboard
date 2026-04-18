@@ -154,8 +154,10 @@
     (->> (cube 25.5 14 20)
          (translate [195.25 9 16.9]))
     (->> (cube 10 10 10) ; cut outer support for curved corner
-         (rotate (/ π 4) [0 0 1]) ; TODO: double check that this is correct
-         (translate [213 2 24.5]))))
+         (rotate (/ π 4) [0 0 1])
+         (translate [213 2 24.5]))
+    (->> (cube 40 9.7 25) ; cut garbage
+         (translate [200 0 10]))))
 
 (def support-pillar-five-up
   (difference
@@ -475,14 +477,24 @@
 
 (def well-right
   (union
-    (->> (cube 3 36 2) ; to close right border
-         (translate [202 61 7]))
-    (->> (cube 3 35 2)
-         (translate [202 22 25.8])
-         (rotate (/ π -7) [1 0 0]))
-    (->> (cube 3 26 2)
-         (translate [202 86 -20.5])
-         (rotate (/ π 9) [1 0 0]))
+    (intersection  ; to close right border
+      (difference
+      (->> (with-fn 50 (cylinder 82.5 416))
+           (rotate (/ π 2) [0 1 0])
+           (translate [0 63 89]))
+      (->> (with-fn 50 (cylinder 79.5 416))
+           (rotate (/ π 2) [0 1 0])
+           (translate [0 63 89])))
+      (union
+        (->> (cube 3 36 10) ; to close right border
+             (translate [202 61 7]))
+        (->> (cube 3 35 10)
+             (translate [202 22 25.8])
+             (rotate (/ π -7) [1 0 0]))
+        (->> (cube 3 26 10)
+             (translate [202 86 -20.5])
+             (rotate (/ π 9) [1 0 0])))
+      )
     (difference
        (intersection
         (union
@@ -551,7 +563,7 @@
       bottom-negative-inline
       (translate [193 9 (+ 19.4 8.4 -13)] ; Indent for a wooden screw:)
                  (cylinder 4.5, 15))
-      (->> (cube 20 3.5 17) ; Cut for switch to be able to insert
+      (->> (cube 22 3.5 17) ; Cut for switch to be able to insert
            (translate [189.5 15 16.4]))
       (->> (cylinder 2, 25)
            (translate [193 9 (+ 19.4 8.4 -4)]))
@@ -592,18 +604,26 @@
 (spit "things_frame/well_left.scad"
       (write-scad
           (union
-            (->> (cube 3 36 2) ; to close right border
-                 (translate [202 61 7])
-                 (mirror [1 0 0]))
-            (->> (cube 3 35 2)
-                 (translate [202 22 25.8])
-                 (rotate (/ π -7) [1 0 0])
-                 (mirror [1 0 0]))
-            (->> (cube 3 26 2)
-                 (translate [202 86 -20.5])
-                 (rotate (/ π 9) [1 0 0])
-                 (mirror [1 0 0]))
-            (mirror [1 0 0] (difference
+            (mirror [1 0 0]
+                    (intersection  ; to close right border
+                      (difference
+                        (->> (with-fn 50 (cylinder 82.5 416))
+                             (rotate (/ π 2) [0 1 0])
+                             (translate [0 63 89]))
+                        (->> (with-fn 50 (cylinder 79.5 416))
+                             (rotate (/ π 2) [0 1 0])
+                             (translate [0 63 89])))
+                      (union
+                        (->> (cube 3 36 10) ; to close right border
+                             (translate [202 61 7]))
+                        (->> (cube 3 35 10)
+                             (translate [202 22 25.8])
+                             (rotate (/ π -7) [1 0 0]))
+                        (->> (cube 3 26 10)
+                             (translate [202 86 -20.5])
+                             (rotate (/ π 9) [1 0 0])))
+                      )
+                    (difference
               (intersection
                 (union
                   (->> (cube 2.5 23 22) ; to support middle connection to thumb isle
@@ -677,7 +697,7 @@
               bottom-negative-inline
               (translate [193 9 (+ 19.4 8.4 -13)] ; Indent for a wooden screw:)
                          (cylinder 4.5, 15))
-              (->> (cube 20 3.5 17) ; Cut for switch to be able to insert
+              (->> (cube 22 3.5 17) ; Cut for switch to be able to insert
                    (translate [189.5 15 16.4]))
               (->> (cylinder 2, 25)
                    (translate [193 9 (+ 19.4 8.4 -4)]))

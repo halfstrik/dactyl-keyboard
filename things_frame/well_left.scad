@@ -1,24 +1,34 @@
 union () {
   mirror ([1, 0, 0]) {
-    translate ([202, 61, 7]) {
-      cube ([3, 36, 2], center=true);
-    }
-  }
-  mirror ([1, 0, 0]) {
-    rotate (a=-25.714285714285715, v=[1, 0, 0]) {
-      translate ([202, 22, 25.8]) {
-        cube ([3, 35, 2], center=true);
+    intersection () {
+      difference () {
+        translate ([0, 63, 89]) {
+          rotate (a=90.0, v=[0, 1, 0]) {
+            cylinder ($fn=50, h=416, r=82.5, center=true);
+          }
+        }
+        translate ([0, 63, 89]) {
+          rotate (a=90.0, v=[0, 1, 0]) {
+            cylinder ($fn=50, h=416, r=79.5, center=true);
+          }
+        }
+      }
+      union () {
+        translate ([202, 61, 7]) {
+          cube ([3, 36, 10], center=true);
+        }
+        rotate (a=-25.714285714285715, v=[1, 0, 0]) {
+          translate ([202, 22, 25.8]) {
+            cube ([3, 35, 10], center=true);
+          }
+        }
+        rotate (a=20.0, v=[1, 0, 0]) {
+          translate ([202, 86, -20.5]) {
+            cube ([3, 26, 10], center=true);
+          }
+        }
       }
     }
-  }
-  mirror ([1, 0, 0]) {
-    rotate (a=20.0, v=[1, 0, 0]) {
-      translate ([202, 86, -20.5]) {
-        cube ([3, 26, 2], center=true);
-      }
-    }
-  }
-  mirror ([1, 0, 0]) {
     difference () {
       intersection () {
         union () {
@@ -42079,6 +42089,9 @@ union () {
             cube ([10, 10, 10], center=true);
           }
         }
+        translate ([200, 0, 10]) {
+          cube ([40, 9.7, 25], center=true);
+        }
       }
       difference () {
         difference () {
@@ -42324,7 +42337,7 @@ union () {
         cylinder (h=15, r=4.5, center=true);
       }
       translate ([189.5, 15, 16.4]) {
-        cube ([20, 3.5, 17], center=true);
+        cube ([22, 3.5, 17], center=true);
       }
       translate ([193, 9, 23.799999999999997]) {
         cylinder (h=25, r=2, center=true);
