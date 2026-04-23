@@ -971,5 +971,5 @@
         (union
           (import "case_right_bottom.stl")
           ;(import "hotswap-socket-support-mount.stl")
-          (import "well_right.stl")
+          (import "../things_hotswap/hotswap-socket-support-mount.stl")
           )))
