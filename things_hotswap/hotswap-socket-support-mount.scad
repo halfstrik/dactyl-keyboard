@@ -3220,6 +3220,9 @@ difference () {
   translate ([150, 193, 100]) {
     cube ([250, 160, 200], center=true);
   }
+  translate ([213, 65, 0]) {
+    cube ([25, 108, 200], center=true);
+  }
   translate ([100, 100, -100]) {
     cube ([700, 300, 200], center=true);
   }
@@ -3244,6 +3247,9 @@ difference () {
   }
   translate ([195.25, 7.9, 16.9]) {
     cube ([26.5, 14.5, 40], center=true);
+  }
+  translate ([205, 20, 20.5]) {
+    cube ([13, 15, 13], center=true);
   }
 }
 difference () {

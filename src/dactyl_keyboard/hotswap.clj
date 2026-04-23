@@ -53,6 +53,7 @@
       (translate [95 2.7 29.6] (cube 35 1 14)))
     (translate [-70 100 100] (cube 280 200 200))
     (translate [150 193 100] (cube 250 160 200))
+    (translate [213 65 0] (cube 25 108 200)) ; Cut for left notch
     (translate [100 100 -100] (cube 700 300 200)) ; cut for bottom
     (translate [0 -147.8 0] (cube 500 300 200)) ; cut for rear junk
     (translate [150 -145 0] (cube 67 300.3 200)) ; cut for rear notch
@@ -61,6 +62,7 @@
     (translate [137.5 -1.5 6.2] (rotate (/ π 3.5) [0 0 1] (cube 18 20 200))) ; Cut for 3
     (->> (cube 26.5 14.5 40)
          (translate [195.25 7.9 16.9])) ; cut for top left screw
+    (translate [205 20 20.5] (cube 13 15 13)) ; cut for left mount peice
     ))
 
 (def hotswap-socket-support-mount-thumbs
