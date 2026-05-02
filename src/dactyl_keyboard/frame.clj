@@ -455,14 +455,24 @@
 
 (def well-right
   (union
-    (->> (cube 3 36 2) ; to close right border
-         (translate [202 61 7]))
-    (->> (cube 3 35 2)
-         (translate [202 22 25.8])
-         (rotate (/ π -7) [1 0 0]))
-    (->> (cube 3 26 2)
-         (translate [202 86 -20.5])
-         (rotate (/ π 9) [1 0 0]))
+    (intersection  ; to close right border
+      (difference
+        (->> (with-fn 200 (cylinder 88.5 416))
+             (rotate (/ π 2) [0 1 0])
+             (translate [0 64 95]))
+        (->> (with-fn 200 (cylinder 85.1 416))
+             (rotate (/ π 2) [0 1 0])
+             (translate [0 64 95])))
+      (union
+        (->> (cube 3 36 10) ; to close right border
+             (translate [202 61 7]))
+        (->> (cube 3 40 10)
+             (translate [202 22 25.8])
+             (rotate (/ π -7) [1 0 0]))
+        (->> (cube 3 26 10)
+             (translate [202 86 -20.5])
+             (rotate (/ π 9) [1 0 0])))
+      )
     (difference
        (intersection
         (union
