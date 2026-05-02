@@ -581,23 +581,6 @@
       (write-scad
         well-right))
 
-(spit "things_frame/well_right1.scad"
-      (write-scad
-        (difference
-            (convert-dactyl-shapes dactyl-top-right)
-            (->> (cube 19 5 5)
-                 (rotate (/ π 10) [0 1 0])
-                 (rotate (/ π 10) [-1 0 0])
-                 (rotate (/ π 27) [0 0 1])
-                 (translate [131.4 10.4 30]))
-            (->> (cube 19 19 5)
-                 (rotate (/ π 6) [0 1 0])
-                 (rotate (/ π 7) [-1 0 0])
-                 (rotate (/ π 14) [0 0 1])
-                 (translate [96.2 18.5 44.6]))
-            )
-        ))
-
 (spit "things_frame/well_left.scad"
       (write-scad
         (->> ; well-right
@@ -834,32 +817,6 @@
               (union
                 bottom-thumbs-spacer-inline
                 bottom-main-cylinder-inline))))))
-
-(spit "things_frame/led_right_mount.scad"
-      (write-scad
-        (difference
-          (intersection
-            (union
-              (->> (cube 40 100 40)
-                   (translate [100 60 20]))
-              (->> (cube 50 50 50)
-                   (translate [38 128 17])
-                   (rotate  (/ π 10.5) [0 0 -1]))
-              )
-            (union
-              bottom-main-cylinder-inline
-              (translate [0 0 18] main-inline)
-              bottom-thumbs-spacer-inline)
-              (->> main-outline
-                   (translate [0 0 -20])))
-          (well-sphere 92)
-        )
-        ;(convert-dactyl-shapes (import "../things/dactyl-top-right.stl"))
-        ))
-
-(spit "things_frame/led_left_mount.scad"
-      (write-scad
-        (mirror [1 0 0] (import "led_right_mount.stl"))))
 
 (def usb-female-socket
   (hull
