@@ -412,7 +412,7 @@
         (->> (import "case_right_most_up.stl")
              (mirror [1 0 0]))))
 
-(spit "things_frame/base_middle_up_final.scad"
+(spit "things_frame/case_middle_up_final.scad"
       (let [
               well-mount
                 (difference
@@ -443,7 +443,25 @@
                        (translate [75 177 15])))]
       (write-scad
         (union
-          (import "base_middle_up.stl")
+          (difference
+            (import "base_middle_up.stl")
+            (intersection
+              (translate [0 0 1.5] (difference main-outline main-inline))
+              (translate [-57 50 60] (cube 1.4 95.9 15)))
+            (translate [-57 34 50] (with-fn 200 (cylinder 0.7 30)))
+            (translate [-57 (+ 34 16.7) 50] (with-fn 200 (cylinder 0.7 30)))
+            (translate [-57 (+ 34 16.7 16.7) 50] (with-fn 200 (cylinder 0.7 30)))
+
+            ; cut for logo plate insert
+            (translate [53 52 58.2] (rotate (/ π 25) [-1 0.3 0]
+                                            (hull
+                                              (translate [0 0 0]
+                                                         (cube 50 20 0.1))
+                                              (translate [0 0 2]
+                                                         (cube 47 17 0.1)))))
+          )
+
+
           well-mount
           (mirror [1 0 0] well-mount)
 
@@ -454,6 +472,23 @@
 
           ;(import "case_right_bottom.stl")
           ))))
+
+(spit "things_frame/case_middle_up_leds.scad"
+      (write-scad
+        (difference
+          (intersection
+            (union
+              (intersection
+                (translate [0 0 1.5] (difference main-outline main-inline))
+                (translate [-57 50 60] (cube 1.4 95.9 15)))
+              (translate [-57 34 50] (with-fn 200 (cylinder 0.7 30)))
+              (translate [-57 (+ 34 16.7) 50] (with-fn 200 (cylinder 0.7 30)))
+              (translate [-57 (+ 34 16.7 16.7) 50] (with-fn 200 (cylinder 0.7 30))))
+
+            (difference main-outline main-inline))
+          (mirror [1 0 0] (translate [0 -0.3 -2.9] ; to fully erase remaining of the sphere
+                     (convert-dactyl-shapes caps-combined-outline)))))
+      )
 
 (def well-right
   (union
@@ -865,11 +900,10 @@
 (spit "things_frame/all_combined.scad"
       (write-scad
         (union
-          (import "case_right_most_up.stl")
+          (import "case_right_middle_up_final.stl")
           ;(import "base_bottom_common.stl")
-          (convert-dactyl-shapes caps thumbcaps)
           ;(convert-dactyl-shapes caps-combined-outline)
-          (import "case_middle_up_final.stl")
+          ;(import "case_right_middle_up_leds.stl")
           ;(import "well_right.stl")
           ;(import "case_right_bottom.stl")
           ;bottom-main-cylinder-inline-cut-rgb
