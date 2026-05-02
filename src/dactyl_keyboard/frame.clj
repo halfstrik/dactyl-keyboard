@@ -144,8 +144,10 @@
     (->> (cube 25.5 14 20)
          (translate [195.25 9 16.9]))
     (->> (cube 10 10 10) ; cut outer support for curved corner
-         (rotate (/ π 4) [0 0 1]) ; TODO: double check that this is correct
-         (translate [213 2 24.5]))))
+         (rotate (/ π 4) [0 0 1])
+         (translate [213 2 24.5]))
+    (->> (cube 40 9.7 25) ; cut garbage
+         (translate [200 0 10]))))
 
 (def support-pillar-five-up
   (difference

@@ -39865,6 +39865,9 @@ union () {
           cube ([10, 10, 10], center=true);
         }
       }
+      translate ([200, 0, 10]) {
+        cube ([40, 9.7, 25], center=true);
+      }
     }
     difference () {
       difference () {
