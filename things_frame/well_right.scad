@@ -39550,6 +39550,24 @@ union () {
           }
         }
       }
+      hull () {
+        rotate (a=6.0, v=[1, 0, 0]) {
+          scale ([1.27, 1, 1.3]) {
+            translate ([145, 71, 84]) {
+              sphere ($fn=150, r=78);
+            }
+          }
+        }
+        translate ([80, 0, 6]) {
+          rotate (a=6.0, v=[1, 0, 0]) {
+            scale ([1.27, 1, 1.3]) {
+              translate ([145, 71, 84]) {
+                sphere ($fn=150, r=86);
+              }
+            }
+          }
+        }
+      }
       intersection () {
         translate ([140, 53, 87]) {
           scale ([0.72, 0.7, 1.1]) {
@@ -39724,6 +39742,24 @@ union () {
                         }
                       }
                     }
+                    hull () {
+                      rotate (a=6.0, v=[1, 0, 0]) {
+                        scale ([1.27, 1, 1.3]) {
+                          translate ([145, 71, 84]) {
+                            sphere ($fn=150, r=78);
+                          }
+                        }
+                      }
+                      translate ([80, 0, 6]) {
+                        rotate (a=6.0, v=[1, 0, 0]) {
+                          scale ([1.27, 1, 1.3]) {
+                            translate ([145, 71, 84]) {
+                              sphere ($fn=150, r=86);
+                            }
+                          }
+                        }
+                      }
+                    }
                     intersection () {
                       translate ([140, 53, 87]) {
                         scale ([0.72, 0.7, 1.1]) {
@@ -39778,6 +39814,24 @@ union () {
                         scale ([1.27, 1, 1.3]) {
                           translate ([145, 71, 84]) {
                             sphere ($fn=150, r=78);
+                          }
+                        }
+                      }
+                    }
+                    hull () {
+                      rotate (a=6.0, v=[1, 0, 0]) {
+                        scale ([1.27, 1, 1.3]) {
+                          translate ([145, 71, 84]) {
+                            sphere ($fn=150, r=78);
+                          }
+                        }
+                      }
+                      translate ([80, 0, 6]) {
+                        rotate (a=6.0, v=[1, 0, 0]) {
+                          scale ([1.27, 1, 1.3]) {
+                            translate ([145, 71, 84]) {
+                              sphere ($fn=150, r=86);
+                            }
                           }
                         }
                       }
@@ -39973,6 +40027,24 @@ union () {
                         }
                       }
                     }
+                    hull () {
+                      rotate (a=6.0, v=[1, 0, 0]) {
+                        scale ([1.27, 1, 1.3]) {
+                          translate ([145, 71, 84]) {
+                            sphere ($fn=150, r=78);
+                          }
+                        }
+                      }
+                      translate ([80, 0, 6]) {
+                        rotate (a=6.0, v=[1, 0, 0]) {
+                          scale ([1.27, 1, 1.3]) {
+                            translate ([145, 71, 84]) {
+                              sphere ($fn=150, r=86);
+                            }
+                          }
+                        }
+                      }
+                    }
                     intersection () {
                       translate ([140, 53, 87]) {
                         scale ([0.72, 0.7, 1.1]) {
@@ -40027,6 +40099,24 @@ union () {
                         scale ([1.27, 1, 1.3]) {
                           translate ([145, 71, 84]) {
                             sphere ($fn=150, r=78);
+                          }
+                        }
+                      }
+                    }
+                    hull () {
+                      rotate (a=6.0, v=[1, 0, 0]) {
+                        scale ([1.27, 1, 1.3]) {
+                          translate ([145, 71, 84]) {
+                            sphere ($fn=150, r=78);
+                          }
+                        }
+                      }
+                      translate ([80, 0, 6]) {
+                        rotate (a=6.0, v=[1, 0, 0]) {
+                          scale ([1.27, 1, 1.3]) {
+                            translate ([145, 71, 84]) {
+                              sphere ($fn=150, r=86);
+                            }
                           }
                         }
                       }
@@ -40153,6 +40243,24 @@ union () {
           scale ([1.27, 1, 1.3]) {
             translate ([145, 71, 84]) {
               sphere ($fn=150, r=78);
+            }
+          }
+        }
+      }
+      hull () {
+        rotate (a=6.0, v=[1, 0, 0]) {
+          scale ([1.27, 1, 1.3]) {
+            translate ([145, 71, 84]) {
+              sphere ($fn=150, r=78);
+            }
+          }
+        }
+        translate ([80, 0, 6]) {
+          rotate (a=6.0, v=[1, 0, 0]) {
+            scale ([1.27, 1, 1.3]) {
+              translate ([145, 71, 84]) {
+                sphere ($fn=150, r=86);
+              }
             }
           }
         }
@@ -40317,6 +40425,24 @@ union () {
                         }
                       }
                     }
+                    hull () {
+                      rotate (a=6.0, v=[1, 0, 0]) {
+                        scale ([1.27, 1, 1.3]) {
+                          translate ([145, 71, 84]) {
+                            sphere ($fn=150, r=78);
+                          }
+                        }
+                      }
+                      translate ([80, 0, 6]) {
+                        rotate (a=6.0, v=[1, 0, 0]) {
+                          scale ([1.27, 1, 1.3]) {
+                            translate ([145, 71, 84]) {
+                              sphere ($fn=150, r=86);
+                            }
+                          }
+                        }
+                      }
+                    }
                     intersection () {
                       translate ([140, 53, 87]) {
                         scale ([0.72, 0.7, 1.1]) {
@@ -40371,6 +40497,24 @@ union () {
                         scale ([1.27, 1, 1.3]) {
                           translate ([145, 71, 84]) {
                             sphere ($fn=150, r=78);
+                          }
+                        }
+                      }
+                    }
+                    hull () {
+                      rotate (a=6.0, v=[1, 0, 0]) {
+                        scale ([1.27, 1, 1.3]) {
+                          translate ([145, 71, 84]) {
+                            sphere ($fn=150, r=78);
+                          }
+                        }
+                      }
+                      translate ([80, 0, 6]) {
+                        rotate (a=6.0, v=[1, 0, 0]) {
+                          scale ([1.27, 1, 1.3]) {
+                            translate ([145, 71, 84]) {
+                              sphere ($fn=150, r=86);
+                            }
                           }
                         }
                       }

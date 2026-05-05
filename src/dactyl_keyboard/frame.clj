@@ -93,10 +93,12 @@
     (hull
       (well-sphere1 radius)
       (well-sphere2 radius))
+    (hull
+      (well-sphere2 radius)
+      (translate [80 0 6] (well-sphere2 (+ radius 8))))
     (intersection
       (well-sphere3 radius)
-      (translate [135 10 47] (cube 55 30 30))
-      )
+      (translate [135 10 47] (cube 55 30 30)))
   ))
 
 (def main-box-minus-well-sphere
@@ -112,7 +114,8 @@
               (translate [0 0 -14] main-box-minus-well-sphere)
               (difference (translate [0 0 -11] main-box-minus-well-sphere)
                           main-cube)
-              (translate [200 6 13.2] (cube 30 20 20)))))
+              (translate [195 1 13.2] (cube 30 20 20))
+              )))
 
 (spit "things_frame/main-box-minus-well-sphere-top.scad"
        (write-scad
@@ -368,7 +371,7 @@
              bottom-hand-rest-inline
              bottom-thumbs-spacer-inline))))
 
-(spit "things_frame/base_right_most_up.scad"
+(spit "things_frame/case_right_most_up.scad"
       (write-scad
         (union
           (difference
@@ -407,7 +410,7 @@
           )
         ))
 
-(spit "things_frame/base_left_most_up.scad"
+(spit "things_frame/case_left_most_up.scad"
       (write-scad
         (->> (import "case_right_most_up.stl")
              (mirror [1 0 0]))))
@@ -900,7 +903,7 @@
 (spit "things_frame/all_combined.scad"
       (write-scad
         (union
-          (import "case_right_middle_up_final.stl")
+          main-box-minus-well-sphere-top
           ;(import "base_bottom_common.stl")
           ;(convert-dactyl-shapes caps-combined-outline)
           ;(import "case_right_middle_up_leds.stl")
