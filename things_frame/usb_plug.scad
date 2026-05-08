@@ -9,6 +9,12 @@ difference () {
     translate ([0, 67.1, 23.1]) {
       cube ([23.3, 70, 1.4], center=true);
     }
+    translate ([8, 35, 22]) {
+      cube ([4, 3.4, 7], center=true);
+    }
+    translate ([-8, 35, 22]) {
+      cube ([4, 3.4, 7], center=true);
+    }
     difference () {
       translate ([0, 31.5, 25]) {
         cube ([50, 2, 50], center=true);

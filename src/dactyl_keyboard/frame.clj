@@ -448,9 +448,12 @@
         (union
           (difference
             (import "base_middle_up.stl")
+
+            ; Led holes
             (intersection
               (translate [0 0 1.5] (difference main-outline main-inline))
               (translate [-57 50 60] (cube 1.4 95.9 15)))
+
             (translate [-57 34 50] (with-fn 200 (cylinder 0.7 30)))
             (translate [-57 (+ 34 16.7) 50] (with-fn 200 (cylinder 0.7 30)))
             (translate [-57 (+ 34 16.7 16.7) 50] (with-fn 200 (cylinder 0.7 30)))
@@ -882,6 +885,8 @@
 
 (spit "things_frame/usb_plug.scad"
       (write-scad
+        ;(->> (cube 4 3.4 7)
+        ;     (translate [8 35 22]))
         (difference
           (->> (cube 28 2.6 10)
                (translate [0 33 25]))
@@ -890,6 +895,10 @@
                  (translate [0 66.5 19.3]))
             (->> (cube 23.3 70 1.4) ; pico
                  (translate [0 67.1 23.1]))
+            (->> (cube 4 3.4 7) ; cut to fit
+                 (translate [8 35 22]))
+            (->> (cube 4 3.4 7) ; cut to fit
+                 (translate [-8 35 22]))
             (difference
               (->> (cube 50 2 50)
                    (translate [0 31.5 25]))
