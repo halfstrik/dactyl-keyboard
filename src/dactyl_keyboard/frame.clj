@@ -224,11 +224,14 @@
         main-inline)
       (intersection
         (difference
-          (->> (cube 52 40 30)
+          (->> (cube 52 70 30)
                (translate [115 160 57])
                (rotate (/ π 12) [-0.8 -1 0]))
           (->> main-inline
-               (translate [0 1 -2])))
+               (translate [0 1 -2]))
+          (->> (cube 60 20 30) ; Align with key well for snag fit
+               (rotate (/ π 10.9) [0 0 -1])
+               (translate [95 127.2 40])))
         main-inline)
       (intersection
         (difference
@@ -862,11 +865,8 @@
 (spit "things_frame/all_combined.scad"
       (write-scad
         (union
-          main-box-minus-well-sphere-top
-          ;(import "base_bottom_common.stl")
-          ;(convert-dactyl-shapes caps-combined-outline)
-          ;(import "case_right_middle_up_leds.stl")
-          ;(import "well_right.stl")
+          (import "case_right_most_up.stl")
+          (import "well_right.stl")
           ;(import "case_right_bottom.stl")
           ;bottom-main-cylinder-inline-cut-rgb
           ;(intersection
