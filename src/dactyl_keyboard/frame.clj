@@ -201,15 +201,17 @@
          (translate [185 174 5.9])))
 
 (def bottom-plate-mount-home
-  (union
-    (->> (cube 14 14 42)
-       (translate [75 177 31]))
-    (difference
-      (->> (cube 45 14 75)
+  (difference
+    (union
+      (->> (cube 14 14 42)
+         (translate [5 177 31]))
+      (->> (cube 16 14 77)
            (rotate (/ π 4) [0 -1 0])
-           (translate [58 177 57]))
-      (->> (cube 40 14 55)
-           (translate [88 177 55])))))
+           (translate [-21 177 50])))
+    (->> (cube 30 2.4 45)
+         (rotate (/ π 10) [0 -1 0])
+         (translate [8 183 13]))
+      ))
 
 (def middle-glue-reinforcement-up
   (difference
@@ -443,23 +445,17 @@
                   (intersection
                     bottom-plate-mount-home
                     main-inline)
-                  bottom-negative-inline
+                  (translate [0 0 3.5] bottom-negative-inline)
                   (->> (cylinder 1.7, 35)
                        (with-fn 50)
-                       (translate [75 177 15])))]
+                       (translate [5 177 15])))]
       (write-scad
         (union
           (difference
             (import "base_middle_up.stl")
 
-            ; Led holes
-            (intersection
-              (translate [0 0 1.5] (difference main-outline main-inline))
-              (translate [-57 50 60] (cube 1.4 95.9 15)))
-
-            (translate [-57 34 50] (with-fn 200 (cylinder 0.7 30)))
-            (translate [-57 (+ 34 16.7) 50] (with-fn 200 (cylinder 0.7 30)))
-            (translate [-57 (+ 34 16.7 16.7) 50] (with-fn 200 (cylinder 0.7 30)))
+            ; Led line (making transparent section, to attach lights and shaping strip underneath
+            (translate [-57 104 45] (cube 7 220 70))
 
             ; cut for logo plate insert
             (translate [53 52 58.2] (rotate (/ π 25) [-1 0.3 0]
@@ -470,16 +466,10 @@
                                                          (cube 47 17 0.1)))))
           )
 
-
           well-mount
           (mirror [1 0 0] well-mount)
-
           rear-mount
-
           front-mount
-          (mirror [1 0 0] front-mount)
-
-          ;(import "case_right_bottom.stl")
           ))))
 
 (spit "things_frame/case_middle_up_leds.scad"
@@ -727,7 +717,7 @@
               bottom-thumbs-spacer)
             (union
               bottom-main-cylinder-inline
-              bottom-main-cylinder-inline-cut-rgb
+              ;bottom-main-cylinder-inline-cut-rgb
               (difference (->> (difference main-inline
                                            (translate [0 0 -13] main-inline))
                                (translate [0 0 -5]))
@@ -737,12 +727,13 @@
 
               usb-hole-cut
               half-divide-cube-left
-              base-right-up))
+              (difference base-right-up (cube 1000 1000 4))
+              ))
           bottom-corner-leg
           bottom-middle-leg
           ; right
-          (->> (cube 2 46 10)
-               (translate [207 63 7]))
+          (->> (cube 2 46 9)
+               (translate [207 63 5]))
           (->> (cube 2 30 12)
                (translate [207 144 18]))
           ; front
@@ -776,7 +767,7 @@
                (translate [185 174 6.5]))
           (->> (cylinder [4.5 1.4] 3) ; Middle front
                (with-fn 50)
-               (translate [75 177 15.5]))
+               (translate [5 177 15.5])) ;
           (->> (cylinder [4.5 1.4] 3) ; well shift
                (with-fn 50)
                (translate [203 112 6]))
@@ -803,9 +794,9 @@
           (->> (cylinder [4.5 1.4] 3) ; Side front
                (with-fn 50)
                (translate [-185 174 6.5]))
-          (->> (cylinder [4.5 1.4] 3) ; Middle front
+          (->> (cylinder 1.5 9) ; Middle front
                (with-fn 50)
-               (translate [-75 177 15.5]))
+               (translate [5 177 15.5]))
           (->> (cylinder [4.5 1.4] 3) ; well shift
                (with-fn 50)
                (translate [-203 112 6]))
@@ -865,9 +856,9 @@
 (spit "things_frame/all_combined.scad"
       (write-scad
         (union
-          (import "case_right_most_up.stl")
-          (import "well_right.stl")
-          ;(import "case_right_bottom.stl")
+          (import "case_middle_up_final.stl")
+          ;(import "well_right.stl")
+          (import "case_left_bottom.stl")
           ;bottom-main-cylinder-inline-cut-rgb
           ;(intersection
           ;  bottom-main-cylinder
