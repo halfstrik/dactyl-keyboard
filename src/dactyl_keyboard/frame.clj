@@ -381,6 +381,7 @@
         (union
           (difference
             (import "base_right_up.stl")
+            (cube 1000 1000 4)
             third-divide-cube-inner)
           (difference
             (intersection
@@ -420,7 +421,7 @@
         (->> (import "case_right_most_up.stl")
              (mirror [1 0 0]))))
 
-(spit "things_frame/case_middle_up_final.scad"
+(spit "things_frame/case_middle_up.scad"
       (let [
               well-mount
                 (difference
@@ -448,7 +449,25 @@
                   (translate [0 0 3.5] bottom-negative-inline)
                   (->> (cylinder 1.7, 35)
                        (with-fn 50)
-                       (translate [5 177 15])))]
+                       (translate [5 177 15])))
+              front-guide
+                (difference
+                  (intersection
+                    (->> (cube 30 6 12)
+                         (translate [77 5 53]))
+                    main-inline)
+                  (->> (cube 50 40 12)
+                       (rotate (/ π 4) [1 1 0])
+                       (translate [70 5 47]))
+                  (translate [-0.5 0 0]
+                             (difference ; connection teeth for cut
+                                 (->> (cube 40 10 34)
+                                      (translate [118 7 15])
+                                      (rotate (/ π 7) [0 -1 0]))
+                                 (->> main-inline
+                                      (translate [0 2 -2]))))
+                  (translate [0 4 -4] main-inline))
+            ]
       (write-scad
         (union
           (difference
@@ -470,6 +489,8 @@
           (mirror [1 0 0] well-mount)
           rear-mount
           front-mount
+          front-guide
+          (mirror [1 0 0] front-guide)
           ))))
 
 (spit "things_frame/case_middle_up_leds.scad"
@@ -856,7 +877,7 @@
 (spit "things_frame/all_combined.scad"
       (write-scad
         (union
-          (import "case_middle_up_final.stl")
+          (import "case_middle_up.stl")
           ;(import "well_right.stl")
           (import "case_left_bottom.stl")
           ;bottom-main-cylinder-inline-cut-rgb
