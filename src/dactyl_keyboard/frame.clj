@@ -450,7 +450,7 @@
                   (->> (cylinder 1.7, 35)
                        (with-fn 50)
                        (translate [5 177 15])))
-              front-guide
+              rear-guide
                 (difference
                   (intersection
                     (->> (cube 30 6 12)
@@ -467,6 +467,27 @@
                                  (->> main-inline
                                       (translate [0 2 -2]))))
                   (translate [0 4 -4] main-inline))
+              front-guide
+                (difference
+                  (intersection
+                    (->> (cube 30 10 12)
+                         (translate [77 180 32]))
+                    main-inline)
+                  (->> (cube 50 40 12)
+                       (rotate (/ π 4) [-1 1 0])
+                       (translate [65 180 30]))
+                  (translate [-0.5 0 0]
+                            (difference
+                              (union ; connection teeth for cut
+                                (->> (cube 62 40 30)
+                                     (translate [118 164 14])
+                                     (rotate (/ π 12) [0 -1 0]))
+                                (->> (cube 52 70 30)
+                                     (translate [115 160 57])
+                                     (rotate (/ π 12) [-0.8 -1 0])))
+                              (->> main-inline
+                                   (translate [0 -2 -2]))))
+                  (translate [0 -4 -4] main-inline))
             ]
       (write-scad
         (union
@@ -489,26 +510,20 @@
           (mirror [1 0 0] well-mount)
           rear-mount
           front-mount
+          rear-guide
+          (mirror [1 0 0] rear-guide)
           front-guide
           (mirror [1 0 0] front-guide)
           ))))
 
 (spit "things_frame/case_middle_up_leds.scad"
       (write-scad
-        (difference
-          (intersection
-            (union
-              (intersection
-                (translate [0 0 1.5] (difference main-outline main-inline))
-                (translate [-57 50 60] (cube 1.4 95.9 15)))
-              (translate [-57 34 50] (with-fn 200 (cylinder 0.7 30)))
-              (translate [-57 (+ 34 16.7) 50] (with-fn 200 (cylinder 0.7 30)))
-              (translate [-57 (+ 34 16.7 16.7) 50] (with-fn 200 (cylinder 0.7 30))))
+        (intersection
+          (import "base_middle_up.stl")
 
-            (difference main-outline main-inline))
-          (mirror [1 0 0] (translate [0 -0.3 -2.9] ; to fully erase remaining of the sphere
-                     (convert-dactyl-shapes caps-combined-outline)))))
-      )
+          ; Led line (making transparent section, to attach lights and shaping strip underneath
+          (translate [-57 104 45] (cube 7 220 70)))
+      ))
 
 (def well-right
   (union
@@ -878,8 +893,8 @@
       (write-scad
         (union
           (import "case_middle_up.stl")
-          ;(import "well_right.stl")
-          (import "case_left_bottom.stl")
+          (import "well_right.stl")
+          ;(import "case_left_bottom.stl")
           ;bottom-main-cylinder-inline-cut-rgb
           ;(intersection
           ;  bottom-main-cylinder
