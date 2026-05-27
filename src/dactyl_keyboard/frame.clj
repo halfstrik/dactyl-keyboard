@@ -667,19 +667,19 @@
          (with-fn 50))))
 
 (def bottom-middle-leg
-  (union
     (difference
-      (->> (cylinder 7.5 2)
-           (translate [200 176 0])
-           (with-fn 50))
-      (->> (cylinder 6.4 5)
-           (translate [200 176 0])
-           (with-fn 50)))
-    (difference
-      (->> (cylinder [7.5 9] 8)
-           (translate [200 176 4])
-           (with-fn 50))
-      bottom-hand-rest-outline)))
+      (union
+        (->> (cylinder 7.5 2)
+             (translate [200 176 0])
+             (with-fn 50))
+        (->> (cylinder [7.5 9] 8)
+             (translate [200 176 4])
+             (with-fn 50)))
+      (union
+        (->> (cylinder 6.4 2)
+             (translate [200 176 0])
+             (with-fn 50))
+        bottom-hand-rest-outline)))
 
 (def middle-glue-reinforcement-bottom-right
   (union
@@ -753,7 +753,6 @@
               bottom-thumbs-spacer)
             (union
               bottom-main-cylinder-inline
-              ;bottom-main-cylinder-inline-cut-rgb
               (difference (->> (difference main-inline
                                            (translate [0 0 -13] main-inline))
                                (translate [0 0 -5]))
@@ -763,6 +762,9 @@
 
               usb-hole-cut
               half-divide-cube-left
+              (->> (cylinder 6.4 2) ; cut for middle leg on the cylinder
+                   (translate [100 49 0])
+                   (with-fn 50))
               (difference base-right-up (cube 1000 1000 4))
               ))
           bottom-corner-leg
@@ -770,8 +772,8 @@
           ; right
           (->> (cube 2 46 9)
                (translate [207 63 5]))
-          (->> (cube 2 30 12)
-               (translate [207 144 18]))
+          (->> (cube 2 30 14)
+               (translate [207 144 17]))
           ; front
           (difference
             (->> (cube 44 2 25)
@@ -786,13 +788,12 @@
             bottom-main-cylinder-inline)
           )))
 
-(spit "things_frame/base_right_bottom.scad"
+(spit "things_frame/case_right_bottom.scad"
       (write-scad
         (difference
           (union
             (import "base_bottom_common.stl")
             middle-glue-reinforcement-bottom-right)
-          ; TODO: add holes for screws once wells are ready
           (->> (cube 20 200 70)
                (translate [-19 100 36]))
           (->> (cylinder [4.5 1.4] 3) ; In rear cylinder
@@ -815,7 +816,7 @@
                (translate [-5 9 40]))
           )))
 
-(spit "things_frame/base_left_bottom.scad"
+(spit "things_frame/case_left_bottom.scad"
       (write-scad
         (difference
           (union
