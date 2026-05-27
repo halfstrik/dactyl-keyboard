@@ -577,6 +577,8 @@
            (translate [96.2 18.5 44.6]))
       (->> (cube 5 5 5) ; cut top most corner so it won't hinder middle plate
            (translate [90 13 58.5]))
+      (->> (cube 7 3 9) ; cut top most corner, this one is for new inner lock
+           (translate [89 6.6 54.5]))
       support-pillar-shift-up-negative
       support-pillar-five-up-negative
       support-pillar-plus-up-negative
@@ -904,8 +906,8 @@
 (spit "things_frame/all_combined.scad"
       (write-scad
         (union
-          ;(import "case_middle_up.stl")
-          ;(import "well_right.stl")
-          (import "case_left_bottom.stl")
-          (import "top_raspberry_pi_pico_mount.stl")
+          (import "case_middle_up.stl")
+          (import "well_right.stl")
+          ;(import "case_left_bottom.stl")
+          ;(import "top_raspberry_pi_pico_mount.stl")
           )))
