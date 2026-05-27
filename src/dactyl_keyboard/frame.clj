@@ -495,7 +495,7 @@
             (import "base_middle_up.stl")
 
             ; Led line (making transparent section, to attach lights and shaping strip underneath
-            (translate [-57 104 45] (cube 7 220 70))
+            (translate [-57 104 45] (cube 7 220 90))
 
             ; cut for logo plate insert
             (translate [53 52 58.2] (rotate (/ π 25) [-1 0.3 0]
@@ -712,9 +712,9 @@
 (def middle-glue-reinforcement-bottom-left
   (union
     (difference
-      (->> (cube 24 33.5 25) ; main-cube-width / 2
+      (->> (cube 29 33.5 25) ; main-cube-width / 2
            (rotate (/ π 6) [0 -1 0])
-           (translate [0 90 -1.5])
+           (translate [4 90 -1.5])
            (intersection (union (intersection bottom-main-cylinder-inline bottom-main-inline) bottom-thumbs-spacer-inline)))
       (translate [0 0 2] (union (intersection bottom-main-cylinder-inline bottom-main-inline) bottom-thumbs-spacer-inline)))
     (difference
@@ -823,6 +823,8 @@
             (mirror [1 0 0]
                     (import "base_bottom_common.stl"))
             middle-glue-reinforcement-bottom-left)
+          ; Led line (making transparent section, to attach lights and shaping strip underneath
+          (translate [-57 104 45] (cube 7 220 90))
           (->> (cube 20 200 70)
                (translate [19 100 35]))
           (->> (cylinder [4.5 1.4] 3) ; In rear cylinder
@@ -843,6 +845,15 @@
           (->> (cylinder [4.5 1.4] 3) ; Middle hole in glue mount
                (with-fn 50)
                (translate [-5 9 40.3])))))
+
+(spit "things_frame/case_left_bottom_leds.scad"
+      (write-scad
+        (intersection
+          (mirror [1 0 0]
+                  (import "base_bottom_common.stl"))
+
+          ; Led line (making transparent section, to attach lights and shaping strip underneath
+          (translate [-57 104 45] (cube 7 220 90)))))
 
 (spit "things_frame/top_raspberry_pi_pico_mount.scad"
       (write-scad
@@ -893,12 +904,8 @@
 (spit "things_frame/all_combined.scad"
       (write-scad
         (union
-          (import "case_middle_up.stl")
-          (import "well_right.stl")
-          ;(import "case_left_bottom.stl")
-          ;bottom-main-cylinder-inline-cut-rgb
-          ;(intersection
-          ;  bottom-main-cylinder
-          ;  bottom-main-outline
-          ;  )
+          ;(import "case_middle_up.stl")
+          ;(import "well_right.stl")
+          (import "case_left_bottom.stl")
+          (import "top_raspberry_pi_pico_mount.stl")
           )))
