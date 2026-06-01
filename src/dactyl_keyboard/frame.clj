@@ -824,9 +824,26 @@
           (union
             (mirror [1 0 0]
                     (import "base_bottom_common.stl"))
-            middle-glue-reinforcement-bottom-left)
-          ; Led line (making transparent section, to attach lights and shaping strip underneath
-          (translate [-57 104 45] (cube 7 220 90))
+            middle-glue-reinforcement-bottom-left
+
+            )
+          ; Indentation for instruction plates
+          (->> (hull
+                 (translate [0 0 0] (cube 132.9 8.9 0.1))
+                 (translate [0 0 0.6] (cube 133.8 9.8 0.1)))
+               (rotate (/ π 22) [1 0 0])
+               (translate [-66.5 135 9]))
+          (->> (hull
+                 (translate [0 0 0] (cube 132.9 8.9 0.1))
+                 (translate [0 0 0.6] (cube 133.8 9.8 0.1)))
+               (rotate (/ π 22) [1 0 0])
+               (translate [-66.5 147 10.7]))
+          (->> (hull
+                 (translate [0 0 0] (cube 132.9 8.9 0.1))
+                 (translate [0 0 0.6] (cube 133.8 9.8 0.1)))
+               (rotate (/ π 21) [1 0 0])
+               (translate [-66.5 159 12.4]))
+
           (->> (cube 20 200 70)
                (translate [19 100 35]))
           (->> (cylinder [4.5 1.4] 3) ; In rear cylinder
@@ -847,15 +864,6 @@
           (->> (cylinder [4.5 1.4] 3) ; Middle hole in glue mount
                (with-fn 50)
                (translate [-5 9 40.3])))))
-
-(spit "things_frame/case_left_bottom_leds.scad"
-      (write-scad
-        (intersection
-          (mirror [1 0 0]
-                  (import "base_bottom_common.stl"))
-
-          ; Led line (making transparent section, to attach lights and shaping strip underneath
-          (translate [-57 104 45] (cube 7 220 90)))))
 
 (spit "things_frame/top_raspberry_pi_pico_mount.scad"
       (write-scad
