@@ -494,17 +494,22 @@
           (difference
             (import "base_middle_up.stl")
 
-            ; Led line (making transparent section, to attach lights and shaping strip underneath
-            (translate [-57 104 45] (cube 7 220 90))
-
-            ; cut for logo plate insert
-            (translate [53 52 58.2] (rotate (/ π 25) [-1 0.3 0]
-                                            (hull
-                                              (translate [0 0 0]
-                                                         (cube 50 20 0.1))
-                                              (translate [0 0 2]
-                                                         (cube 47 17 0.1)))))
+            ; Led cuts to leave only 1 layer on top
+            (difference
+              (union
+                (->> (cylinder [7 2] 15)
+                     (with-fn 200)
+                     (translate [-57 30 57]))
+                (->> (cylinder [7 2] 15)
+                     (with-fn 200)
+                     (translate [-57 50 55]))
+                (->> (cylinder [7 2] 15)
+                     (with-fn 200)
+                     (translate [-57 70 52.4])))
+              (->> (import "base_middle_up.stl")
+                   (translate [0 0 1.5])))
           )
+
 
           well-mount
           (mirror [1 0 0] well-mount)
