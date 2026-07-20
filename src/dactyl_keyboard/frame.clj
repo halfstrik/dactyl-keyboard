@@ -201,17 +201,16 @@
          (translate [185 174 5.9])))
 
 (def bottom-plate-mount-home
-  (difference
-    (union
-      (->> (cube 14 14 42)
-         (translate [5 177 31]))
-      (->> (cube 16 14 77)
+  (union
+    (->> (cube 10 10 42)
+         (translate [75 179 31]))
+    (difference
+      (->> (cube 45 10 75)
            (rotate (/ π 4) [0 -1 0])
-           (translate [-21 177 50])))
-    (->> (cube 30 2.4 45)
-         (rotate (/ π 10) [0 -1 0])
-         (translate [8 183 13]))
-      ))
+           (translate [58 179 57]))
+      (->> (cube 40 10 75)
+           (translate [95 179 55]))
+      )))
 
 (def middle-glue-reinforcement-up
   (difference
@@ -259,15 +258,16 @@
 (def bottom-plate-mount-top
   (difference
     (union
-        (->> (cube 14 14 30)
-             (translate [-7 9 60]))
-      (->> (cube 20 14 50.5)
-           (rotate (/ π 4) [0 -1 0])
-           (translate [-24.8 9 70])))
+      (->> (cube 10 10 30)
+           (translate [-7 7 60]))
+      (difference
+        (->> (cube 20 10 50.5)
+             (rotate (/ π 4) [0 -1 0])
+             (translate [-22.8 7 70]))
+        (->> (cube 20 10 50.5)
+             (translate [5 7 70]))))
     (->> (cube 10.4 2.4 30)
-         (translate [-5.2 3.2 60]))
-    )
-  )
+         (translate [-5.2 3.2 60]))))
 
 (spit "things_frame/base_right_up.scad"
       (write-scad
@@ -446,10 +446,10 @@
                   (intersection
                     bottom-plate-mount-home
                     main-inline)
-                  (translate [0 0 3.5] bottom-negative-inline)
+                  bottom-negative-inline
                   (->> (cylinder 1.7, 35)
                        (with-fn 50)
-                       (translate [5 177 15])))
+                       (translate [75 177 15])))
               rear-guide
                 (difference
                   (intersection
@@ -510,11 +510,11 @@
                    (translate [0 0 1.5])))
           )
 
-
           well-mount
           (mirror [1 0 0] well-mount)
           rear-mount
           front-mount
+          (mirror [1 0 0] front-mount)
           rear-guide
           (mirror [1 0 0] rear-guide)
           front-guide
